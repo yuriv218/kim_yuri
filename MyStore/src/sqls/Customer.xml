@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Customer">
+
+<select id="customerPageList" parameterType="kh.com.c.model.SearchParam"
+      resultType="kh.com.c.model.CustomerDto">
+SELECT SEQ, STORE, C_NAME, DETAIL, STAR
+FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY C_NAME) AS RNUM,
+            SEQ, STORE, C_NAME, DETAIL, STAR
+       FROM CUSTOMER   
+       WHERE 1=1 AND STORE=#{store}
+       <if test="s_category != '' and s_category != null
+          and s_keyword != '' and s_keyword != null">
+          
+          <if test="s_category == 'c_name'">
+             AND C_NAME LIKE '%'||#{s_keyword}||'%'
+          </if>          
+          <if test="s_category == 'detail'">
+             AND DETAIL LIKE '%'||#{s_keyword}||'%'
+          </if>       
+       </if>) A
+   WHERE RNUM BETWEEN ${start} AND ${end}
+
+</select>
+
+<select id="getCustomerCount" parameterType="kh.com.c.model.SearchParam"
+   resultType="java.lang.Integer">
+   SELECT NVL(COUNT(*), 0) AS CNT
+   FROM CUSTOMER
+   WHERE 1=1 AND STORE=#{store}
+    <if test="s_category != '' and s_category != null
+       and s_keyword != '' and s_keyword != null">       
+       <if test="s_category == 'c_name'">
+          AND C_NAME LIKE '%'||#{s_keyword}||'%'
+      </if>          
+      <if test="s_category == 'detail'">
+         AND DETAIL LIKE '%'||#{s_keyword}||'%'
+      </if>       
+    </if>
+</select>
+
+<select id="customerStarOnly" parameterType="kh.com.c.model.SearchParam" resultType="kh.com.c.model.CustomerDto">
+   SELECT SEQ, STORE, C_NAME, DETAIL, STAR
+FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY C_NAME) AS RNUM,
+            SEQ, STORE, C_NAME, DETAIL, STAR
+       FROM CUSTOMER   
+       WHERE 1=1 AND STORE=#{store} AND STAR=1
+       <if test="s_category != '' and s_category != null
+          and s_keyword != '' and s_keyword != null">
+          
+          <if test="s_category == 'c_name'">
+             AND C_NAME LIKE '%'||#{s_keyword}||'%'
+          </if>          
+          <if test="s_category == 'detail'">
+             AND DETAIL LIKE '%'||#{s_keyword}||'%'
+          </if>       
+       </if>) A
+   WHERE RNUM BETWEEN ${start} AND ${end}
+</select>
+
+<select id="customerStarCount" parameterType="kh.com.c.model.SearchParam"
+   resultType="java.lang.Integer">
+   SELECT NVL(COUNT(*), 0) AS CNT
+   FROM CUSTOMER
+   WHERE 1=1 AND STORE=#{store} AND STAR=1
+    <if test="s_category != '' and s_category != null
+       and s_keyword != '' and s_keyword != null">       
+       <if test="s_category == 'c_name'">
+          AND C_NAME LIKE '%'||#{s_keyword}||'%'
+      </if>          
+      <if test="s_category == 'detail'">
+         AND DETAIL LIKE '%'||#{s_keyword}||'%'
+      </if>       
+    </if>
+</select>
+
+
+
+<insert id="customerInsert" parameterType="kh.com.c.model.CustomerDto">
+   INSERT
+   INTO CUSTOMER
+   VALUES(SEQ_CUSTOMER.NEXTVAL, #{store}, #{c_name}, #{detail}, 0)
+</insert>
+
+
+<delete id="customerDel" parameterType="java.lang.Integer">
+   DELETE FROM CUSTOMER
+   WHERE SEQ=#{seq}
+</delete>
+
+<select id="customerDetail" parameterType="java.lang.Integer" resultType="kh.com.c.model.CustomerDto">
+   SELECT SEQ, STORE, C_NAME, DETAIL, STAR
+   FROM CUSTOMER
+   WHERE SEQ=#{seq}
+</select>
+
+<update id="customerUpdate" parameterType="kh.com.c.model.CustomerDto">
+   UPDATE CUSTOMER
+   SET C_NAME=#{c_name}, DETAIL=#{detail}
+   WHERE SEQ=#{seq}
+</update>
+
+<!-- 거래처 개수 -->
+<select id="clientCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+   SELECT COUNT(*)
+   FROM CUSTOMER
+   WHERE STORE=#{store}
+</select>
+
+
+<select id="clientSeq" parameterType="kh.com.c.model.CustomerDto" resultType="java.lang.Integer">
+   SELECT SEQ
+   FROM CUSTOMER
+   WHERE STORE=#{store} AND C_NAME=#{c_name}
+   <if test="detail != '' and detail != null">
+      AND DETAIL=#{detail}
+   </if>
+</select>
+
+<update id="starUpdate" parameterType="kh.com.c.model.CustomerDto">
+   UPDATE CUSTOMER
+   <trim prefix="SET" suffixOverrides=",">
+      <if test="star == 0">STAR = 1,</if>
+      <if test="star == 1">STAR= 0,</if>
+   </trim>
+   WHERE SEQ=#{seq}
+</update>
+
+<select id="star" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+   SELECT STAR
+   FROM CUSTOMER
+   WHERE SEQ=#{seq}
+
+</select>
+
+</mapper>

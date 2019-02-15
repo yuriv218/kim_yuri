@@ -1,0 +1,323 @@
+package kh.com.c.controller;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import kh.com.c.dao.MemberDao;
+import kh.com.c.model.MemberDto;
+import kh.com.c.model.YesMember;
+import kh.com.c.service.MemberService;
+import kh.com.c.util.FUpUtil;
+
+@Controller
+public class MemberController {
+
+	
+	private static final Logger logger 
+	= LoggerFactory.getLogger(MemberController.class);
+	
+	@Autowired
+	MemberService MemberService;
+	
+
+	
+	@RequestMapping(value="login.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String login(Model model) {
+		logger.info("MemberController login " + new Date());
+		
+		return "login";
+	}
+	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String main2(Model model) {
+		logger.info("MemberController main " + new Date());
+		
+		return "main";
+	}
+	
+	@RequestMapping(value="main2.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String main(Model model) {
+		logger.info("MemberController main2 " + new Date());
+		
+		return "main2";
+	}
+
+	@RequestMapping(value="address.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String address(Model model) {
+		logger.info("MemberController address " + new Date());
+		
+		return "address";
+	}
+	
+	
+/*Auth =  1 관리자 2삭제 3 일반회원 */
+	
+	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String loginAf(HttpServletRequest req, MemberDto mem)throws Exception {
+		logger.info("MemberController loginAf " + new Date());
+		
+		MemberDto login = MemberService.login(mem);
+	//	logger.info("MemberController loginAf 1 " + login.toString());
+				
+		if(login != null && !login.getId().equals("")) {			
+			req.getSession().setAttribute("login", login);
+			 
+			if(login.getAuth() == 1) {
+				return "main";
+				
+			}else if(login.getAuth() == 3){
+			//	logger.info("MemberController loginAf 2 " + login.toString());
+				return "main";
+			}else {
+				return "login";
+			}
+ 			
+		}else {
+			return "login";
+		}
+			}
+	
+	
+	@RequestMapping(value="logout.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String logout(HttpServletRequest req) {
+		logger.info("MemberController logout " + new Date());
+	
+		req.getSession().setAttribute("login", "");
+	
+		req.getSession().invalidate();
+	//	Object ob =  req.getSession().getAttribute("login");
+	//	logger.info("MemberController logout " + ob);
+
+		
+		return "redirect:main2.do";
+	}
+	 
+	
+
+	@RequestMapping(value="regi.do", method=RequestMethod.GET)
+	public String regi() {
+		logger.info("MemberController regi " + new Date());
+		
+		return "regi";
+	}
+	
+	@RequestMapping(value="regiAf.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String regiAf(MemberDto mem) throws Exception {
+		logger.info("MemberController regiAf " + new Date());
+		
+		logger.info(mem.toString());
+				
+		boolean b = MemberService.addmember(mem);
+		if(b) {
+			return "login";
+		}else {
+			return "regi";
+		}	}
+ 
+	
+
+	
+	@RequestMapping(value="mypageUpdateAf.do", method=RequestMethod.POST)
+	public String mypageUpdateAf(MemberDto mem, Model model,
+			HttpServletRequest req, String image,
+			@RequestParam(value="upload", required=false)
+			MultipartFile fileload) throws Exception{
+		logger.info("MemberController mypageUpdateAf " + new Date());
+		
+		logger.info("MemberController mypageUpdateAf " + mem.toString());
+		
+		// filename 취득
+		mem.setImage(fileload.getOriginalFilename());
+		
+		// upload 경로
+		
+		/*String fupload = "D:\\java4\\storewewewewewee4\\WebContent\\tmp";*/
+		/*String fupload = "D:\\java4\\storewewewewewee4\\WebContent\\tmp";*/
+		
+		// tomcat
+		String fupload = req.getServletContext().getRealPath("upload");
+		
+	//	String fupload = "d:\tmp";
+		
+		logger.info("upload 경로:" + fupload);
+		
+		if(mem.getImage() !=null && !mem.getImage().equals(""))
+		{
+		
+		
+		
+		String f = mem.getImage();
+		
+		// 파일명 현재 날짜+시간으로 변경 
+		String newFile = FUpUtil.getNewFile(f);
+		
+		mem.setImage(newFile);
+		try {	
+		File file = new File(fupload + "/" + newFile);
+		
+		System.out.println("파일:" + fupload + "/" + newFile);
+		
+				
+			// 실제 upload 부분
+			FileUtils.writeByteArrayToFile(file, fileload.getBytes());
+			
+			// Db에 저장
+			MemberService.mypageUpdate(mem);		
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		else { 
+			if(image != null && !image.equals("")) {
+		}
+				mem.setImage(image);
+				MemberService.mypageUpdate(mem);
+		}
+		 
+		// login  세션 갱신 
+		MemberDto d = (MemberDto)req.getSession().getAttribute("login");
+		
+		mem.setId(d.getId());
+		mem.setPwd(d.getPwd());
+		mem.setName(d.getName());
+		mem.setStore(d.getStore());
+		mem.setAuth(d.getAuth());
+	
+		req.getSession().setAttribute("login", mem);
+		
+		return "redirect:/mypage.do";
+	}
+	
+	
+	@RequestMapping(value="mypage.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String mypage(Model model, HttpServletRequest req) throws Exception{
+		logger.info("MemberController mypage " + new Date());
+		
+		String dto = ((MemberDto)req.getSession().getAttribute("login")).getId();
+		MemberDto mem = MemberService.getMember(dto);
+	 
+		model.addAttribute("mem", mem);
+		
+		
+	logger.info("MemberController mypage " + new Date());
+	 	
+	return "mypage";
+	}
+	
+
+	
+	@RequestMapping(value="mypageUpdate.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String mypageUpdate(String id, Model model) throws Exception{
+	logger.info("MemberController mypageUpdate " + new Date());
+	MemberDto mem = MemberService.getMember(id);
+	model.addAttribute("mem", mem);
+	
+	 
+	return "mypageUpdate";
+} 
+	
+	
+	/////////////////////////////////////여기부분 바꿔야됨
+	@RequestMapping(value="passwordChange.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String passwordChange(Model model,String id) throws Exception{
+	logger.info("MemberController passwordChange " + new Date());
+		
+	List<MemberDto> mypagelist = MemberService.getMypageList();
+	model.addAttribute("mypagelist", mypagelist);
+	
+	return "passwordChange";
+ 
+	}
+	
+	@RequestMapping(value="passwordChangeAf.do", method=RequestMethod.POST)
+	public String passwordChangeAf(MemberDto mem, Model model) throws Exception{
+		logger.info("MemberController passwordChangeAf " + new Date());
+		logger.info("MemberController passwordChangeAf " + mem.toString());
+		
+		MemberService.updatePassword(mem);
+		
+		return "redirect:/mypage.do";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="getID.do", method={RequestMethod.GET, RequestMethod.POST})
+	public YesMember getID(MemberDto mem) {
+		logger.info("KhMemberController getID " + new Date());
+		
+		int count = MemberService.getID(mem);
+		
+		YesMember yes = new YesMember();
+		if(count > 0) {
+			yes.setMessage("YES");
+		}else {
+			yes.setMessage("NO");
+		}
+		return yes;		
+	}
+	
+	@RequestMapping(value="getMemberlist.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String getMember(Model model) {
+		logger.info("MemberController getMemberlist " + new Date());
+		List<MemberDto> memberlist = MemberService.getMemberList();
+		
+		model.addAttribute("memberlist", memberlist);
+		
+		return "memManage";
+	
+}
+	
+	@RequestMapping(value = "deleteMember.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String deleteMember(String id, Model model) throws Exception {
+		logger.info("Welcome MemberController deleteMember! "+ new Date());
+		logger.info("Welcome MemberController deleteMember! "+ id);
+		MemberService.deleteMember(id);
+		
+		List<MemberDto> memberlist = MemberService.getMemberList();
+	 
+			model.addAttribute("memberlist", memberlist);
+		
+		return "forward:/getMemberlist.do";		
+	}
+	
+	@RequestMapping(value="serchImg.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String serchImg(String id, Model model) {
+		logger.info("MemberController serchImg  " + new Date());
+		
+		String mem = "./tmp/" + MemberService.serchImg(id);
+		logger.info("MemberController serchImg  " + mem.toString());
+		
+		return mem;
+	}
+	
+	
+	@RequestMapping(value="idCheck.do", method={RequestMethod.GET, RequestMethod.POST})
+	   public @ResponseBody String idCheck(String id)throws Exception{
+	      logger.info("MemberController idCheck " + new Date());
+	      logger.info("MemberController idCheck " + id);
+	      
+	      int idCount = MemberService.idCheck(id);
+	      
+	      logger.info("MemberController idCount = " + idCount);
+	      
+	      return String.valueOf(idCount);
+	   }
+		
+}

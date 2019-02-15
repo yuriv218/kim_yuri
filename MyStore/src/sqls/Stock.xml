@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Stock">
+
+	<select id="getGoodsList" parameterType="java.lang.String" resultType="kh.com.c.model.StockDto">
+		SELECT SEQ, STORE, AMOUNT, PRODUCT, PRICE
+		FROM STOCK
+		WHERE STORE = #{storename}
+		ORDER BY SEQ ASC
+	</select>
+	
+	<insert id="addGoods" parameterType="kh.com.c.model.StockDto">
+      INSERT INTO STOCK(SEQ, STORE, AMOUNT, PRODUCT, PRICE)
+      VALUES(SEQ_STOCK.NEXTVAL, #{store}, 0, #{product}, #{price})
+   </insert>
+	
+	<delete id="delGoods" parameterType="java.lang.Integer">
+		DELETE STOCK
+		WHERE SEQ=#{seq}
+	</delete>
+	
+	<select id="getGoods" parameterType="java.lang.Integer" resultType="kh.com.c.model.StockDto">
+		SELECT SEQ, STORE, AMOUNT, PRODUCT, PRICE
+		FROM STOCK
+		WHERE SEQ = #{seq}
+	</select>
+	
+	<update id="updateGoods" parameterType="kh.com.c.model.StockDto">
+		UPDATE STOCK
+		SET  PRODUCT = #{product}, PRICE = #{price}
+		WHERE SEQ = #{seq}
+	</update>
+	
+	
+
+<!-- 재고인지 메뉴인지 체크 -->
+<!-- <select id="stocklist" parameterType="java.lang.String" resultType="kh.com.c.model.StockDto">
+	SELECT SEQ, STORE, AMOUNT, PRODUCT, PRICE, AUTH
+	FROM STOCK
+	WHERE STORE=#{store}
+</select> -->
+
+<select id="stockPageList" parameterType="kh.com.c.model.SearchParam"
+		resultType="kh.com.c.model.StockDto">
+SELECT SEQ, STORE, AMOUNT, PRODUCT, PRICE
+FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER BY PRODUCT) AS RNUM,
+				SEQ, STORE, AMOUNT, PRODUCT, PRICE
+		 FROM STOCK	
+		 WHERE 1=1 AND STORE=#{store}
+		 <if test="s_keyword != '' and s_keyword != null">
+		 		AND PRODUCT LIKE '%'||#{s_keyword}||'%'
+		 </if>) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+
+</select>
+
+<select id="getStockCount" parameterType="kh.com.c.model.SearchParam"
+	resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*), 0) AS CNT
+	FROM STOCK
+	WHERE 1=1 AND STORE=#{store}
+	<if test="s_keyword != '' and s_keyword != null">
+		 		AND PRODUCT LIKE '%'||#{s_keyword}||'%'
+	</if>
+</select>
+
+
+<!-- 하나의 재고 상품을 아예 삭제 -->
+<delete id="stockDel" parameterType="java.lang.Integer">
+	DELETE FROM STOCK
+	WHERE SEQ=#{seq}
+</delete>
+
+<!-- 수정 -->
+<update id="stockUpdate" parameterType="kh.com.c.model.StockDto">
+   UPDATE STOCK
+   SET AMOUNT=#{amount}, PRODUCT=#{product}, PRICE=#{price}
+   WHERE SEQ=#{seq}
+</update>
+
+<!-- 재고 증가 -->
+<update id="stockAmountUp" parameterType="java.lang.Integer">
+   UPDATE STOCK
+   SET AMOUNT=AMOUNT+1
+   WHERE SEQ=#{seq}
+</update>
+
+<!-- 재고 감소 -->
+<update id="stockAmountDown" parameterType="java.lang.Integer">
+   UPDATE STOCK
+   SET AMOUNT=AMOUNT-1
+   WHERE SEQ=#{seq}
+</update>
+
+<!-- 재고 확인(ajax) -->
+<select id="stockAmountCheck" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT AMOUNT
+	FROM STOCK
+	WHERE SEQ=#{seq}
+</select>
+
+<!-- 재고 품목 갯수 -->
+<select id="stockCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT COUNT(*)
+	FROM STOCK
+	WHERE STORE=#{store}
+</select>
+
+<!-- 품절 임박한 재고의 리스트 -->
+<select id="soldoutOnlyList" parameterType="kh.com.c.model.SearchParam"
+      resultType="kh.com.c.model.StockDto">
+SELECT SEQ, STORE, AMOUNT, PRODUCT, PRICE
+FROM 
+      (SELECT ROW_NUMBER() OVER(ORDER BY PRODUCT) AS RNUM,
+            SEQ, STORE, AMOUNT, PRODUCT, PRICE
+       FROM STOCK   
+      <![CDATA[ WHERE 1=1 AND STORE=#{store} AND AMOUNT<10 ]]>
+       <if test="s_keyword != '' and s_keyword != null">
+             AND PRODUCT LIKE '%'||#{s_keyword}||'%'
+       </if>) A
+   WHERE RNUM BETWEEN ${start} AND ${end}
+</select>
+
+<!-- 품절 임박한 재고 리스트 페이지 카운트 -->
+<select id="soldoutOnlyCount" parameterType="kh.com.c.model.SearchParam"
+   resultType="java.lang.Integer">
+   SELECT NVL(COUNT(*), 0) AS CNT
+   FROM STOCK
+   <![CDATA[ WHERE 1=1 AND STORE=#{store} AND AMOUNT<10 ]]>
+   <if test="s_keyword != '' and s_keyword != null">
+      AND PRODUCT LIKE '%'||#{s_keyword}||'%'
+   </if>
+</select>
+
+<select id="soldoutList" parameterType="java.lang.String" resultType="kh.com.c.model.StockDto">
+   SELECT SEQ, STORE, AMOUNT, PRODUCT, PRICE
+   FROM STOCK
+   <![CDATA[ WHERE STORE=#{store} AND AMOUNT<10 ]]>
+   ORDER BY AMOUNT
+</select>
+
+
+</mapper>

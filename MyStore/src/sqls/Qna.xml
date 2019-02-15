@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Qna">
+
+<select id="getQnaList" resultType="kh.com.c.model.QnaDto">
+	SELECT SEQ, ID, PAR_ID, TITLE, CONTENT, REF, 
+				STEP, DEPTH, READCOUNT, WDATE, 
+				DEL, RESULT
+				FROM QNA
+				ORDER BY REF DESC, STEP ASC
+</select>
+
+<select id="enqueryList" resultType="kh.com.c.model.QnaDto">
+	SELECT SEQ, ID, PAR_ID, TITLE, CONTENT, REF, 
+				STEP, DEPTH, READCOUNT, WDATE, 
+				DEL, RESULT
+				FROM QNA
+				WHERE ID=#{id} OR PAR_ID=#{id}
+				ORDER BY REF DESC, STEP ASC
+</select>
+<!-- detail -->
+<select id="getQna"
+parameterType="java.lang.Integer"
+resultType="kh.com.c.model.QnaDto">
+	SELECT SEQ, ID, PAR_ID, TITLE, CONTENT, REF,
+			STEP, DEPTH, READCOUNT, WDATE,
+			DEL, RESULT
+			FROM QNA
+			WHERE SEQ=#{seq}
+</select>
+
+<insert id="writeQna" parameterType="kh.com.c.model.QnaDto">
+	INSERT INTO QNA
+	(SEQ, ID, PAR_ID, TITLE, CONTENT, REF, STEP, DEPTH, READCOUNT, WDATE, DEL, RESULT) 
+	VALUES(SEQ_QNA.nextval,#{id}, 0,#{title},#{content},
+	(SELECT NVL(MAX(REF),0)+1 FROM QNA)
+	,0,0,0,SYSDATE,0,0)
+</insert>
+
+<update id="updateQna"
+	parameterType="kh.com.c.model.QnaDto">
+		UPDATE QNA SET
+		TITLE=#{title}, CONTENT=#{content}, WDATE=SYSDATE
+		WHERE SEQ=#{seq}
+</update>
+
+<update id="updateResult"
+	parameterType="kh.com.c.model.QnaDto">
+		UPDATE QNA SET
+		RESULT=1
+		WHERE SEQ=#{seq}
+</update>
+
+<!-- 답글 -->
+<update id="replyQnaUpdate"
+	parameterType="kh.com.c.model.QnaDto">
+	UPDATE QNA 
+	SET STEP=STEP+1
+	WHERE REF=(SELECT REF FROM QNA WHERE SEQ=#{seq})
+		AND STEP>(SELECT STEP FROM QNA WHERE SEQ=#{seq})		
+</update>
+
+<insert id="replyQnaInsert"
+	parameterType="kh.com.c.model.QnaDto">
+	INSERT INTO QNA
+	(SEQ, ID, PAR_ID, TITLE, CONTENT, REF, STEP, DEPTH, READCOUNT, WDATE, DEL, RESULT)
+	VALUES(SEQ_QNA.NEXTVAL, #{id}, #{par_id}, #{title}, #{content},
+		(SELECT REF FROM QNA WHERE SEQ=#{seq}),
+		(SELECT STEP FROM QNA WHERE SEQ=#{seq})+1,
+		(SELECT DEPTH FROM QNA WHERE SEQ=#{seq})+1,
+		0, SYSDATE, 0, 1)
+		 	
+</insert>
+
+<update id="deleteQna" parameterType="java.lang.Integer">
+	DELETE QNA
+	WHERE SEQ=#{seq}
+</update>
+
+
+
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Money">
+
+<select id="getMoney" resultType="kh.com.c.model.MoneyDto" parameterType="java.lang.String">
+	SELECT * FROM MONEY
+	WHERE ID = #{id}
+</select>
+<!-- 
+<select id="getStore">
+	SELECT STORE FORM MONEY
+	WHERE ID = #{id}
+</select>
+ -->
+<select id="getMontly" parameterType="kh.com.c.model.MontlyChartDto" resultType="kh.com.c.model.MoneyDto">
+	 <![CDATA[
+		SELECT * FROM MONEY
+		WHERE ID=#{id} AND M_DATE>#{syear} AND M_DATE<#{eyear}
+		]]>
+</select>
+
+<insert id="addNewRecord" parameterType="kh.com.c.model.MoneyDto">
+INSERT INTO MONEY
+VALUES(SEQ_MONEY.NEXTVAL,#{id},#{m_type},#{payment},TO_DATE(#{m_date}, 'yyyy-mm-dd'),#{p_name},#{store},#{price},#{amount},#{vat},#{price_total},#{memo})
+
+</insert>
+
+<select id="getAccount" parameterType="java.lang.String" resultType="kh.com.c.model.MoneyDto">
+SELECT * FROM MONEY
+WHERE ID=#{id}
+</select>
+
+
+<update id="updateRecord" parameterType="kh.com.c.model.MoneyDto">
+UPDATE MONEY
+SET M_TYPE=#{m_type}, PAYMENT=#{payment}, P_NAME=#{p_name}, STORE=#{store}, PRICE=#{price}, AMOUNT=#{amount}, VAT=#{vat}, PRICE_TOTAL=#{price_total}, MEMO=#{memo}
+WHERE ID=#{id} AND SEQ=#{seq}
+</update>
+
+<delete id="deleteRecord" parameterType="kh.com.c.model.MoneyDto">
+DELETE FROM MONEY
+WHERE ID=#{id} AND SEQ=#{seq}
+</delete>
+
+<select id="getVat" parameterType="kh.com.c.model.MoneyParam" resultType="java.lang.Integer">
+SELECT SUM(VAT) FROM MONEY
+WHERE M_TYPE=#{m_type} AND ID=#{id} AND M_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+</select>
+
+<select id="getChartData" parameterType="kh.com.c.model.MoneyParam" resultType="java.lang.Integer">
+SELECT SUM(PRICE_TOTAL) FROM MONEY
+WHERE M_TYPE=#{m_type} AND ID=#{id} AND M_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+</select>
+
+<!-- <insert id="saveGoal" parameterType="kh.com.c.model.MoneyGoalDto">
+INSERT INTO MONEY_GOAL
+VALUES(SEQ_MONEY_GOAL.NEXTVAL, #{id}, #{perWeek}, #{perMonth}, #{perYear}, #{perWeek_pure}, #{perMonth_pure}, #{perYear_pure})
+</insert>
+ -->
+<update id="saveGoal" parameterType="kh.com.c.model.MoneyGoalDto">
+MERGE INTO MONEY_GOAL USING DUAL ON (ID=#{id}) 
+WHEN MATCHED THEN
+UPDATE SET 
+PERWEEK=#{perWeek}, PERMONTH=#{perMonth}, PERYEAR=#{perYear}, PERWEEK_PURE=#{perWeek_pure}, PERMONTH_PURE=#{perMonth_pure}, PERYEAR_PURE=#{perYear_pure}
+WHEN NOT MATCHED THEN
+INSERT 
+VALUES(SEQ_MONEY_GOAL.NEXTVAL, #{id}, #{perWeek}, #{perMonth}, #{perYear}, #{perWeek_pure}, #{perMonth_pure}, #{perYear_pure})
+</update>
+
+
+
+<select id="getGoal" parameterType="java.lang.String" resultType="kh.com.c.model.MoneyGoalDto">
+SELECT * FROM MONEY_GOAL
+WHERE ID=#{id}
+</select>
+</mapper>

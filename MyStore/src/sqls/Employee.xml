@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Employee">
+	<select id="getEmpList" parameterType="java.lang.String" resultType="kh.com.c.model.EmployeeDto">
+		SELECT SEQ, STORE, E_NAME, E_TEL, E_LEVEL, SALARY, E_DATE, TOTAL, S_TOTAL
+		FROM EMPLOYEE
+		WHERE STORE = #{storename}
+		ORDER BY SEQ ASC
+	</select>
+	
+	<insert id="addEmployee" parameterType="kh.com.c.model.EmployeeDto">
+		INSERT INTO EMPLOYEE(SEQ, STORE, E_NAME, E_TEL, E_LEVEL, SALARY, E_DATE, TOTAL, S_TOTAL)
+		VALUES(SEQ_EMPLOYEE.NEXTVAL, #{store}, #{e_name}, #{e_tel}, #{e_level}, #{salary}, #{e_date}, 0, 0)
+	</insert>
+	
+	<update id="inputTime" parameterType="kh.com.c.model.EmployeeDto">
+		UPDATE EMPLOYEE
+		SET TOTAL = TOTAL + #{total}
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="java.lang.Integer">
+		DELETE EMPLOYEE
+		WHERE SEQ = #{seq}
+	</delete>
+	
+	<select id="getDetailEmp" parameterType="java.lang.Integer"
+		resultType="kh.com.c.model.EmployeeDto">
+		SELECT SEQ, STORE, E_NAME, E_TEL, E_LEVEL, SALARY, E_DATE, TOTAL, S_TOTAL
+		FROM EMPLOYEE
+		WHERE SEQ = #{seq}
+	</select>
+	
+	<update id="updateEmployee" parameterType="kh.com.c.model.EmployeeDto">
+		UPDATE EMPLOYEE
+		SET E_NAME = #{e_name}, E_TEL = #{e_tel}, E_LEVEL = #{e_level}, SALARY = #{salary}
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<update id="resetSal" parameterType="kh.com.c.model.EmployeeDto">
+		UPDATE EMPLOYEE
+		SET TOTAL = 0, S_TOTAL = S_TOTAL + (#{total} * #{salary})
+		WHERE SEQ = #{seq}
+	</update>
+</mapper>
+

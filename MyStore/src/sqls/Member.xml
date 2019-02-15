@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Member">
+  
+<insert id="addmember" parameterType="kh.com.c.model.MemberDto">
+	INSERT INTO MEMBER(ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH)
+	VALUES(#{id}, #{pwd}, #{name}, #{store}, #{email}, #{address}, #{phone}, #{vat_ratio}, #{detail}, 'noimage.png', 3)
+</insert>
+
+<select id="getMemberList" resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH 
+				FROM MEMBER
+				ORDER BY NAME DESC 
+</select>
+
+<select id="login" parameterType="kh.com.c.model.MemberDto"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH
+	FROM MEMBER
+	WHERE ID=#{id} AND PWD=#{pwd}
+</select>
+
+<select id="serchImg"
+	parameterType="java.lang.String"
+	resultType="java.lang.String">
+SELECT IMAGE
+FROM MEMBER
+WHERE ID=#{id}	
+</select>
+
+<select id="getID" 
+	parameterType="kh.com.c.model.MemberDto"
+	resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*), 0)
+	FROM MEMBER
+	WHERE ID=#{id}
+</select>
+
+<select id="mypageUpdate" parameterType="kh.com.c.model.MemberDto">
+	UPDATE MEMBER SET
+	email = #{email},
+	address = #{address},
+	phone = #{phone},
+	detail = #{detail},
+	image = #{image}
+	where ID=#{id}
+	
+</select>
+
+<update id="updatePassword">
+	UPDATE MEMBER SET
+	PWD=#{pwd}
+	WHERE ID=#{id}
+</update>
+
+ 
+
+<select id="getMypageList" resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, DETAIL, IMAGE, AUTH
+	FROM MEMBER
+	
+</select>
+
+<select id="getMember" resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH
+	FROM MEMBER
+	WHERE ID=#{id}
+</select>
+
+ 
+
+ 
+<update id="updateMember">
+UPDATE MEMBER
+SET
+EMAIL =#{email},
+ADDRESS =#{address},
+PHONE =#{phone},
+DETAIL =#{detail},
+IMAGE =#{image}
+WHERE ID=#{id}
+
+</update>
+
+<update id="deleteMember">
+	UPDATE MEMBER
+	SET AUTH=2
+	WHERE ID=#{id}
+</update>
+
+
+<select id="getAddress" parameterType="kh.com.c.model.MemberDto"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT address
+	FROM MEMBER
+</select>
+
+<select id="getMapInfor" parameterType="kh.com.c.model.MemberDto"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT *
+	FROM MEMBER
+	WHERE ADDRESS = #{address}
+</select>
+
+
+<select id="IDgetMember" 
+	parameterType="java.lang.String"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT *
+	FROM MEMBER
+	WHERE ID=#{id}
+</select>
+
+<select id="idCheck" 
+   parameterType="java.lang.String"
+   resultType="java.lang.Integer">
+   SELECT NVL(COUNT(*), 0)
+   FROM MEMBER
+   WHERE ID=#{id}
+</select>
+
+</mapper>  

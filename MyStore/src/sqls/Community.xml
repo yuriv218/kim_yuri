@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Community">
+
+<select id="getCommunityList" resultType="kh.com.c.model.CommunityDto">
+	SELECT *
+				FROM COMMUNITY
+				WHERE CATEGORY = #{category}
+				ORDER BY REF DESC, STEP ASC
+</select>
+
+  
+  <select id="getCommunity" resultType="kh.com.c.model.CommunityDto">
+   SELECT * FROM COMMUNITY
+				 WHERE SEQ= #{seq}
+  </select>
+  
+  <update id="Communitydelete" parameterType="java.lang.Integer">
+  	UPDATE COMMUNITY
+	SET DEL=1
+	WHERE SEQ=#{seq}
+  </update>
+  
+  
+  <insert id="uploadCommunity" parameterType="kh.com.c.model.CommunityDto">
+  INSERT INTO COMMUNITY (SEQ,ID,STORE,TITLE,CONTENT,CATEGORY,C_TYPE,REF,STEP,DEPTH,
+  READCOUNT,DOWNCOUNT,FILENAME,WDATE,DEL)
+  VALUES(SEQ_COMMUNITY.NEXTVAL, #{id},#{store},#{title},#{content},#{category},#{c_type},(SELECT NVL(MAX(REF),0)+1 FROM COMMUNITY ),0,0,0,0,#{filename},SYSDATE,0)
+  
+  </insert>
+  
+  
+  <update id="updateCommunity" parameterType="kh.com.c.model.CommunityDto">
+  UPDATE COMMUNITY
+  SET TITLE = #{title}, CONTENT=#{content}, C_TYPE = #{c_type},
+  	WDATE=SYSDATE
+  	WHERE SEQ=#{seq}
+  
+  </update>
+  
+    
+ 
+  <update id="readcountCommunity">
+  UPDATE COMMUNITY 
+	SET READCOUNT=READCOUNT+1 
+ WHERE SEQ= #{seq} 
+
+  </update>
+  
+  
+     <update id="downcountCommunity">
+  UPDATE COMMUNITY 
+	SET DOWNCOUNT=DOWNCOUNT+1 
+ WHERE SEQ= #{seq} 
+
+  </update>
+  
+<!-- 답글 -->
+<update id="replyCommunityUpdate"
+	parameterType="kh.com.c.model.CommunityDto">
+	UPDATE COMMUNITY 
+	SET STEP=STEP+1
+	WHERE REF=(SELECT REF FROM COMMUNITY WHERE SEQ=#{seq})
+		AND STEP>(SELECT STEP FROM COMMUNITY WHERE SEQ=#{seq})		
+</update>
+
+<insert id="replyCommunityInsert"
+	parameterType="kh.com.c.model.CommunityDto">
+	INSERT INTO COMMUNITY
+	VALUES(SEQ_COMMUNITY.NEXTVAL, #{id}, #{store},#{title},#{content},#{category},#{c_type},
+		(SELECT REF FROM COMMUNITY WHERE SEQ=#{seq}),
+		(SELECT STEP FROM COMMUNITY WHERE SEQ=#{seq})+1,
+		(SELECT DEPTH FROM COMMUNITY WHERE SEQ=#{seq})+1,
+		 0, 0,#{filename},SYSDATE,0)	
+		
+</insert>
+  
+  
+  
+  
+  
+<select id="getBbsPagingList"
+	parameterType="kh.com.c.model.BbsParam"
+	resultType="kh.com.c.model.CommunityDto">
+	
+	SELECT *
+	FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER BY REF DESC, STEP ASC) AS RNUM,
+				SEQ,ID,STORE,TITLE,CONTENT,CATEGORY,C_TYPE,REF,STEP,DEPTH,
+  READCOUNT,DOWNCOUNT,FILENAME,WDATE,DEL
+		 FROM COMMUNITY	
+		 WHERE 1=1
+		 <if test="s_category != '' and s_category != null
+		 	and s_keyword != '' and s_keyword != null">
+		 	
+		 	<if test="s_category == 'title'">
+		 		AND TITLE LIKE '%'||#{s_keyword}||'%'
+		 	</if>		 	
+		 	<if test="s_category == 'c_type'">
+		 		AND C_TYPE LIKE '%'||#{s_keyword}||'%'
+		 	</if>		 
+		 </if>) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	AND CATEGORY = #{category}
+</select>
+
+<select id="getBbsSearch"
+	parameterType="kh.com.c.model.BbsParam"
+	resultType="java.lang.Integer">
+
+	SELECT NVL(COUNT(*), 0) AS CNT
+	FROM COMMUNITY
+	WHERE 1=1
+	 <if test="s_category != '' and s_category != null
+	 	and s_keyword != '' and s_keyword != null">	 	
+	 	<if test="s_category == 'title'">
+	 		AND TITLE LIKE '%'||#{s_keyword}||'%'
+	 	</if>		 	
+	 	<if test="s_category == 'c_type'">
+	 		AND C_TYPE LIKE '%'||#{s_keyword}||'%'
+	 	</if>		 
+	 </if>
+</select>
+
+
+  <insert id="sendM" parameterType="kh.com.c.model.ChatDto">
+  INSERT INTO CHAT
+  VALUES(SEQ_CHAT.NEXTVAL, #{fromID},#{toID},#{chatTitle},#{chatContent},SYSDATE)
+  
+  </insert>
+  
+  
+  <select id="receiveM" resultType="kh.com.c.model.ChatDto">
+	SELECT *
+				FROM CHAT
+				WHERE FROMID = #{id} or TOID = #{id}
+				ORDER BY SEQ DESC
+</select>
+  
+  
+    <select id="Mdetail" resultType="kh.com.c.model.ChatDto">
+   SELECT * FROM CHAT
+				 WHERE SEQ= #{seq}
+  </select>
+</mapper>
