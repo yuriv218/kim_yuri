@@ -48,7 +48,7 @@ public class CommunityController {
 	logger.info("MemberController datatable 키워드 " + param.getS_keyword());
 	
 	
-	
+	category = "자유게시판";
 	
 	param.setCategory(category);
 	

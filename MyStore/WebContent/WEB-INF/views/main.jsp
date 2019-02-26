@@ -31,7 +31,20 @@ String endDate3 = date.lastdayOfYear();
 //String endDate3 = 
 System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
 //
+
+
 %> 
+
+
+   <%
+String word = (String)request.getAttribute("word");
+
+String myaddress = (String)request.getAttribute("myaddress");
+   
+   
+List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
+
+%>
  <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -65,7 +78,15 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
     
+	<!-- 이미지 슬라이더 -->
+    <link href="css/full-slider.css" rel="stylesheet">
+    
+    <!-- 다음맵 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=916ea874e228791dbf525372ff0244e5&libraries=services"></script>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
    <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
@@ -101,6 +122,8 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
             height: 160px;
         }
 
+
+	
     </style>
 </head>
 
@@ -111,57 +134,21 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                   
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-bars"></i>매출관리</a>
-                        <ul class="sub-menu children dropdown-menu">
-                        
-                        <!-- 새끼메뉴 -->
-                       <li><i class="fa fa-puzzle-piece"></i><a href="account.do">매출/매입</a></li>
-                        <li><i class="menu-icon fa fa-bar-chart"></i><a href="chart.do">상품별 차트</a></li>
-                        <li><i class="menu-icon fa fa-bar-chart"></i><a href="montlychart.do">연도별 차트</a></li>
-                  
-                        </ul>
-                    </li>
-                    
-                   <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-table"></i>매장관리</a>
-                        <ul class="sub-menu children dropdown-menu">
-                             <li><i class="fa fa-gift"></i><a href="goodslist.do">상품관리</a></li>
-                            <li><i class="fa fa-calendar-o"></i><a href="booklist.do">예약관리</a></li>
-                            <li><i class="fa fa-id-card-o"></i><a href="emplist.do">직원관리</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="stock.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-tasks"></i>재고관리</a>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="customer.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-th"></i>거래처관리</a>
-                      </li>
-                                
-                    
-                   <li class="menu-item-has-children dropdown">
+                      <li class="menu-item-has-children dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                       <i class="menu-icon fa fa-users"></i>커뮤니티</a>
-
-               <ul class="sub-menu children dropdown-menu">
+                  
+                     <ul class="sub-menu children dropdown-menu">
                      <li><i class="menu-icon fa fa-sign-in"></i><a
                         href="datatable.do?category=자유게시판">자유게시판</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=음식업">음식업</a></li>
+                        href="datatable.do?category=음식업">홍보</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=서비스업">서비스업</a></li>
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=제조업">제조업</a></li>
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=도소매업">도소매업</a></li>
+                        href="datatable.do?category=서비스업">Q&A</a></li>
+                     
                   </ul></li>
-
-               <li class="menu-item-has-children dropdown">
+                    
+                      <li class="menu-item-has-children dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="menu-icon fa fa-map-o"></i>지도</a>
                   <ul class="sub-menu children dropdown-menu">
@@ -169,8 +156,21 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
                      <a href="formsbasic.do">내주변 가게보기</a></li>
                   </ul>
                </li>
-
                     
+                    <li class="menu-item-has-children dropdown">
+                        <a href="account.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-usd"></i>혜택 계산기</a>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="article.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
+                      </li>
+                                
+                     <li class="menu-item-has-children dropdown">
+                        <a href="question.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-tasks"></i>설문조사</a>
+                      </li>
+
                   <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-id-card-o"></i>마이페이지</a>
@@ -251,19 +251,13 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
                
                <!-- 로그인했을경우 이미지 띄우고 안했을때 noimage.png 띄움 -->
                <div class="user-area dropdown float-right">
-            
-               <c:if test="${empty login  }">
-                  <a href="#" class="dropdown-toggle active" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> 
-                     <img class="user-avatar rounded-circle" src="upload/noimage.png" alt="User Avatar">
-                  </a>
-               </c:if>
-               
+
                <c:if test="${!empty login  }">
                   <a href="#" class="dropdown-toggle active" data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false"> <img
                      class="user-avatar rounded-circle" src="upload/${login.image }"
-                     alt="User Avatar">
+                     alt="User Ar">
+                   
                   </a>
                </c:if> 
                
@@ -352,24 +346,22 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
             
             
         <!--------------- 내용 시작 ------------------------>  
-        <!-- /#header -->
-        <!-- Content -->
-        <div class="clearfix">
-        <div class="content">
-            <!-- Animated -->
-            <div class="animated fadeIn">
-                <!-- Widgets  -->
-                <div class="row">
+   		 <div class="content">
+         <!-- Animated -->
+         <div class="animated fadeIn">
+         
+         <!--------------- 배너 ------------------------>  
+          <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-cash"></i>
+                                    <div class="stat-icon dib flat-color-3">
+                                        <i class="pe-7s-users"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="account.do"><font size="3">매출관리</a></font></div>
+                                            <div class="stat-text"><a href="account.do"><font size="3">커뮤니티</a></font></div>
                                             
                                         </div>
                                     </div>
@@ -383,11 +375,11 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
+                                        <i class="fa fa-map-marker"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="stock.do"><font size="3">재고관리</font></a></div>
+                                            <div class="stat-text"><a href="stock.do"><font size="3">지도보기</font></a></div>
                                              
                                         </div>
                                     </div>
@@ -400,12 +392,12 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
-                                    <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-browser"></i>
+                                    <div class="stat-icon dib flat-color-1">
+                                        <i class="pe-7s-cash"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="booklist.do"><font size="3">예약관리</font></a></div>
+                                            <div class="stat-text"><a href="booklist.do"><font size="3">혜택 계산기</font></a></div>
                                              
                                         </div>
                                     </div>
@@ -419,11 +411,11 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-4">
-                                        <i class="pe-7s-users"></i>
+                                        <i class="fa fa-thumb-tack"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="datatable.do?category=자유게시판"><font size="3">커뮤니티</font></a></div>
+                                            <div class="stat-text"><a href="datatable.do?category=자유게시판"><font size="3">관련 기사</font></a></div>
                                             
                                         </div>
                                     </div>
@@ -432,204 +424,477 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
                         </div>
                     </div>
                 </div>
-                <!-- /Widgets -->
-                <!--  Traffic  -->
-               <div class="row">
-                  <!-- 좌우여백  -->
+        <!--------------- /배너 ------------------------> 
+    		
+       	<!---------------- 배너 슬라이드  ----------------->  
+   		<div class="row">
+	   <div style="float: left;">
+		
+		 <div class="col-md-12">
+				<div class="card">
+					
+					<div class="card-body">
+               
+       <div class="slide"  style="height:auto; width: auto; max-height: 500px;max-width: 500px;">
+       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+       <ol class="carousel-indicators">
+	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	  </ol>
+  
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img class="d-block w-100" src="images/sl.jpg" alt="첫번째 슬라이드">
+	    </div>
+	    <div class="carousel-item">
+	      <img class="d-block w-100" src="images/s2.jpg" alt="두번째 슬라이드">
+	    </div>
+	    <div class="carousel-item">
+	      <img class="d-block w-100" src="images/s3.jpg" alt="세번째 슬라이드">
+	    </div>
+	  </div>
+		
+		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="sr-only">이전</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="sr-only">다음</span>
+		  </a>       
+           </div>
+               </div>
+               	</div>
+               	</div></div></div>
+        <!---------------- /배너 슬라이드  ----------------->       
+        
+        <!---------------- 커뮤니티   ----------------->    
+         <div style="float: right;"> 
+               
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">베스트 글</strong>
+					</div>
+					<div class="card-body">
+               
+               		  <div class="vat">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#tab1"
+								aria-controls="tab1" role="tab" data-toggle="tab">자유게시판</a></li>
+							<li role="presentation"><a href="#tab2"
+								aria-controls="tab2" role="tab" data-toggle="tab">홍보</a></li>
+							<li role="presentation"><a href="#tab3"
+								aria-controls="tab3" role="tab" data-toggle="tab">Q & A</a></li>					
+						</ul>
+					 </div>
+               
+               
+               <div class="tab-content">
+				 <div role="tabpanel" class="tab-pane active" id="tab1">
+				 <div class="sec sec1">
+					<c:forEach items="${list }" var="list" varStatus="vs" end="7">
+					
+					  <table>
+					  <colgroup>
+					<col width="250">
+					<col width="150">
+					<col width="150">
+					</colgroup>
+					  <tr>
+					  	<td>${list.title }</td>
+					  	<td align="center">
+					  	<img alt="" src="./upload/${IdImg[vs.index] }"width="20px" height="20px" style="border-radius: 100px;">
+					  	${list.id }
+					  	</td>
+					  	<td align="center"><i class="fa fa-thumbs-o-up" style="color: #1E90FF;"></i>${list.downcount }</td>
+					  </tr>
+					  </table>
+					
+					</c:forEach>
+					</div>
+				 </div>
+				 
+				 <div role="tabpanel" class="tab-pane" id="tab2">
+				 <div class="sec">
+				 <p>홍보</p>
+				 </div>
+				 </div>
+				 
+				  <div role="tabpanel" class="tab-pane" id="tab3">
+				  <div class="sec">
+				 <p>Q & A</p> 
+				 </div>
+				 </div>
+				 
+			   </div>
+											
+              	   </div>
+                </div>
+            </div>
+           </div>    			
+               						
+        <!---------------- /커뮤니티   ----------------->   
+               
+        <!---------------- 지도  ----------------->  
+         
+               <div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">내 주변 가게 보기</strong>
+					</div>
+					<div class="card-body">
+               
+                              <div id="map"
+                                 style="width: 580px; height: 350px; float: left;"></div>
 
-                  <div class="col-lg-12">
-                     <div class="card">
-                        <div class="card-body">
-                        <!--    <h4 class="box-title">매출 목표 달성률</h4> -->
-                           <button type="button" id="modifyGoalBtn" class="btn btn-light">목표 매출액/순이익 변경</button>
+
+                              <script type="text/javascript"
+                                 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=916ea874e228791dbf525372ff0244e5&libraries=services"></script>
+                              <script>
                               
-                           <div id="container"   style="min-width: 360px; height: 400px; margin: 0 auto"></div><br>
-               
-                              <div id="modifyGoalDiv" style="display: none;">
-                              <div class="form-row" >
-                                 <div class="col">
-                                   <label for="validationTooltip01">주간 매출 목표액</label>
-                                    <input type="text" id="perWeek" name="perWeek" class="form-control">&nbsp;&nbsp;
-                                 </div>
-                                 <div class="col">
-                                   <label for="validationTooltip02">월간 매출 목표액</label>
+   // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+   var infowindow = new daum.maps.InfoWindow({zIndex:1});
+
+   var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+       mapOption = {
+           center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+           level: 3 // 지도의 확대 레벨
+       };  
+
+   // 지도를 생성합니다    
+   var map = new daum.maps.Map(mapContainer, mapOption); 
+   
+   <% if((word.equals("없음"))){%>
+   
+   var geocoder = new daum.maps.services.Geocoder();
+
+   
+   // 주소로 좌표를 검색합니다
+   geocoder.addressSearch('<%=myaddress%>', function(result, status) {
+
+    var moveLatLon = new daum.maps.LatLng(result[0].y, result[0].x);
+
+    
+   
+     
+      <%
+      for (int i = 0; i < address.size(); i ++) {
+   
+         MemberDto a = address.get(i);
+         
+         
+         %>
+   
+         
+      // 주소로 좌표를 검색합니다
+      geocoder.addressSearch('<%=a.getAddress()%>', function(result, status) {
+
+       var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+       // 마커를 생성하고 지도에 표시합니다
+       var marker = new daum.maps.Marker({
+           map: map,
+           position: coords
+       });
+       
+       // 마커에 클릭이벤트를 등록합니다
+       daum.maps.event.addListener(marker, 'click', function() {
+   
+           $.ajax({
+                url:"getMapInfor.do",
+                type:"get",
+                data:"address="+"<%=a.getAddress()%>",
+                success:function(data){
+             
+                   
+                   addList(data.id,data.store,data.email,data.detail,data.address,data.image);
+                },
+                error:function(req,sts,err){
+                   alert("실패");
+                }
+                
+             });
+          
+       });
+    });
+      
+   
+      <%}%>
+   
+        map.panTo(moveLatLon);  
+      
+   });
+   
+  
+   
+   
+
+
+
+   
+   <%}else{%>
+   
+
+   // 장소 검색 객체를 생성합니다
+   var ps = new daum.maps.services.Places(); 
+
+   
+   // 키워드로 장소를 검색합니다
+   ps.keywordSearch('<%=word%>', placesSearchCB); 
+
+   // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+   function placesSearchCB (data, status, pagination) {
+       if (status === daum.maps.services.Status.OK) {
+
+           // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+           // LatLngBounds 객체에 좌표를 추가합니다
+           var bounds = new daum.maps.LatLngBounds();
+
+           for (var i=0; i<data.length; i++) {
+               displayMarker(data[i]);    
+               bounds.extend(new daum.maps.LatLng(data[i].y, data[i].x));
+           }       
+
+           // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+           map.setBounds(bounds); 
+       } 
+   }
+   
+
+   
+
+   // 지도에 마커를 표시하는 함수입니다
+   function displayMarker(place) {
+      // 주소-좌표 변환 객체를 생성합니다
+      var geocoder = new daum.maps.services.Geocoder();
+
+      <%
+      for (int i = 0; i < address.size(); i ++) {
+   
+         MemberDto a = address.get(i);
+         
+         
+         %>
+   
+         
+      // 주소로 좌표를 검색합니다
+      geocoder.addressSearch('<%=a.getAddress()%>', function(result, status) {
+
+       var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+       // 마커를 생성하고 지도에 표시합니다
+       var marker = new daum.maps.Marker({
+           map: map,
+           position: coords
+       });
+       
+       // 마커에 클릭이벤트를 등록합니다
+       daum.maps.event.addListener(marker, 'click', function() {
+   
+           $.ajax({
+                url:"getMapInfor.do",
+                type:"get",
+                data:"address="+"<%=a.getAddress()%>",
+                success:function(data){
+             
+                   
+                   addList(data.id,data.store,data.email,data.detail,data.address,data.image);
+                },
+                error:function(req,sts,err){
+                   alert("실패");
+                }
+                
+             });
+          
+       });
+    });
+      
+   
+      <%}%>
+   }
+   <%}%>
+                                 function addList(id, store, email,
+                                       detail, address, image) {
+
+                                    $("#tId").html(id);
+                                    $("#tStore").html(store);
+                                    $("#tEmail").val(email);
+                                    $("#tDetail").val(detail);
+                                    $("#tAddress").val(address);
+                                    $("#tImage").css(
+                                          "background-image",
+                                          "url('upload/" + image
+                                                + "')");
+                                 }
+                              
+                                 function message() {
+                                    
+                                    $("#here").empty();
+                                    $("#here")
+                                          .append(
+                                                '<br>'
+                                                      + '<br>'
+                                                      + ' <div class="form-group">'
+                                                      + '  <div class="input-group">'
+                                                      + '  <div class="input-group-addon">'
+                                                      + '<i class="fa fa-user"></i></div>'
+                                                      + '     <input type="text" id="title0" name="title" placeholder=" 제목" class="form-control">'
+                                                      + '  </div>'
+                                                      + '  </div>'
+                                                      +
+
+                                                      ' <div class="form-group" style="padding-top= 10px">'
+                                                      + '  <div class="input-group">'
+                                                      + '  <div class="input-group-addon">'
+                                                      + '<i class="fa fa-envelope"></i></div>'
+                                                      + '     <textarea rows="10" cols="30" id="content0" name="content" class="form-control"  placeholder="내용">'
+                                                      + '</textarea>'
+                                                      + '  </div>'
+                                                      + '  </div>'
+                                                      + '<div align="right"><input type="button" id="btnSend0" class="btn btn-success btn-sm" value="보내기"/></div>'
+
+                                          );
+
+                                    var offset = $("#tDetail")
+                                          .offset();
+                                    $('html, body').animate({
+                                       scrollTop : offset.top
+                                    }, 400);
+                                    $("#tDetail").css("top", st + 20);         
                                  
-                                    <input type="text" id="perMonth" name="perMonth" class="form-control">&nbsp;&nbsp;
-                                 </div>
-                                 <div class="col">
-                                   <label for="validationTooltip03">연간 매출 목표액</label>
+                 				 }
+                	                 
                                  
-                                    <input type="text" id="perYear" name="perYear" class="form-control">
-                                 </div>
-                                 <br>
-                                 <br>
-                              </div>
+                                 
+                                 $(document).on("click","#btnSend0",function(){ 
+                                    if($("#content").val() == ""){
+                                       alert("내용을 입력해 주십시오");
+                                    }else if($("#title").val() == ""){
+                                       alert("제목을 입력해 주십시오");
+                                    }else{
+                                      $.ajax({
+                                           url:"send.do",
+                                           type:"get",
+                                           contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                                           data: {
+                                             "fromID" : "${login.id}",
+                                             "toID" : $("#tId").html(),
+                                             "chatTitle" : $("#title0").val(),
+                                             "chatContent" : $("#content0").val()
+                                          },                                              
+                                           success:function(data){
+                                           alert(data);
+                                              
+                                           },
+                                           error:function(req,sts,err){
+                                          alert("실패");
+                                           }
+                                           
+                                        }); 
+                                    
+                                    }
+                                 });
+                              </script>
+ 
 
-                              <div class="form-row">
-                                 <div class="col">
-                                   <label for="validationTooltip04">주간 순이익 목표액</label>
-                                    <input type="text" id="perWeek_pure" name="perWeek_pure" class="form-control">&nbsp;&nbsp;
-                                 </div>
-                              <div class="col">
-                               <label for="validationTooltip05">월간 순이익 목표액</label>
-                        
-                                 <input type="text" id="perMonth_pure" name="perMonth_pure" class="form-control">&nbsp;&nbsp;
-                              </div>
-                              <div class="col">
-                               <label for="validationTooltip06">연간 순이익 목표액</label>
-                        
-                                 <input type="text" id="perYear_pure" name="perYear_pure" class="form-control">
-                              </div>
-                              <br>
-                              </div>
-
-                           <button type="button" id="saveGoalBtn" class="btn btn-light">변경 적용하기</button>
                            </div>
-                     </div>
-                  </div>
-               </div>
-               </div>
-                  
-
-               <div class="row">
-                  <div class="col-lg-12">
-                     <div class="card">
-                        <div class="card-body">
-                           <h4 class="box-title" id="toSoldoutOnly">품절 임박 리스트&nbsp;
-                           </h4>
-                           <span class="soldoutCount"></span>
-                           <br><br>
-                           <div id="soldoutList"></div>
-                        </div>
-                        <div class="row">
-                           <div class="col-lg-8">
-                              <div class="card-body"></div>
-                           </div>
-                           <!-- /.row -->
-                           <div class="card-body"></div>
                         </div>
                      </div>
-                     <!-- /# column -->
-                  </div>
-                  <!--  /Traffic -->
                
-                  <!-- Calender Chart Weather  -->
+             
 
-                  <div class="col-lg-6">
-                     <div class="card">
-                        <div class="card-body">
-                           <!-- <h4 class="box-title">스케줄러</h4> -->
-                           <div class="calender-cont widget-calender">
-                              <div id="calendar"></div>
+               <!---------- 여기까지 지도 ------------>
+               
+               <!---------- 내정보 ------------------>
+               <div class="col-md-4">
+                  <section class="card">
+
+
+                     <div id="tImage" class="twt-feed" 
+                        style=" background-image: URL(upload/${login.image}); background-repeat: no-repeat; background-position: 50% 50%;" >
+  
+                        <div class="media">
+                           <div class="media-body" style="text-align: center;">
+                        
+                              <h4 class="text-white display-6" id="tStore">${login.store }</h4>
+                              <p class="text-light" id="tId">${login.id }</p> 
+                           
                            </div>
                         </div>
                      </div>
-                  </div>
 
 
-                  <div class="col-lg-6">
-                     <div class="card weather-box">
-                        <div class="card-body">
-                           <h4 class="weather-title box-title">주간 날씨</h4>
-                           <div class="weather-widget">
-                              <div id="weather-one" class="weather-one"></div>
-                           </div>
-                        </div>
+                     <ul class="list-group list-group-flush">
+
+                     <li class="list-group-item"><div class="input-group">
+                              <div class="input-group-addon" style="background-color: #FFA500;">
+                                 <i class="fa fa-envelope-o fa-fw"></i>
+                              </div> 
+                              <input type="text" id="tEmail" name="username"
+                                 value="${login.email }" class="form-control"
+                                 readonly="readonly" style="background-color: white; font-size: 11px"">
+                           </div></li>
+                           
+                        <li class="list-group-item"><div class="input-group">
+                              <div class="input-group-addon"  style="background-color: #FFA500;">
+                                 <i class="fa fa-map-marker fa-fw"></i>
+                              </div>
+                              
+                              <input type="text" id="tAddress" name="username"
+                                 value="${login.address }" class="form-control"
+                                 readonly="readonly" style="background-color: white; font-size: 11px">
+                           </div></li>   
+
+                     <li class="list-group-item"><div class="input-group">
+                              <div class="input-group-addon"  style="background-color: #FFA500;">
+                                 <i class="fa fa-info fa-fw"></i>
+                              </div>
+                              
+                              <input type="text" id="tDetail" name="username"
+                                 value="${login.detail }" class="form-control"
+                                 readonly="readonly" style="background-color: white;font-size: 11px"" >
+                           </div></li>   
+
+                        <li class="list-group-item"><button onclick="message()" id="btn" class="btn btn-outline-success btn-block">쪽지 보내기</button> <span id="here"></span></li>               
+                     </ul>
+
+                     <div align="center"
+                        style="padding-right: 10px; padding-top: 13px">
+                        <form action="formsbasic.do" id="frm">
+                           <input type="text" id="word" name="word" style="height: 25px">
+
+                           <!-- <input type="submit" value="검색"> -->
+                           <i class="fa fa-search" onclick="search()"
+                              style="cursor: pointer;"></i>
+                        </form>
                      </div>
-                  </div>
-         </div>
 
-               <!-- /Calender Chart Weather -->
-                
-                <!-- Modal - Calendar - Add New Event -->
-                <div class="modal fade none-border" id="event-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                            </div>
-                            <div class="modal-body"></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /#event-modal -->
-                <!-- Modal - Calendar - Add Category -->
-                <div class="modal fade none-border" id="add-category">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title"><strong>Add a category </strong></h4>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="control-label">Category Name</label>
-                                            <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label">Choose Category Color</label>
-                                            <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                <option value="success">Success</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="info">Info</option>
-                                                <option value="pink">Pink</option>
-                                                <option value="primary">Primary</option>
-                                                <option value="warning">Warning</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                
-               <!-- 목표 매출/순이익 저장 안했을 때 -->
-               <div class="container">
-                  
-                  <!-- Modal -->
-                  <div class="modal fade" id="#emptyGoalModal" role="dialog">
-                     <div class="modal-dialog modal-sm modal-dialog-centered">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">알림</h4>
-                           </div>
-                           <div class="modal-body">
-                              <p>먼저 목표 매출/순이익을 설정해주세요.</p>
-                           </div>
-                           <div class="modal-footer">
-                              <button type="button" class="btn btn-default"
-                                 data-dismiss="modal">닫기</button>
-                           </div>
-                        </div>
+                     <script type="text/javascript">
+                        function search() {
+                           document.getElementById('frm').submit();
+
+                        }
+                     </script>
+
+                     <div align="right">
+                        <footer class="twt-footer"> </footer>
                      </div>
-                  </div>
+                  </section>
                </div>
-
-
+               
+               </div>
+           
+               <!----------------/내정보 -------------->
+               </div>
+               </div>
                <!-- /#add-category -->
             </div>
             <!-- .animated -->
-        </div>
+        
         <!-- /.content -->
-      </div>
-      <!-- /.clearfix -->
-      </div>
-        <!-- Footer -->
+
         
         <footer class="site-footer">
             <div class="footer-inner" style="bg-color:#F1F2F7;">
@@ -651,8 +916,7 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
- -->    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
@@ -664,608 +928,151 @@ System.out.println(endDate1 + ", " + endDate2 + ", " + endDate3);
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="assets/js/init/fullcalendar-init.js"></script>
     
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- 쪽지 함수들! -->
+							<script type="text/javascript">
+							jQuery(document).ready(function($) {
+								
+								
+									$(function chat() {
+										var poll_interval = 7000;
+										
+							     	$.ajax({
+							            type: "get",
+							            url : "chat.do",
+							            data:"id="+"${login.id}", 
+							            success: function(data) {							            	
+							            	var parsed = JSON.parse(data);
+											var result = parsed.result;
+											$("#here").empty();
+											for(var i = 0; i< result.length; i++){											
+												addList(result[i][0].value, result[i][1].value, result[i][2].value,
+														result[i][3].value, result[i][4].value, result[i][5].value
+													);												
+											}							            	
+							               },
+							    	 error:function(req,sts,err){							    		  
+							    	   } ,
+							             complete: function(){
+							            setTimeout(chat, poll_interval);
+							            }  
+
+							     	});
+								});
+							   
+									// 파싱한 json 뿌림
+									function addList(seq,FromID,ToID,ChatTitle,ChatContent,ChatTime) {
+									var m = "받은 메세지";
+									var i = "";
+										if(FromID == "${login.id}"){
+											m="보낸 메세지";
+											
+											$.ajax({
+										    	   url:"getimage.do",
+										    	   type:"get",
+										    	   data:"id="+ToID,
+										    	   success:function(data){									    	 
+													$("#here").append(
+															'<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
+															'<span class="photo media-left">'+
+																'<img alt="avatar" src="./upload/'+data+'">'+
+															'</span>'+
+																'<div class="message media-body">'+
+																		'<span class="name float-left">'+ToID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
+																		'<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
+																		'<p>'+ChatTitle+'</p>'+
+																'</div>'+ 
+															'</a>'
+													);
+										    	   },
+										    	   error:function(req,sts,err){			    		  
+										    	   }									    	   
+										       });		
+										
+										}else{
+											$.ajax({
+										    	   url:"getimage.do",
+										    	   type:"get",
+										    	   data:"id="+FromID,
+										    	   success:function(data){									    	 
+													$("#here").append(
+															'<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
+															'<span class="photo media-left">'+
+																'<img alt="avatar" src="./upload/'+data+'">'+
+															'</span>'+
+																'<div class="message media-body">'+
+																		'<span class="name float-left">'+FromID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
+																		'<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
+																		'<p>'+ChatTitle+'</p>'+
+																'</div>'+ 
+															'</a>'
+													);
+										    	   },
+										    	   error:function(req,sts,err){			    		  
+										    	   }									    	   
+										       });		
+										} 										
+										 							
+										};	
+	
+								function detail(seq) {
+								 $.ajax({
+							    	   url:"Mdetail.do",
+							    	   type:"get",
+							    	   data:"seq="+seq,
+							    	   success:function(data){							    		
+							    	 	$("#mediumModalLabel").html(data.ChatTitle);
+							    	 	$("#_id").html(data.FromID);
+							    		$("#hiddenId").val(data.FromID);
+							    	 	$("#_content").html(data.ChatContent);
+							    	 	$("#_date").html(data.ChatTime.substring(0,16));
+										$("#_img").attr("src","upload/"+data.img);
+							    	   },
+							    	   error:function(request,status,error){
+							    		   alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);						
+							    	   }							    	   
+							       });						     
+							}
+														
+							function answer() {					
+							$("#answerId").html(document.getElementById('hiddenId').value);								
+							};
+														
+							$(document).on("click","#answer2",function(){ 
+								if($("#content2").val() == ""){
+									alert("내용을 입력해 주십시오");
+								}else if($("#title2").val() == ""){
+									alert("제목을 입력해 주십시오");
+								}else{
+							 	 $.ajax({
+							    	   url:"send.do",
+							    	   type:"get",
+							    	   contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+							    	   data: {
+											"fromID" : "${login.id}",
+											"toID" : $("#answerId").html(),
+											"chatTitle" : $("#title2").val(),
+											"chatContent" : $("#content2").val()											
+										},											    		   
+							    	   success:function(data){
+							    	   alert(data);							    			
+							    	   },
+							    	   error:function(req,sts,err){
+										alert("실패");
+							    	   }							    	   
+							       }); 								
+								}
+								$("#content2").val("");
+								$("#title2").val("");
+							});
+								
+							
+							
+								</script>
     
-    <!--차-트  -->
-<!--    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
-   <script src="https://code.highcharts.com/highcharts.js"></script>
-   <script src="https://code.highcharts.com/modules/exporting.js"></script>
-   <script src="https://code.highcharts.com/modules/export-data.js"></script>
+ 
 
-
-   <!--Local Stuff-->
-    
-      <script type="text/javascript">
-      jQuery(document).ready(function ($) {
-         
-         $.ajax({
-              type: "post",
-              url : "soldoutList.do",
-              dataType:'json',
-              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-              
-              success: function(data) {
-                 if(data=="no"){
-                    
-                   $("#soldoutList").append("");
-                }
-                else{
-                   
-                   var table = "<table class='table table-striped table-bordered'>"
-                   table += "<th>product</th><th>amount</th><th>price</th>";
-                   
-                   var soldoutCount = 0;
-                   
-                   jQuery.each( data, function( i, item) {
-                      soldoutCount = i+1;
-                      
-                      //부족한 재고가 5개까지 띄워지게 설정
-                      if(i<5){
-                                table += "<tr>\n";
-                                  table += "<td>"+item.product+"</td>";
-                                  table += "<td>"+item.amount+"</td>";
-                                  table += "<td>"+item.price+"</td>";
-                                  table += "</tr>\n"
-                             }
-                      
-                      
-                   });
-                   table +="</table>";
-                   
-                   $("#soldoutList").append(table);
-                   $("#toSoldoutOnly").append("<a href='soldoutAll.do'><i class='fa fa-plus' style='color: orange'></i></a>");
-                   $(".soldoutCount").append("(품절이 임박한 재고가 " + soldoutCount +"개 있습니다)");
-                }
-                 
-              },
-              error:function(){
-                 $("#soldoutList").append("");
-              }
-
-         });
-         
-         
-         
-         
-         
-         
-      
-         var startDate = "<%=startDate %>";
-         var endDate1 = "<%=endDate1 %>"; 
-         var endDate2 = "<%=endDate2%>";
-         var endDate3 = "<%=endDate3%>";
-         
-         var perWeek = 0;
-         console.log(typeof perWeek);
-         var perMonth = 0;
-         var perYear = 0;
-         var perWeek_pure = 0;
-         var perMonth_pure = 0;
-         var perYear_pure = 0;
-         
-         var sold_perWeek = 0;
-         var sold_perMonth = 0;
-         var sold_perYear = 0;
-         
-         var earned_perWeek = 0;
-         var earned_perMonth = 0;
-         var earned_perYear = 0;
-         
-         $.ajax({
-         
-            type: "post",
-            url: "getGoal.do",
-            dataType: 'json',
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-             success: function(data) {
-                 var d = data;
-                 if(d.msg == "no"){ // Money_Goal db에 데이터 없을 때 : 차트 0으로 초기화.
-                   
-                   $("#emptyGoalModal").modal();
-                   console.log(startDate + ", " + endDate1 + ", " + endDate2 + ", " + endDate3);
-                 
-                   Highcharts.chart('container', {
-                      chart: {
-                        type: 'column'
-                      },
-                      title: {
-                        text: '매출 목표 달성률'
-                      },
-                      xAxis: {
-                        categories: [
-                          'per week',
-                          'per month',
-                          'per year'
-                        ]
-                      },
-                      yAxis: [{
-                        min: 0,
-                        title: {
-                          text: '매출액 (원)'
-                        }
-                      }, {
-                        title: {
-                          text: '순이익 (원)'
-                        },
-                        opposite: true
-                      }],
-                      legend: {
-                        shadow: false
-                      },
-                      tooltip: {
-                        shared: true
-                      },
-                      plotOptions: {
-                        column: {
-                          grouping: false,
-                          shadow: false,
-                          borderWidth: 0
-                        }
-                      },
-                      series: [{
-                           name: '매출 목표',
-                           color: 'rgba(165,170,217,1)',
-                           data: [perWeek, perMonth, perYear],
-                          //              data: [150, 73, 20],
-                           tooltip: {
-                                valueSuffix: '원'
-                              },
-                           pointPadding: 0.3,
-                           pointPlacement: -0.2
-                      }, {
-                           name: '매출 달성액',
-                           color: 'rgba(126,86,134,.9)',
-                           data: [sold_perWeek, sold_perMonth, sold_perYear],
-                           pointPadding: 0.4,
-                           pointPlacement: -0.2,
-                           tooltip: {
-                                valueSuffix: '원'
-                              },
-                         },{
-                        name: '순이익 목표',
-                        color: 'rgb(153, 216, 201)',
-                        data: [perWeek_pure, perMonth_pure, perYear_pure],
-                        tooltip: {
-                        //  valuePrefix: '',
-                          valueSuffix: '원'
-                        },
-                        pointPadding: 0.3,
-                        pointPlacement: 0.2,
-                        yAxis: 1
-                      }, {
-                        name: '순이익 달성액',
-                        color: 'rgb(47, 205, 166)',
-                        data: [earned_perWeek, earned_perMonth, earned_perYear],
-                        tooltip: {
-                        //  valuePrefix: '',
-                          valueSuffix: '원'
-                        },
-                        pointPadding: 0.4,
-                        pointPlacement: 0.2,
-                        yAxis: 1
-                      }]
-                    });
-                    
-                 
-                   // 목표 매출/순이익 input 0으로 셋팅해줌
-                   $("#perWeek").val(0);
-                   $("#perMonth").val(0);
-                   $("#perYear").val(0);
-                   $("#perWeek_pure").val(0);
-                   $("#perMonth_pure").val(0);
-                   $("#perYear_pure").val(0);
-                   
-                   
-                   
-                 } else { // Money_Goal db에 데이터 있을 때.
-                 
-                 console.log(data);
-                 var goal = data;
-                   
-                 // JSON VALUE 변수에 저장
-                 perWeek = parseInt(goal.perWeek);
-                 perMonth = parseInt(goal.perMonth);
-                 perYear = parseInt(goal.perYear);
-                 
-                 perWeek_pure = parseInt(goal.perWeek_pure);
-                 perMonth_pure = parseInt(goal.perMonth_pure);
-                 perYear_pure = parseInt(goal.perYear_pure);
-                 
-                 
-                 // INPUT에 저장
-                 $("#perWeek").val(perWeek);
-                 $("#perMonth").val(perMonth);
-                 $("#perYear").val(perYear);
-                 
-                 $("#perWeek_pure").val(perWeek_pure);
-                 $("#perMonth_pure").val(perMonth_pure);
-                 $("#perYear_pure").val(perYear_pure);
-                 
-                 console.log(goal);   
-
-                 
-             //// 주별, 월별, 연도별 날짜 구간 잘라서 매출, 매입 받아오기
-             
-            var promise = $.ajax({ // 주간 매출 받아오기
-               
-               type : "get",
-               url : "mainChart.do",
-               data : {"startDate" : startDate, "endDate" : endDate1, "id" : "${login.id}", "m_type" : "매출"},
-               dataType : "json",
-               async : false
-            });
-            
-            promise.done(successFunc);
-         //   promise.fail(failFunc);
-            
-            function successFunc(data) {
-               console.log(data);
-               sold_perWeek = parseInt(data);
-               return sold_perWeek;
-            }
-            
-            
-            var promise2 = $.ajax({ // 주간 매출 받아오기
-               
-               type : "get",
-               url : "mainChart.do",
-               data : {"startDate" : startDate, "endDate" : endDate2, "id" : "${login.id}", "m_type" : "매출"},
-               dataType : "json",
-               async : false
-            });
-            
-            promise2.done(successFunc2);
-         //   promise.fail(failFunc);
-            
-            function successFunc2(data) {
-               console.log(data);
-               sold_perMonth = parseInt(data);
-               return sold_perMonth;
-            }
-            
-            var promise3 = $.ajax({ // 주간 매출 받아오기
-               
-               type : "get",
-               url : "mainChart.do",
-               data : {"startDate" : startDate, "endDate" : endDate3, "id" : "${login.id}", "m_type" : "매출"},
-               dataType : "json",
-               async : false
-            });
-            
-            promise3.done(successFunc3);
-         //   promise.fail(failFunc);
-            
-            function successFunc3(data) {
-               console.log(data);
-               sold_perYear = parseInt(data);
-               return sold_perYear;
-            }
-            
-            
-            var promise4 = $.ajax({ // 주간 순이익 받아오기
-               
-               type : "get",
-               url : "mainChart.do",
-               data : {"startDate" : startDate, "endDate" : endDate1, "id" : "${login.id}", "m_type" : "매입"},
-               dataType : "json",
-               async : false
-            });
-            
-            promise4.done(successFunc4);
-            
-            function successFunc4(data) {
-               console.log(data);
-               earned_perWeek = sold_perWeek - parseInt(data); // 매출-매입 = 순이익.
-               return earned_perWeek;
-            }
-            
-            var promise5 = $.ajax({ // 주간 매출 받아오기
-               
-               type : "get",
-               url : "mainChart.do",
-               data : {"startDate" : startDate, "endDate" : endDate2, "id" : "${login.id}", "m_type" : "매입"},
-               dataType : "json",
-               async : false
-            });
-            
-            promise5.done(successFunc5);
-         //   promise.fail(failFunc);
-            
-            function successFunc5(data) {
-               console.log(data);
-               earned_perMonth = sold_perMonth - parseInt(data);
-               return earned_perMonth;
-            }
-            
-            var promise6 = $.ajax({ // 주간 매출 받아오기
-               
-               type : "get",
-               url : "mainChart.do",
-               data : {"startDate" : startDate, "endDate" : endDate3, "id" : "${login.id}", "m_type" : "매입"},
-               dataType : "json",
-               async : false
-            });
-            
-            promise6.done(successFunc6);
-         //   promise.fail(failFunc);
-            
-            function successFunc6(data) {
-               console.log(data);
-               earned_perYear = sold_perYear - parseInt(data);
-               return earned_perYear;
-            }
-            
-                 ////
-                 
-                 Highcharts.chart('container', {
-                   chart: {
-                     type: 'column'
-                   },
-                   title: {
-                     text: '매출 목표 달성률'
-                   },
-                   xAxis: {
-                     categories: [
-                       'per week',
-                       'per month',
-                       'per year'
-                     ]
-                   },
-                   yAxis: [{
-                     min: 0,
-                     title: {
-                       text: '매출액 (원)'
-                     }
-                   }, {
-                     title: {
-                       text: '순이익 (원)'
-                     },
-                     opposite: true
-                   }],
-                   legend: {
-                     shadow: false
-                   },
-                   tooltip: {
-                     shared: true
-                   },
-                   plotOptions: {
-                     column: {
-                       grouping: false,
-                       shadow: false,
-                       borderWidth: 0
-                     }
-                   },
-                   series: [{
-                        name: '매출 목표',
-                        color: 'rgba(165,170,217,1)',
-                        data: [perWeek, perMonth, perYear],
-                       //              data: [150, 73, 20],
-                        tooltip: {
-                             valueSuffix: '원'
-                           },
-                        pointPadding: 0.3,
-                        pointPlacement: -0.2
-                   }, {
-                        name: '매출 달성액',
-                        color: 'rgba(126,86,134,.9)',
-                        data: [sold_perWeek, sold_perMonth, sold_perYear],
-                        pointPadding: 0.4,
-                        pointPlacement: -0.2,
-                        tooltip: {
-                             valueSuffix: '원'
-                           },
-                      },{
-                     name: '순이익 목표',
-                     color: 'rgb(153, 216, 201)',
-                     data: [perWeek_pure, perMonth_pure, perYear_pure],
-                     tooltip: {
-                     //  valuePrefix: '',
-                       valueSuffix: '원'
-                     },
-                     pointPadding: 0.3,
-                     pointPlacement: 0.2,
-                     yAxis: 1
-                   }, {
-                     name: '순이익 달성액',
-                     color: 'rgb(47, 205, 166)',
-                     data: [earned_perWeek, earned_perMonth, earned_perYear],
-                     tooltip: {
-                     //  valuePrefix: '',
-                       valueSuffix: '원'
-                     },
-                     pointPadding: 0.4,
-                     pointPlacement: 0.2,
-                     yAxis: 1
-                   }]
-                 });
-                 
-                 
-                 
-                 }
-              }   
-            
-         });
-         
-         
-         // 목표 매출/순이익 div 토글
-         $("#modifyGoalBtn").click(function () {
-            $("#modifyGoalDiv").slideToggle("slow");
-         });
-      
-         
-         // 목표 매출/순이익 수정 후 저장 버튼 클릭시 진입
-         $("#saveGoalBtn").click(function () {
-         
-                perWeek = parseInt($("#perWeek").val());
-                perMonth = parseInt($("#perMonth").val());
-                perYear = parseInt($("#perYear").val());
-                perWeek_pure = parseInt($("#perWeek_pure").val());
-                perMonth_pure = parseInt($("#perMonth_pure").val());
-                perYear_pure = parseInt($("#perYear_pure").val());
-                
-
-                $.ajax({
-                   
-                   type : "post",
-                   url : "saveGoal.do",
-                   data : {"id" : "${login.id}", "perWeek" : perWeek, "perMonth" : perMonth, "perYear" : perYear, "perWeek_pure" : perWeek_pure, "perMonth_pure" : perMonth_pure, "perYear_pure" : perYear_pure },
-                   dataType : "json",
-                   async : true,
-                   success : function (msg) {
-                      if(msg.message == "YES"){
-                      alert("저장되었습니다");
-//                  $("#modifyGoalDiv").slideToggle('hide');
-                  location.reload();
-                      } else {
-                         
-                      }
-               }
-                });
-            
-         });
-      
-         //.차트끝
-         
-         
-         
-      /*________________________________쪽지 함수들_____________________________  */
-      
-      
-            $(function chat() {
-               var poll_interval = 7000;
-
-              $.ajax({
-                  type: "get",
-                  url : "chat.do",
-                  data:"id="+"${login.id}", 
-                  success: function(data) {                                    
-                     var parsed = JSON.parse(data);
-                  var result = parsed.result;
-                  $("#here").empty();
-                  for(var i = 0; i< result.length; i++){                                 
-                     addList(result[i][0].value, result[i][1].value, result[i][2].value,
-                           result[i][3].value, result[i][4].value, result[i][5].value
-                        );                                    
-                  }                                    
-                     },
-              error:function(req,sts,err){                                 
-                } ,
-                   complete: function(){
-                  setTimeout(chat, poll_interval);
-                  }  
-
-              });
-         });
-         
-            // 파싱한 json 뿌림
-            function addList(seq,FromID,ToID,ChatTitle,ChatContent,ChatTime) {
-            var m = "받은 메세지";
-            var i = "";
-               if(FromID == "${login.id}"){
-                  m="보낸 메세지";
-                  
-                  $.ajax({
-                         url:"getimage.do",
-                         type:"get",
-                         data:"id="+ToID,
-                         success:function(data){                                   
-                        $("#here").append(
-                              '<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
-                              '<span class="photo media-left">'+
-                                 '<img alt="avatar" src="./upload/'+data+'">'+
-                              '</span>'+
-                                 '<div class="message media-body">'+
-                                       '<span class="name float-left">'+ToID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
-                                       '<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
-                                       '<p>'+ChatTitle+'</p>'+
-                                 '</div>'+ 
-                              '</a>'
-                        );
-                         },
-                         error:function(req,sts,err){                     
-                         }                                     
-                      });      
-               
-               }else{
-                  $.ajax({
-                         url:"getimage.do",
-                         type:"get",
-                         data:"id="+FromID,
-                         success:function(data){                                   
-                        $("#here").append(
-                              '<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
-                              '<span class="photo media-left">'+
-                                 '<img alt="avatar" src="./upload/'+data+'">'+
-                              '</span>'+
-                                 '<div class="message media-body">'+
-                                       '<span class="name float-left">'+FromID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
-                                       '<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
-                                       '<p>'+ChatTitle+'</p>'+
-                                 '</div>'+ 
-                              '</a>'
-                        );
-                         },
-                         error:function(req,sts,err){                     
-                         }                                     
-                      });      
-               }                               
-                                     
-               };   
-
-         function detail(seq) {
-          $.ajax({
-                url:"Mdetail.do",
-                type:"get",
-                data:"seq="+seq,
-                success:function(data){                               
-                 $("#mediumModalLabel").html(data.ChatTitle);
-                 $("#_id").html(data.FromID);
-                $("#hiddenId").val(data.FromID);
-                 $("#_content").html(data.ChatContent);
-                 $("#_date").html(data.ChatTime.substring(0,16));
-               $("#_img").attr("src","upload/"+data.img);
-                },
-                error:function(request,status,error){
-                   alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);                  
-                }                               
-             });                       
-      }
-                           
-      function answer() {               
-      $("#answerId").html(document.getElementById('hiddenId').value);                        
-      };
-                           
-      $(document).on("click","#answer2",function(){ 
-         if($("#content2").val() == ""){
-            alert("내용을 입력해 주십시오");
-         }else if($("#title2").val() == ""){
-            alert("제목을 입력해 주십시오");
-         }else{
-           $.ajax({
-                url:"send.do",
-                type:"get",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                data: {
-                  "fromID" : "${login.id}",
-                  "toID" : $("#answerId").html(),
-                  "chatTitle" : $("#title2").val(),
-                  "chatContent" : $("#content2").val()                                 
-               },                                              
-                success:function(data){
-                alert(data);                                  
-                },
-                error:function(req,sts,err){
-               alert("실패");
-                }                               
-             });                         
-         }
-         $("#content2").val("");
-         $("#title2").val("");
-      });
-      
    
-   });      
-   
-</script>
                               
 </body>
 </html>

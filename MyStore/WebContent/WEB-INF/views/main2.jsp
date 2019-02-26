@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
   <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -30,7 +31,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- 이미지 슬라이더 -->
-    <link href="css/full-slider.css" rel="stylesheet">
+    <link href="css/full-sliders.css" rel="stylesheet">
     
    <style>
     ul li a.dropdown-toggle {
@@ -53,84 +54,71 @@
 			<div id="main-menu" class="main-menu collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 
-					<li class="menu-item-has-children dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-						<i class="menu-icon fa fa-bars"></i>매출관리
-						</a>
-						<ul class="sub-menu children dropdown-menu">
-							<!-- 새끼메뉴 -->
-							<li><i class="fa fa-puzzle-piece"></i><a href="account.do">매출/매입</a></li>
-							<li><i class="menu-icon fa fa-bar-chart"></i><a href="chart.do">상품별 차트</a></li>
-							<li><i class="menu-icon fa fa-bar-chart"></i><a href="montlychart.do">연도별 차트</a></li>
+				   <li class="menu-item-has-children dropdown">
+                      <a href="login.do"> 
+                      <i class="menu-icon fa fa-users"></i>커뮤니티</a>
+                  
+                     <ul class="sub-menu children dropdown-menu">
+                     <li><i class="menu-icon fa fa-sign-in"></i><a
+                        href="datatable.do?category=자유게시판">자유게시판</a></li>
+                     <li><i class="menu-icon fa fa-sign-in"></i><a
+                        href="datatable.do?category=음식업">홍보</a></li>
+                     <li><i class="menu-icon fa fa-sign-in"></i><a
+                        href="datatable.do?category=서비스업">Q&A</a></li>
+                     
+                  </ul></li>
+                    
+                      <li class="menu-item-has-children dropdown">
+                  <a href="login.do">
+                  <i class="menu-icon fa fa-map-o"></i>지도</a>
+                  <ul class="sub-menu children dropdown-menu">
+                     <li><i class="menu-icon fa fa-sign-in"></i>
+                     <a href="formsbasic.do">내주변 가게보기</a></li>
+                  </ul>
+               </li>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="login.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-usd"></i>혜택 계산기</a>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="login.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
+                      </li>
+                                
+                     <li class="menu-item-has-children dropdown">
+                        <a href="login.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-tasks"></i>설문조사</a>
+                      </li>
 
-						</ul>
-					</li>
-
-					<li class="menu-item-has-children dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="menu-icon fa fa-table"></i>매장관리</a>
-						<ul class="sub-menu children dropdown-menu">
-							<li><i class="fa fa-gift"></i><a href="goodslist.do">상품관리</a></li>
-							<li><i class="fa fa-calendar-o"></i><a href="booklist.do">예약관리</a></li>
-							<li><i class="fa fa-id-card-o"></i><a href="emplist.do">직원관리</a></li>
-						</ul>
-					</li>
-
-					<li class="menu-item-has-children dropdown">
-						<a class="singlemenu" href="stock.do" aria-haspopup="true" aria-expanded="false">
-						<i class="menu-icon fa fa-tasks"></i>재고관리</a>
-					<li class="menu-item-has-children dropdown">
-						<a class="singlemenu" href="customer.do" aria-haspopup="true" aria-expanded="false"> 
-						<i class="menu-icon fa fa-th"></i>거래처관리</a>
-					</li>
-
-					<li class="menu-item-has-children dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="menu-icon fa fa-users"></i>커뮤니티
-						</a>
-
-						<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-sign-in"></i>
-							<a href="datatable.do?category=자유게시판">자유게시판</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i>
-							<a href="datatable.do?category=음식업">음식업</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i>
-							<a href="datatable.do?category=서비스업">서비스업</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i>
-							<a href="datatable.do?category=제조업">제조업</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i>
-							<a href="datatable.do?category=도소매업">도소매업</a></li>
-						</ul>
-					</li>
-
-					<li class="menu-item-has-children dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-						<i class="menu-icon fa fa-map-o"></i>지도
-						</a>
-
-						<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-sign-in"></i><a href="formsbasic.do">내주변 가게보기</a></li>
-						</ul>
-					</li>
-
-
-					<li class="menu-item-has-children dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
-							class="menu-icon fa fa-id-card-o"></i>마이페이지</a>
-
-						<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-user"></i><a href="mypage.do">내정보</a></li>
-							<li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
-						</ul>
-					</li>
-
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</nav>
-	</aside>
-	<!-- /#left-panel -->
-	
+                  <li class="menu-item-has-children dropdown">
+                        <a href="login.do">
+                        <i class="menu-icon fa fa-id-card-o"></i>마이페이지</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-user"></i><a href="mypage.do">내정보</a></li>
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
+                        </ul>
+                    </li>
+                    
+                    <c:if test="${login.auth eq 1 }">
+                     <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-id-card-o"></i>관리자</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-user"></i><a href="getMemberlist.do">회원정보</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="qnalist.do">문의</a></li>
+                           
+                           
+                        </ul>
+                    </li>
+                    
+                    </c:if>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    
 	
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
@@ -166,6 +154,7 @@
    
     
     <header>
+   
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -174,25 +163,16 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('images/slider1.jpg')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>정말 쉬운 장부관리</h3>
-              <p>손쉽게 수입과 지출을 기록하세요</p>
-            </div>
+          <div class="carousel-item active" style="background-image: url('images/mainImg1.jpg');height: 700px">
+          
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('images/slider0.jpg')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>한눈에 들어오는 통계</h3>
-              <p>스토어프렌즈는 다양한 통계를 제공합니다</p>	
-            </div>
+          <div class="carousel-item" style="background-image: url('images/mainImg2.jpg');height: 700px">
+         
           </div>
           <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('images/slider5.jpg')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>커뮤니티</h3>
-              <p style="color: white;">우리동네 소상공인과 이야기해요</p>
-            </div>
+          <div class="carousel-item" style="background-image: url('images/mainImg3.jpg');height: 700px">
+           
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -204,6 +184,7 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+     
     </header>
 
      
@@ -213,10 +194,10 @@
             <div class="footer-inner" style="bg-color:#F1F2F7;">
                 <div class="row">
                     <div class="col-6">
-                        Copyright &copy; 2018 Ela Admin
+                        Copyright &copy; 2019 Store Friend
                     </div>
                     <div class="col-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
+                        Designed by <a href="https://colorlib.com">Kim Yuri</a>
                     </div>
                 </div>
             </div>

@@ -24,6 +24,12 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
+	public List<CommunityDto> getBestList(String category) {
+		
+		return CommunityDao.getBestList(category);
+	}
+
+	@Override
 	public CommunityDto getCommunity(int seq) {
 		return CommunityDao.getCommunity(seq);
 	}
@@ -88,6 +94,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 		CommunityDao.sendM(dto);
 	}
+
 
 
 

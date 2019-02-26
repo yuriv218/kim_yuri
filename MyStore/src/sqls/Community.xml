@@ -12,6 +12,16 @@
 				ORDER BY REF DESC, STEP ASC
 </select>
 
+<select id="getBestList" resultType="kh.com.c.model.CommunityDto">
+	SELECT *
+				FROM COMMUNITY
+				 WHERE CATEGORY = #{category}
+				ORDER BY DOWNCOUNT DESC
+</select>
+
+
+
+
   
   <select id="getCommunity" resultType="kh.com.c.model.CommunityDto">
    SELECT * FROM COMMUNITY

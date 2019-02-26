@@ -9,6 +9,8 @@ import kh.com.c.model.CommunityDto;
 public interface CommunityDao {
 
 	List<CommunityDto> getCommunityList(String category);
+	
+	List<CommunityDto> getBestList(String category);
 
 	public CommunityDto getCommunity(int seq);
 

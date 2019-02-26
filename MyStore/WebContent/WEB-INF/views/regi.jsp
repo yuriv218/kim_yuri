@@ -165,7 +165,8 @@
                         class="form-control" size="10" placeholder="주소" data-msg="주소를 ">
 
                   </div>
-
+				
+			
 
                   <!-- <a href="#" id="_btnRegi" class="btn btn-primary btn-flat m-b-30 m-t-30"> Register</a> -->
                 <input type="submit" id="_btnRegi"

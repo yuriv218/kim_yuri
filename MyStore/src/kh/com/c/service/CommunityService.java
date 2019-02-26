@@ -10,6 +10,8 @@ public interface CommunityService {
 
 	public List<CommunityDto> getCommunityList(String category);
 	
+	public List<CommunityDto> getBestList(String category);
+	
 	public CommunityDto getCommunity(int seq);
 	
 	public void uploadCommunity(CommunityDto dto) ;

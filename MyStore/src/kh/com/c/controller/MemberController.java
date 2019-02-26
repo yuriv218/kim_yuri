@@ -2,6 +2,7 @@ package kh.com.c.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.cj.fabric.xmlrpc.base.Array;
+
 import kh.com.c.dao.MemberDao;
+import kh.com.c.model.CommunityDto;
 import kh.com.c.model.MemberDto;
 import kh.com.c.model.YesMember;
+import kh.com.c.service.CommunityService;
 import kh.com.c.service.MemberService;
 import kh.com.c.util.FUpUtil;
 
@@ -35,7 +40,8 @@ public class MemberController {
 	@Autowired
 	MemberService MemberService;
 	
-
+	@Autowired
+	CommunityService CommunityService;
 	
 	@RequestMapping(value="login.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String login(Model model) {
@@ -46,6 +52,7 @@ public class MemberController {
 	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String main2(Model model) {
 		logger.info("MemberController main " + new Date());
+		
 		
 		return "main";
 	}
@@ -68,7 +75,7 @@ public class MemberController {
 /*Auth =  1 관리자 2삭제 3 일반회원 */
 	
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String loginAf(HttpServletRequest req, MemberDto mem)throws Exception {
+	public String loginAf(HttpServletRequest req, MemberDto mem,Model model,String word)throws Exception {
 		logger.info("MemberController loginAf " + new Date());
 		
 		MemberDto login = MemberService.login(mem);
@@ -76,17 +83,37 @@ public class MemberController {
 				
 		if(login != null && !login.getId().equals("")) {			
 			req.getSession().setAttribute("login", login);
-			 
-			if(login.getAuth() == 1) {
-				return "main";
-				
-			}else if(login.getAuth() == 3){
-			//	logger.info("MemberController loginAf 2 " + login.toString());
-				return "main";
-			}else {
-				return "login";
+			
+			// 베스트 글 
+			String category= "자유게시판";
+			List<CommunityDto> list = CommunityService.getBestList(category);
+			
+			ArrayList<String> IdImg = new ArrayList<>();
+			
+			for (int i = 0; i < list.size(); i++) {
+			
+				IdImg.add(MemberService.serchImg(list.get(i).getId()));
+				logger.info(MemberService.serchImg(list.get(i).getId()));
 			}
- 			
+			
+			
+		    List<MemberDto> address =  MemberService.getAddress();
+			
+		    
+			String myaddress = login.getAddress();
+			
+			if(word==null) {
+				word= "없음";
+			}
+			
+			model.addAttribute("word", word);
+			model.addAttribute("address", address);
+			model.addAttribute("myaddress", myaddress);
+			model.addAttribute("list", list);
+			model.addAttribute("IdImg", IdImg);
+			
+			return "main";
+	
 		}else {
 			return "login";
 		}

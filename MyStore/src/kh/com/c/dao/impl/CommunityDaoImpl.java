@@ -28,6 +28,12 @@ public class CommunityDaoImpl implements CommunityDao {
 	}
 
 	@Override
+	public List<CommunityDto> getBestList(String category) {
+		List<CommunityDto> list = sqlSession.selectList(ns + "getBestList",category);		
+		return list;
+	}
+
+	@Override
 	public CommunityDto getCommunity(int seq) {
 		return sqlSession.selectOne(ns+"getCommunity", seq);
 	}
@@ -110,6 +116,7 @@ public class CommunityDaoImpl implements CommunityDao {
 		sqlSession.insert(ns+"sendM",dto);
 		
 	}
+
 
 	
 
