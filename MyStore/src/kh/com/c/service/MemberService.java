@@ -37,4 +37,8 @@ public interface MemberService {
 	public MemberDto getMapInfor(String address);
 	
 	public MemberDto IDgetMember(String id);
+	
+	public 	void checkMail(String id) throws Exception;
+	
+	
 }

@@ -1,11 +1,11 @@
  
-<%@page import="kh.com.c.model.MoneyGoalDto"%>
+
 <%@page import="java.util.Calendar"%>
 <%@page import="kh.com.c.model.MemberDto"%>
 <%@page import="kh.com.c.util.DateUtil"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="kh.com.c.model.MoneyDto"%>
+
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -142,9 +142,9 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                      <li><i class="menu-icon fa fa-sign-in"></i><a
                         href="datatable.do?category=자유게시판">자유게시판</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=음식업">홍보</a></li>
+                        href="datatable.do?category=홍보">홍보</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=서비스업">Q&A</a></li>
+                        href="datatable.do?category=QnA">Q&A</a></li>
                      
                   </ul></li>
                     
@@ -165,7 +165,6 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                         <a href="article.do" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
                       </li>
-                                
                      <li class="menu-item-has-children dropdown">
                         <a href="question.do" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-tasks"></i>설문조사</a>
@@ -445,13 +444,19 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
   
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">
+	    <a href="account.do">
 	      <img class="d-block w-100" src="images/sl.jpg" alt="첫번째 슬라이드">
+	    </a>
 	    </div>
 	    <div class="carousel-item">
+	     <a href="article.do">
 	      <img class="d-block w-100" src="images/s2.jpg" alt="두번째 슬라이드">
+	 	</a>
 	    </div>
 	    <div class="carousel-item">
+	     <a href="question.do">
 	      <img class="d-block w-100" src="images/s3.jpg" alt="세번째 슬라이드">
+	    </a>
 	    </div>
 	  </div>
 		
@@ -480,19 +485,22 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 					<div class="card-body">
                
                		  <div class="vat">
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#tab1"
-								aria-controls="tab1" role="tab" data-toggle="tab">자유게시판</a></li>
-							<li role="presentation"><a href="#tab2"
-								aria-controls="tab2" role="tab" data-toggle="tab">홍보</a></li>
-							<li role="presentation"><a href="#tab3"
-								aria-controls="tab3" role="tab" data-toggle="tab">Q & A</a></li>					
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+						  <li class="nav-item">
+						    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">자유게시판</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">홍보</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">QnA</a>
+						  </li>
 						</ul>
 					 </div>
                
                
-               <div class="tab-content">
-				 <div role="tabpanel" class="tab-pane active" id="tab1">
+              <div class="tab-content" id="myTabContent">
+				  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				 <div class="sec sec1">
 					<c:forEach items="${list }" var="list" varStatus="vs" end="7">
 					
@@ -503,7 +511,10 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 					<col width="150">
 					</colgroup>
 					  <tr>
-					  	<td>${list.title }</td>
+					    <td>
+					    <a href="Cdetail.do?seq=${list.seq }&category='자유게시판'">
+					    ${list.title }</a>
+					    </td>	
 					  	<td align="center">
 					  	<img alt="" src="./upload/${IdImg[vs.index] }"width="20px" height="20px" style="border-radius: 100px;">
 					  	${list.id }
@@ -516,16 +527,59 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 					</div>
 				 </div>
 				 
-				 <div role="tabpanel" class="tab-pane" id="tab2">
-				 <div class="sec">
-				 <p>홍보</p>
-				 </div>
+				  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+				 <div class="sec2">
+				 
+					<c:forEach items="${list2 }" var="list2" varStatus="vs" end="7">
+					
+					  <table>
+					  <colgroup>
+					<col width="250">
+					<col width="150">
+					<col width="150">
+					</colgroup>
+					  <tr>
+					    <td>
+					    <a href="Cdetail.do?seq=${list2.seq }&category='홍보'">
+					    ${list2.title }</a>
+					    </td>	
+					  	<td align="center">
+					  	<img alt="" src="./upload/${IdImg2[vs.index] }"width="20px" height="20px" style="border-radius: 100px;">
+					  	${list2.id }
+					  	</td>
+					  	<td align="center"><i class="fa fa-thumbs-o-up" style="color: #1E90FF;"></i>${list2.downcount }</td>
+					  </tr>
+					  </table>
+				
+					</c:forEach>
+					</div>
 				 </div>
 				 
-				  <div role="tabpanel" class="tab-pane" id="tab3">
-				  <div class="sec">
-				 <p>Q & A</p> 
-				 </div>
+				   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+				 <div class="sec3">
+					<c:forEach items="${list3 }" var="list3" varStatus="vs" end="7">
+					
+					  <table>
+					  <colgroup>
+					<col width="250">
+					<col width="150">
+					<col width="150">
+					</colgroup>
+					  <tr>
+					    <td>
+					    <a href="Cdetail.do?seq=${list3.seq }&category='QnA'">
+					    ${list3.title }</a>
+					    </td>	
+					  	<td align="center">
+					  	<img alt="" src="./upload/${IdImg3[vs.index] }"width="20px" height="20px" style="border-radius: 100px;">
+					  	${list3.id }
+					  	</td>
+					  	<td align="center"><i class="fa fa-thumbs-o-up" style="color: #1E90FF;"></i>${list3.downcount }</td>
+					  </tr>
+					  </table>
+					
+					</c:forEach>
+					</div>
 				 </div>
 				 
 			   </div>
@@ -731,8 +785,8 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                               
                                  function message() {
                                     
-                                    $("#here").empty();
-                                    $("#here")
+                                    $("#_here").empty();
+                                    $("#_here")
                                           .append(
                                                 '<br>'
                                                       + '<br>'
@@ -857,7 +911,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                  readonly="readonly" style="background-color: white;font-size: 11px"" >
                            </div></li>   
 
-                        <li class="list-group-item"><button onclick="message()" id="btn" class="btn btn-outline-success btn-block">쪽지 보내기</button> <span id="here"></span></li>               
+                        <li class="list-group-item"><button onclick="message()" id="btn" class="btn btn-outline-success btn-block">쪽지 보내기</button> <span id="_here"></span></li>               
                      </ul>
 
                      <div align="center"
@@ -931,8 +985,10 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- 쪽지 함수들! -->
 							<script type="text/javascript">
-							jQuery(document).ready(function($) {
-								
+							
+								  $(document).ready(function () {
+				                        chat();
+				                     });
 								
 									$(function chat() {
 										var poll_interval = 7000;

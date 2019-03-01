@@ -24,12 +24,9 @@ public interface MemberDao {
 	
 	List<MemberDto> getMemberList();
 	
-	//마이페이지 가져오기
 	List<MemberDto> getMypageList();
 	
 	public String serchImg(String id);
-	
- 
 	
 	public void updateMember(MemberDto mem);
 	
@@ -37,11 +34,12 @@ public interface MemberDao {
 
 	void deleteMember(String id) throws Exception;
 	
-	//유리
 	List<MemberDto> getAddress();
 	
 	MemberDto getMapInfor(String address);
 	
 	MemberDto IDgetMember(String id);
+	
+	void checkMail(String id) throws Exception;
 	
 }

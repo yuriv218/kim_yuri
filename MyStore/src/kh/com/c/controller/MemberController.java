@@ -72,7 +72,7 @@ public class MemberController {
 	}
 	
 	
-/*Auth =  1 관리자 2삭제 3 일반회원 */
+/*Auth =  1 관리자 2삭제 3 일반회원 4 인증되지않은 회원 */
 	
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(HttpServletRequest req, MemberDto mem,Model model,String word)throws Exception {
@@ -81,22 +81,38 @@ public class MemberController {
 		MemberDto login = MemberService.login(mem);
 	//	logger.info("MemberController loginAf 1 " + login.toString());
 				
-		if(login != null && !login.getId().equals("")) {			
+		if(login != null && !login.getId().equals("") && login.getAuth() == 3) {			
 			req.getSession().setAttribute("login", login);
 			
 			// 베스트 글 
-			String category= "자유게시판";
-			List<CommunityDto> list = CommunityService.getBestList(category);
+			
+			List<CommunityDto> list = CommunityService.getBestList("자유게시판");
+			List<CommunityDto> list2 = CommunityService.getBestList("홍보");
+			List<CommunityDto> list3 = CommunityService.getBestList("QnA");
 			
 			ArrayList<String> IdImg = new ArrayList<>();
+			ArrayList<String> IdImg2 = new ArrayList<>();
+			ArrayList<String> IdImg3 = new ArrayList<>();
 			
-			for (int i = 0; i < list.size(); i++) {
-			
-				IdImg.add(MemberService.serchImg(list.get(i).getId()));
-				logger.info(MemberService.serchImg(list.get(i).getId()));
+			if(list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					IdImg.add(MemberService.serchImg(list.get(i).getId()));	
+				}
+			} 
+			if(list2 != null) {
+				for (int i = 0; i < list2.size(); i++) {
+					IdImg2.add(MemberService.serchImg(list2.get(i).getId()));	
+					logger.info("꺄릉"+MemberService.serchImg(list2.get(i).getId()));
+					
+				}
 			}
-			
-			
+			if(list3 != null) {
+				for (int i = 0; i < list3.size(); i++) {
+					IdImg3.add(MemberService.serchImg(list3.get(i).getId()));	
+				}
+			}
+				
+				
 		    List<MemberDto> address =  MemberService.getAddress();
 			
 		    
@@ -110,12 +126,31 @@ public class MemberController {
 			model.addAttribute("address", address);
 			model.addAttribute("myaddress", myaddress);
 			model.addAttribute("list", list);
+			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
 			model.addAttribute("IdImg", IdImg);
+			model.addAttribute("IdImg2", IdImg2);
+			model.addAttribute("IdImg3", IdImg3);
 			
 			return "main";
 	
-		}else {
-			return "login";
+		}else if(login.getAuth() == 4) {
+			model.addAttribute("message","인증되지 않은 회원입니다");
+			model.addAttribute("url","login.do");
+			
+			return "redirect";	
+		
+		}else if(login.getAuth() == 2) {
+			model.addAttribute("message","삭제된 회원입니다");
+			model.addAttribute("url","login.do");
+			
+			return "redirect";	
+		}
+		else {
+			model.addAttribute("message","아이디 또는 비밀번호를 잘못 입력하셨습니다");
+			model.addAttribute("url","login.do");
+			
+			return "redirect";
 		}
 			}
 	
@@ -144,17 +179,26 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="regiAf.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String regiAf(MemberDto mem) throws Exception {
+	public String regiAf(MemberDto mem,Model model) throws Exception {
 		logger.info("MemberController regiAf " + new Date());
 		
 		logger.info(mem.toString());
 				
 		boolean b = MemberService.addmember(mem);
 		if(b) {
-			return "login";
+			model.addAttribute("mail", mem.getEmail());
+			model.addAttribute("id", mem.getId());
+			
+			return "redirect:sendMail.do";
+		
 		}else {
-			return "regi";
-		}	}
+			
+			model.addAttribute("message","회원가입 실패");
+			model.addAttribute("url","regi.do");
+			
+			return "redirect";
+			}	
+		}
  
 	
 

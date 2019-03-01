@@ -75,68 +75,17 @@
 			</div>
 		</div>
 	</div>
+	
+
+	
+	
 	<script>
 		function goBack() {
 			window.history.back();
 		}
 	</script>
-	
-	<!-- <script type="text/javascript">
-$(document).ready(function() {
-	$("#_btnLogin").click(function() {
-		var action = $("#_frmForm").attr('action');
-		var form_data = {
-			user_id: $("#user_id").val(),
-			user_pw: $("#_pwd").val(),
-			is_ajax: 1
-		};
-		$.ajax({
-			type: "POST",
-			url: action,
-			data: form_data,
-			success: function(response) {
-				if(response == 'success') {
-					$("#message").html("<p style='color:green;font-weight:bold'>로그인 성공!</p>");
-					$("#_frmForm").slideUp('slow');
-				}
-				else {
-					$("#message").html("<p style='color:red'>아이디 또는 비밀번호가 잘못되었습니다.</p>");	
-				}
-			}
-		});
-		return false;
-	});
-});
-</script>
- -->
 
 	  <script type="text/javascript">
-	  
-	   
-		  
-		  /* $("#_btnLogin").click(function() {
-			  
-			  
-		
-			
-			   var check = $("form[name=frmForm]").serialize();
-			  
-			  $.ajax({
-				  type:"post",
-			  	url:"loginAf.do",
-			  	data:check,
-			  	dataType: 'json',
-			  	error:function(){
-	                alert("아이디나 비밀번호를 확인해주세요");
-	             },
-	             
-	             success : function(json){
-	                 alert("성공"); 
-	             }
-			  
-			  });  
-		  });
-			 */
 
 		  
 		$("#_btnLogin").click(function() {
@@ -169,30 +118,7 @@ $(document).ready(function() {
 			}
 		});
 
-		// id저장
-	/* 	var user_id = $.cookie("user_id");
-		if (user_id != null) {
-			$("#_userid").val(user_id);
-			$("#_chk_save_id").attr("checked", "checked");
-		}
-
-		$("#_chk_save_id").click(function() {
-			if ($('input:checkbox[id="_chk_save_id"]').is(":checked")) {
-				if ($("#_userid").val() == "") {
-					$(this).prop("checked", false);
-					alert("아이디를 입력해 주십시오");
-				} else {
-					$.cookie("user_id", $("#_userid").val(), {
-						expires : 7,
-						path : '/'
-					});
-				}
-			} else {
-				$.removeCookie("user_id", {
-					path : '/'
-				});
-			}
-		}); */
+	
 	</script> 
 
 	<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>

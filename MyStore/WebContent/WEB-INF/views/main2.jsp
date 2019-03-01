@@ -8,9 +8,10 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 
-<head>
+<head> 
+ 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
     <title>StoreFriend</title>
     <meta name="description" content="StoreFriend - 소상공인을 위한 장부 관리 사이트">
     <meta name="viewport" content="width=device-width, initial-scale=1">

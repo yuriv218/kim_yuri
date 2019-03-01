@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8" />
-<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -25,12 +25,8 @@
    href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
 <link rel="stylesheet"
    href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <!-- 
 <link rel="stylesheet"
-   href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
- --><link rel="stylesheet"
    href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 <link rel="stylesheet"
    href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
@@ -42,19 +38,14 @@
 <link
    href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
    rel='stylesheet' type='text/css'>
-
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style type="text/css">
 #chkMsg {
    font-size: 1.0em;
 }
 </style>
-<!-- 
-<div class="card-body card-block">
-                            <div class="has-success form-group"><label for="inputIsValid" class=" form-control-label">Input is valid</label><input type="text" id="inputIsValid" class="is-valid form-control-success form-control"></div>
-                            <div class="has-warning form-group"><label for="inputIsInvalid" class=" form-control-label">Input is invalid</label><input type="text" id="inputIsInvalid" class="is-invalid form-control"></div>
-                        </div> -->
 
 </head>
 <body class="bg-dark">
@@ -68,7 +59,7 @@
                </a>
             </div>
             <div class="login-form">
-               <form action="" method="post" id="_frmForm" name="frmForm">
+               <form action="" id="_frmForm" name="frmForm">
                   <div class="form-group">
                      <label>아이디</label> <input type="text" name="id" id="_userid"
                         data-msg="아이디를 " class="has-success form-control"
@@ -95,64 +86,32 @@
                         class="fade" style="color: red" id="repwCheck"></span>
                   </div>
 
-                  <!-- <div class="form-group">
-                            <label>비밀번호</label>
-                            <input type="text" id="_pwd" class="form-control" placeholder="비밀번호">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>비밀번호 확인</label>
-                            <input type="text" name="pwd" id="_pwd2" class="form-control" placeholder="비밀번호 확인">
-                        </div> -->
-
                   <div class="form-group">
                      <label>이름</label> <input type="text" name="name" id="_name"
                         class="form-control" placeholder="이름">
                   </div>
-
-                  <div class="form-group">
-                     <label>휴대전화</label> <input type="text" name="phone" id="_phone"
-                        class="form-control" placeholder="휴대전화" data-msg="휴대전화를 ">
+         		
+         		  <input type="hidden" name="store" value="">
+                  <input type="hidden" name="phone" value="">
+                  <input type="hidden" name="detail" value="">
+                 
+                   <div class="form-group">
+                     <label>번호</label> <input type="text" name="phone" id="_phone"
+                        class="form-control" placeholder="번호를">
                   </div>
 
                   <div class="form-group">
                      <label>이메일</label> <input type="text" name="email" id="_email"
                         class="form-control" placeholder="이메일" data-msg="이메일을 ">
-                  </div>
-
-                  <div class="form-group">
-                     <label>업체명</label> <input type="text" name="store" id="_store"
-                        class="form-control" placeholder="업체명" data-msg="업체명을 ">
-                  </div>
-                  <div class="form-group">
-                     <label>부가가치율(%)</label>&nbsp;&nbsp;<span style="color: gray;"><i
-                        id="popover" class="far fa-question-circle"
-                        data-toggle="popover" title="간이과세자일 경우 선택"
-                        data-placement="bottom"
-                        data-content="일반과세자는 공급가액의 10%, 간이과세자는 공급가액의 10% x 업종별 부가가치율(5~30%)이 부과됩니다."></i></span><br>
-
-                     <select id="vat_ratio" name="vat_ratio" class="form-group">
-                        <option value="1">해당없음</option>
-                        <option value="5">5%</option>
-                        <option value="10">10%</option>
-                        <option value="20">20%</option>
-                        <option value="30">30%</option>
-
-                     </select>
-
-                  </div>
-
-                  <div class="form-group">
-                     <label>매장소개</label> <input type="text" name="detail" id="_detail"
-                        class="form-control" placeholder="매장소개">
-                  </div>
-
+                        <span style="color: red;">메일 인증을 통해 가입이 완료됩니다</span>
+                  </div>    
+                  
                   <div class="form-group">
                      <label>주소</label><br>
                      <div class="row form-group">
                         <div class="col-3">
                            <input type="text" id="sample6_postcode" class="form-control"
-                              placeholder="우편번호">
+                              placeholder="우편번호" readonly="readonly">
                         </div>
                         <div class="col-3">
                            <input type="button" class="btn btn-primary"
@@ -602,21 +561,16 @@
                 
                alert($("#_name").attr("data-msg") + " 입력해 주십시오");
                $("#_name").focus();
-            }else if ($("#_phone").val() == "") {
-                
-               alert($("#_phone").attr("data-msg") + " 입력해 주십시오");
-               $("#_phone").focus();   
             }
-            
+            else if ($("#_phone").val() == "") {
+                
+                alert($("#_phone").attr("data-msg") + " 입력해 주십시오");
+                $("#_phone").focus();
+             }
             else if ($("#_email").val() == "") {
                 
                alert($("#_email").attr("data-msg") + " 입력해 주십시오");
                $("#_email").focus();
-            } else if ($("#_store").val() == "") {
-                
-               alert($("#_store").attr("data-msg") + " 입력해 주십시오");
-               $("#_store").focus();
-            
             } else if ($("#sample6_address").val() == "") {
                 
                alert("주소를 입력해 주십시오");
@@ -625,6 +579,7 @@
             }
             
             else {
+            
                $("#_frmForm").attr("action", "regiAf.do").submit();
             }
          }
@@ -637,7 +592,7 @@
       window.history.back();
    }
 </script>     
-
+ 
    <script
       src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
    <script

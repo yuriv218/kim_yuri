@@ -108,6 +108,12 @@ public class MemberServiceImpl implements MemberService {
 	         return MemberDao.idCheck(id);
 	      }
 
+		@Override
+		public void checkMail(String id) throws Exception {
+			MemberDao.checkMail(id);
+				
+		}
+
 		 
   }
 	 

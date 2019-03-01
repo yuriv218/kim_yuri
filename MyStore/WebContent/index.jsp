@@ -10,6 +10,7 @@
 
 <%
 response.sendRedirect("main2.do");
+
 %>
 
 </body>

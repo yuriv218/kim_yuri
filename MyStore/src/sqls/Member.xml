@@ -7,19 +7,19 @@
 <mapper namespace="Member">
   
 <insert id="addmember" parameterType="kh.com.c.model.MemberDto">
-	INSERT INTO MEMBER(ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH)
-	VALUES(#{id}, #{pwd}, #{name}, #{store}, #{email}, #{address}, #{phone}, #{vat_ratio}, #{detail}, 'noimage.png', 3)
+	INSERT INTO MEMBER(ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE,DETAIL, IMAGE, AUTH)
+	VALUES(#{id}, #{pwd}, #{name}, #{store}, #{email}, #{address}, #{phone},  #{detail}, 'noimage.png', 4)
 </insert>
 
 <select id="getMemberList" resultType="kh.com.c.model.MemberDto">
-	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH 
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, DETAIL, IMAGE, AUTH 
 				FROM MEMBER
 				ORDER BY NAME DESC 
 </select>
 
 <select id="login" parameterType="kh.com.c.model.MemberDto"
 	resultType="kh.com.c.model.MemberDto">
-	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, DETAIL, IMAGE, AUTH
 	FROM MEMBER
 	WHERE ID=#{id} AND PWD=#{pwd}
 </select>
@@ -66,7 +66,7 @@ WHERE ID=#{id}
 </select>
 
 <select id="getMember" resultType="kh.com.c.model.MemberDto">
-	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, VAT_RATIO, DETAIL, IMAGE, AUTH
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE,  DETAIL, IMAGE, AUTH
 	FROM MEMBER
 	WHERE ID=#{id}
 </select>
@@ -123,4 +123,9 @@ WHERE ID=#{id}
    WHERE ID=#{id}
 </select>
 
+<update id="checkMail">
+	UPDATE MEMBER
+	SET AUTH=3
+	WHERE ID=#{id}
+</update>
 </mapper>  

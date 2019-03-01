@@ -29,7 +29,6 @@ public class MemberDto implements Serializable {
 	private String email;
 	private String address;
 	private String phone;
-	private int vat_ratio;
 	private String detail;
 	private String image;
 	private int auth;
@@ -37,7 +36,7 @@ public class MemberDto implements Serializable {
 	public MemberDto() {}
 
 	public MemberDto(String id, String pwd, String name, String store, String email, String address, String phone,
-			int vat_ratio, String detail, String image, int auth) {
+			 String detail, String image, int auth) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -46,7 +45,6 @@ public class MemberDto implements Serializable {
 		this.email = email;
 		this.address = address;
 		this.phone = phone;
-		this.vat_ratio = vat_ratio;
 		this.detail = detail;
 		this.image = image;
 		this.auth = auth;
@@ -108,13 +106,6 @@ public class MemberDto implements Serializable {
 		this.phone = phone;
 	}
 
-	public int getVat_ratio() {
-		return vat_ratio;
-	}
-
-	public void setVat_ratio(int vat_ratio) {
-		this.vat_ratio = vat_ratio;
-	}
 
 	public String getDetail() {
 		return detail;
@@ -143,7 +134,7 @@ public class MemberDto implements Serializable {
 	@Override
 	public String toString() {
 		return "MemberDto [id=" + id + ", pwd=" + pwd + ", name=" + name + ", store=" + store + ", email=" + email
-				+ ", address=" + address + ", phone=" + phone + ", vat_ratio=" + vat_ratio + ", detail=" + detail
+				+ ", address=" + address + ", phone=" + phone + ", vat_ratio=" + ", detail=" + detail
 				+ ", image=" + image + ", auth=" + auth + "]";
 	}
 

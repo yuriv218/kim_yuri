@@ -125,6 +125,13 @@ public class MemberDaoImpl implements MemberDao {
 	   public int idCheck(String id) {
 	      return sqlSession.selectOne(ns+"idCheck", id);
 	   }
+
+
+	@Override
+	public void checkMail(String id) throws Exception {
+		sqlSession.update(ns+"checkMail", id);
+		
+	}
 	 
 
  
