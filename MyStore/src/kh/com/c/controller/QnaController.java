@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kh.com.c.model.MemberDto;
+
 import kh.com.c.model.QnaDto;
 import kh.com.c.model.QnaParam;
 import kh.com.c.service.MemberService;

@@ -59,7 +59,7 @@
                </a>
             </div>
             <div class="login-form">
-               <form action="regi.do" id="_frmForm" name="frmForm">
+               <form action="login.do" id="_frmForm" name="frmForm">
                   <div class="form-group">
                 	메일을 전송하였습니다. 확인 시 가입이 완료됩니다.
                   </div>
@@ -69,7 +69,7 @@
                   <!-- <a href="#" id="_btnRegi" class="btn btn-primary btn-flat m-b-30 m-t-30"> Register</a> -->
                 <input type="submit" id="_btnRegi"
                      class="btn btn-primary btn-flat m-b-30 m-t-30"
-                     style="background-color: #32B16C;" value="회원가입">
+                     style="background-color: #32B16C;" value="로그인">
                      <input type="button" onclick="goBack()"
                      class="btn btn-secondary btn-flat m-b-30 m-t-30"
                      style="background-color: #91989e !important;" value="돌아가기">

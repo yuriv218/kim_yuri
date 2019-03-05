@@ -368,82 +368,6 @@
      	    <!--------------- 여기까지 모든 페이지가 겹치는 부분 ------------------------>
          
             
-            
-        <!--------------- 내용 시작 ------------------------>  
-        <!-- /#header -->
-         
-          <!-------------- 쪽지 Modal1 ---------------------- -->
-         
-           <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header"><div>
-                       	  <div style="float: left;">   <h3 class="modal-title" id="mediumModalLabel">제목</h3></div> 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                          	  <div style="float: right; padding-top: 40px" >
-	                            <input type="hidden" id="hiddenId" value="">
-	                            
-	                            <img class="user-avatar rounded-circle" src="upload/${login.image }" alt="User Avatar" width="37px" height="37px" id="_img">
-	                            <span id="_id" style="padding-left: 5px">아이디</span>
-                          	  </div>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <p id="_content">
-                           	내용  
-                            </p>
-                            <div style="float: right;" id="_date">날짜</div>
-                        </div>
-                        <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary mb-1" data-dismiss="modal" aria-hidden="true">취소</button>                           
-                      <button type="button" class="btn btn-success mb-1" data-toggle="modal" data-target="#answer"  data-dismiss="modal" aria-hidden="true" onclick="answer()"> 답장 </button>
-                       </div>
-                    </div>
-                </div>
-            </div>
-       
-         <!-------------- 쪽지 Modal1 ---------------------- -->  
-            										
-              <div class="modal fade" id="answer" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <div class="modal-title" id="mediumModalLabel" style="font-size: 30px"><span id="answerId">아이디</span> 님에게</div>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">                            
-                           <div class="form-group">
-                                    <div class="input-group">
-                                       <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" id="title2" name="username2" placeholder="제목" class="form-control">                                   
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                            <textarea rows="10" cols="30" class="form-control"  placeholder="내용" id="content2"></textarea>                                       
-                                    </div>
-                                </div>               
-                       	 </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">취소</button>
-                            <button type="button" class="btn btn-success" data-target="#mediumModal" id="answer2">보내기</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            
-         
-     	    <!--------------- 여기까지 모든 페이지가 겹치는 부분 ------------------------>
-         
-            
-            
         <!--------------- 내용 시작 ------------------------> 
         <div class="breadcrumbs">
 			<div class="breadcrumbs-inner">
@@ -476,7 +400,7 @@
 			<!-- Animated -->
 			<div class="animated fadeIn">
 
-				<!-- 여기부터 지도 -->
+			
 				<div class="content">
 					<div class="animated fadeIn">
 						<div class="row">
@@ -728,32 +652,7 @@
 		src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 	<script src="assets/js/main.js"></script>
 
-	<!--  Chart js -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-
-	<!--Chartist Chart-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
-	<script src="assets/js/init/weather-init.js"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
-	<script src="assets/js/init/fullcalendar-init.js"></script>
-
+	
 <!-- 쪽지 함수들! -->
 							<script type="text/javascript">
 							$(document).ready(function () {

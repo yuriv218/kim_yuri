@@ -158,7 +158,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                </li>
                     
                     <li class="menu-item-has-children dropdown">
-                        <a href="account.do" aria-haspopup="true" aria-expanded="false">
+                        <a href="calculator.do" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-usd"></i>혜택 계산기</a>
                     
                     <li class="menu-item-has-children dropdown">
@@ -343,7 +343,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
       <!--------------- 여기까지 모든 페이지가 겹치는 부분 ------------------------>
          
             
-            
+     
         <!--------------- 내용 시작 ------------------------>  
    		 <div class="content">
          <!-- Animated -->
@@ -943,12 +943,14 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                <!----------------/내정보 -------------->
                </div>
                </div>
+        
                <!-- /#add-category -->
+               	
             </div>
             <!-- .animated -->
         
         <!-- /.content -->
-
+		          	
         
         <footer class="site-footer">
             <div class="footer-inner" style="bg-color:#F1F2F7;">
@@ -962,7 +964,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                 </div>
             </div>
         </footer>
-        </div>
+  
   
         <!-- /.site-footer -->
 

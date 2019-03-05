@@ -81,7 +81,8 @@ public class MemberController {
 		MemberDto login = MemberService.login(mem);
 	//	logger.info("MemberController loginAf 1 " + login.toString());
 				
-		if(login != null && !login.getId().equals("") && login.getAuth() == 3) {			
+		if(login != null && !login.getId().equals("")) {	
+			if(login.getAuth() == 3) {
 			req.getSession().setAttribute("login", login);
 			
 			// 베스트 글 
@@ -94,23 +95,23 @@ public class MemberController {
 			ArrayList<String> IdImg2 = new ArrayList<>();
 			ArrayList<String> IdImg3 = new ArrayList<>();
 			
-			if(list != null) {
-				for (int i = 0; i < list.size(); i++) {
-					IdImg.add(MemberService.serchImg(list.get(i).getId()));	
+				if(list != null) {
+					for (int i = 0; i < list.size(); i++) {
+						IdImg.add(MemberService.serchImg(list.get(i).getId()));	
+					}
+				} 
+				if(list2 != null) {
+					for (int i = 0; i < list2.size(); i++) {
+						IdImg2.add(MemberService.serchImg(list2.get(i).getId()));	
+						logger.info("꺄릉"+MemberService.serchImg(list2.get(i).getId()));
+						
+					}
 				}
-			} 
-			if(list2 != null) {
-				for (int i = 0; i < list2.size(); i++) {
-					IdImg2.add(MemberService.serchImg(list2.get(i).getId()));	
-					logger.info("꺄릉"+MemberService.serchImg(list2.get(i).getId()));
-					
+				if(list3 != null) {
+					for (int i = 0; i < list3.size(); i++) {
+						IdImg3.add(MemberService.serchImg(list3.get(i).getId()));	
+					}
 				}
-			}
-			if(list3 != null) {
-				for (int i = 0; i < list3.size(); i++) {
-					IdImg3.add(MemberService.serchImg(list3.get(i).getId()));	
-				}
-			}
 				
 				
 		    List<MemberDto> address =  MemberService.getAddress();
@@ -118,9 +119,9 @@ public class MemberController {
 		    
 			String myaddress = login.getAddress();
 			
-			if(word==null) {
-				word= "없음";
-			}
+				if(word==null) {
+					word= "없음";
+				}
 			
 			model.addAttribute("word", word);
 			model.addAttribute("address", address);
@@ -133,26 +134,26 @@ public class MemberController {
 			model.addAttribute("IdImg3", IdImg3);
 			
 			return "main";
-	
-		}else if(login.getAuth() == 4) {
-			model.addAttribute("message","인증되지 않은 회원입니다");
-			model.addAttribute("url","login.do");
 			
-			return "redirect";	
-		
-		}else if(login.getAuth() == 2) {
-			model.addAttribute("message","삭제된 회원입니다");
-			model.addAttribute("url","login.do");
-			
-			return "redirect";	
-		}
-		else {
+			} else if(login.getAuth() == 4) {
+					model.addAttribute("message","인증되지 않은 회원입니다");
+					model.addAttribute("url","login.do");
+					
+					return "redirect";	
+				
+			}else if(login.getAuth() == 2) {
+					model.addAttribute("message","삭제된 회원입니다");
+					model.addAttribute("url","login.do");
+					
+					return "redirect";	
+			}
+		}else
 			model.addAttribute("message","아이디 또는 비밀번호를 잘못 입력하셨습니다");
 			model.addAttribute("url","login.do");
 			
 			return "redirect";
+			
 		}
-			}
 	
 	
 	@RequestMapping(value="logout.do", method={RequestMethod.GET, RequestMethod.POST})
