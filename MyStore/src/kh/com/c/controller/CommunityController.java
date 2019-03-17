@@ -40,7 +40,7 @@ public class CommunityController {
 
 	
 
-	// "테이블 넣는곳" 카테고리로 가는 거
+	// 커뮤니티(게시판)
 	@RequestMapping(value="datatable.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String datatable(Model model,String category, BbsParam param) {
 	logger.info("MemberController datatable " + new Date());
@@ -48,7 +48,7 @@ public class CommunityController {
 	logger.info("MemberController datatable 키워드 " + param.getS_keyword());
 	
 	
-	if(category == "") {
+	if(category == null) {
 		category = "자유게시판";
 	}
 	

@@ -1,10 +1,7 @@
-<%@page import="kh.com.c.model.ArticleParam"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
- <fmt:requestEncoding value="utf-8" />
  
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -99,27 +96,7 @@
 </head>
 
 <body>
-<%
-		String search = (String) request.getAttribute("search");
-		if (search == null)
-			search = "";
-		
-		String category = (String) request.getAttribute("category");
 
-		
- 		// 조건 저장 후 검색 세션 가져오기
-		ArticleParam saveSearch = null;
-		String _category = "";
-		String _search ="";
-		String _sort ="";
-		if(request.getSession().getAttribute("saveSearch") != null){
-		 saveSearch = (ArticleParam)request.getSession().getAttribute("saveSearch");
-		 _category = saveSearch.getCategory();
-		 _search = saveSearch.getSearch();
-		 _sort = saveSearch.getSort();
-		}
-		
-%>
      <!-- Left Panel -->
        <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
@@ -374,20 +351,9 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-body">
-					<form action="" name="frmForm1" id="_frmFormSearch" method="post">
+					<form action="writeArticle.do" name="g" id="g" method="post">
 					 <table class="table table-striped" style="font-size: 13px"> 
-                                    <tr>
-                                        <td>검색어</td>  
-                                        <td><input type="text" id="search" name="search" value="" style="height: 23px;margin-right: 8px"> 
-                                         <span style="padding-left: 50px">추천 검색어 : &nbsp;</span>
-                                         <a href="#" onclick="recommend('세금')"><span class="badge badge-success">세금</span></a>
-                                         <a href="#" onclick="recommend('정책')"><span class="badge badge-success">정책</span></a>
-                                         <a href="#" onclick="recommend('소상공인')"><span class="badge badge-success">소상공인</span></a>
-                                         <a href="#" onclick="recommend('최저임금')"><span class="badge badge-success">최저임금</span></a>
-                                         <a href="#" onclick="recommend('자영업')"><span class="badge badge-success">자영업</span></a>
-                                        </td> 
-                                        <td></td>
-                                    </tr>
+                                    
                                     <tr>
                                         <td>검색분야</td>
                                         <td>
@@ -422,179 +388,31 @@
 	                                                
                                                 </div>
 										</td>
-                                        <td></td>
+                                        <td>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>정렬</td>
-                                        <td><select id="sort" name="sort" style="width: 200px">
-												<option value="최근 순" selected="selected">최근 순</option>
-												<option value="오래된 순">오래된 순</option>
-												<option value="좋아요 순">좋아요 순</option>
-											</select></td>
-                                        <td></td> 
-                                    </tr>
+                                   <tr>
+                                   <td>제목</td>
+                                   <td>
+                                   <textarea rows="10" cols="60" name="title"><a href="" target="_blank">제목</a></textarea>
+                                   </td>
                             </table>
-							<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber }"> 
-							<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage }">
-							
-					</form> 
-				 		<div align="center"> 
-				 		<button type="button" class="btn btn-success btn-sm" id="_btnSearch">검색</button>
-				 		<button type="button" class="btn btn-secondary btn-sm" id="_saveSearch">조건 저장 후 검색</button>
-				        </div> 
+							 
+					 
+				 		
 				        <div align="right">
-				        <button type="button" class="btn btn-secondary btn-sm" id="Write">기사쓰기</button>
-				        </div>       
+				        <button type="submit" class="btn btn-secondary btn-sm" id="Write">기사쓰기</button>
+				        </div>   
+				        </form>    
 					</div>
 				</div>
 			</div>
 			
-						<div class="row">
-							<div class="col-md-12">
-								<div class="card">
-									<div class="card-body">
-
-										<table class="table" style="text-align: center;">
-										
-											<colgroup>
-												<col width="380">
-												<col width="100">
-												<col width="100">
-											</colgroup>
-
-											<thead>
-												<tr>
-													<th scope="col" style="text-align: center;">제목</th>
-													<th scope="col" style="text-align: center;">작성일</th>
-													<th scope="col" style="text-align: center;">좋아요</th>
-												</tr>
-											</thead>
-
-											<tbody>
-											<c:forEach items="${bbslist }" var="bbs" varStatus="vs">
-											 <tr class="_hover_tr">
-												<td>
-													${bbs.title }
-												</td>
-												<td>
-													${fn:substring(bbs.wdate,0,10) }
-												</td>
-												<td>
-													<a href="#" onclick="like(${bbs.seq})"><i class="fa fa-thumbs-o-up" style="color: #1E90FF;"></i></a><span id="${bbs.seq }">${bbs.likeit }</span>
-												</td>
-											 </tr>	
-											</c:forEach>
-											</tbody>
-
-										</table>
-									<script>
-														function like(seq) {
-															 $.ajax({
-														    	   url:"likeIt.do",
-														    	   type:"get",
-														    	   data:"seq="+seq,
-														    	   success:function(data){
-														    	
-														    		   alert("좋아요 버튼을 누르셨습니다");
-														    			$("#"+seq).html(data);
-														    	   },
-														    	   error:function(req,sts,err){
-														    		   alert("실패");
-														    	   }
-														    	   
-														       });
-													 		}
-														
-														</script>	
-												
-
-									<!-- 페이징 처리 -->
-										<div id="paging_wrap">
-											<jsp:include page="/WEB-INF/views/paging.jsp" flush="false">
-												<jsp:param value="${pageNumber }" name="pageNumber" />
-												<jsp:param value="${pageCountPerScreen }"
-													name="pageCountPerScreen" />
-												<jsp:param value="${recordCountPerPage }"
-													name="recordCountPerPage" />
-												<jsp:param value="${totalRecordCount }"
-													name="totalRecordCount" />
-											</jsp:include>
-										</div>
-
+								
 								
 
-										<script>
-											$(document).ready(function() {
-												$("._hover_tr").mouseover(function() {
-													$(this).children().css("background-color","#F0F5FF");}).mouseout(function() {
-														$(this).children().css("background-color","#FFFFFF");
-														});
-												
-												
-													
-												 
-											/* 세션 가져오기 */
-											 $('input:radio[name=category]:input[value=<%=_category%>]').attr("checked", true);	 
-											 $("#sort option").each(function(){
-												    if($(this).val()=='<%=_sort%>'){
-												      $(this).attr("selected","selected");  
-												    }
-												  });
-											 $("#search").val("<%=_search%>");
-												  
-											});
+									
 
-			
-											/* 검색을 했을 때 */
-											$("#_btnSearch").click(function() {
-												$("#_pageNumber").val(0);
-												$("#_frmFormSearch").attr({
-													"target" : "_self",
-													"action" : "article.do"
-												}).submit();
-											});
-											
-											/* 조건 저장 후 검색을 했을 때 */
-											$("#_saveSearch").click(function() {
-												
-												$("#_pageNumber").val(0);
-												$("#_frmFormSearch").attr({
-													"target" : "_self",
-													"action" : "article.do?save=save"
-												}).submit();
-											});
-
-											/* 페이지번호를 클릭 했을 때 */
-											function goPage(pageNumber) {
-												$("#_pageNumber").val(pageNumber);
-												$("#_frmFormSearch").attr({
-													"target" : "_self",
-													"action" : "article.do"
-												}).submit();
-											}
-											
-											/* 추천검색어를 클릭 했을 때 */
-											function recommend(word) {
-												alert("dd");
-												$("#search").val(word);
-												$("#_pageNumber").val(0);
-												$("#_frmFormSearch").attr({
-													"target" : "_self",
-													"action" : "article.do"
-												}).submit();
-											}
-											
-											/* 글쓰기 */
-											$("#Write").click(function() {
-											location.href='articleWriteGo.do';
-												 
-											});
-										</script>
-
-									</div>
-								</div>
-							</div>
-						</div>
 				
 			</div>
 		</div>
@@ -617,17 +435,16 @@
 
 	</div>
     <!-- Scripts -->
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script>
+											
+	  
+										</script>
 	
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="assets/js/main.js"></script>
 
 										
 </body>

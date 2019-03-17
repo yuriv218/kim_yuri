@@ -163,8 +163,6 @@ public class MemberController {
 		req.getSession().setAttribute("login", "");
 	
 		req.getSession().invalidate();
-	//	Object ob =  req.getSession().getAttribute("login");
-	//	logger.info("MemberController logout " + ob);
 
 		
 		return "redirect:main2.do";
@@ -392,4 +390,41 @@ public class MemberController {
 	      return String.valueOf(idCount);
 	   }
 		
+	
+	@RequestMapping(value="info.do", method={RequestMethod.GET, RequestMethod.POST})
+	public @ResponseBody String info(String id,Model model) {
+		logger.info("MemberController info " + new Date());
+		logger.info("MemberController info " +id+ new Date());
+ 
+		String percent = "";
+		int c = 0;
+		
+		MemberDto mem = MemberService.getMember(id);
+		
+		if(mem.getStore().equals("이름없음"))c++;
+
+		if(mem.getDetail() == null)c++;
+
+		if(mem.getImage().equals("noimage.png"))c++;
+		
+		switch (c) {
+		case 0:
+			percent = "100";
+			break;
+		case 1:
+			percent = "70";
+			break;
+		case 2:
+			percent = "50";
+			break;
+		case 3:
+			percent = "30";
+			break;
+		} 
+		logger.info("MemberController info " +percent+ new Date());
+
+		return percent;
+	}
+	
+	
 }

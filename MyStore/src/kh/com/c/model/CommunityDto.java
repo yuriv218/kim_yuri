@@ -74,8 +74,7 @@ public class CommunityDto implements Serializable {
 		this.del = del;
 	}
 	
-	
-	//이것도 필요??? 혹시나해서 만듬
+
 	public CommunityDto(String id, String store, String title, String content) {
 		super();
 		this.id = id;

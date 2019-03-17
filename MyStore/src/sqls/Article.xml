@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Article">
+
+
+  <select id="getArticle" resultType="kh.com.c.model.ArticleDto">
+   SELECT * FROM ARTICLE
+				 WHERE SEQ= #{seq}
+  </select>
+  
+  <update id="ArticleDelete" parameterType="java.lang.Integer">
+  	UPDATE ARTICLE
+	SET DEL=1
+	WHERE SEQ=#{seq}
+  </update>
+
+  
+  <insert id="uploadArticle" parameterType="kh.com.c.model.ArticleDto">
+  INSERT INTO ARTICLE (SEQ,TITLE,CATEGORY,LIKEIT,WDATE,DEL)
+  VALUES(SEQ_ARTICLE.NEXTVAL, #{title},#{category},0,SYSDATE,0)
+  
+  </insert>
+  
+
+  
+  
+<select id="getArticlePagingList"
+	parameterType="kh.com.c.model.ArticleParam"
+	resultType="kh.com.c.model.ArticleDto">
+	
+	SELECT *
+	FROM 
+		(SELECT ROW_NUMBER() OVER(ORDER BY WDATE DESC) AS RNUM,
+				SEQ,TITLE,CATEGORY,LIKEIT,WDATE,DEL
+		 FROM ARTICLE	
+		 WHERE 1=1
+		 <if test="search != '' and search != null">
+		 		AND TITLE LIKE '%'||#{search}||'%'	 
+		 </if>	 
+		 ) A
+	WHERE RNUM BETWEEN ${start} AND ${end}
+	AND CATEGORY = #{category}
+	<if test="sort == '최근 순'">
+		 ORDER BY WDATE DESC
+    </if>
+    <if test="sort == '오래된 순'">
+		 ORDER BY WDATE ASC
+    </if>
+    <if test="sort == '좋아요 순'">
+		 ORDER BY LIKEIT DESC
+    </if>
+	 
+</select>
+
+<select id="getArticleSearch"
+	parameterType="kh.com.c.model.ArticleParam"
+	resultType="java.lang.Integer">
+
+	SELECT NVL(COUNT(*), 0) AS CNT
+	FROM ARTICLE
+	WHERE 1=1
+	  <if test="search != '' and search != null">
+		 		AND TITLE LIKE '%'||#{search}||'%'	 
+		 </if>		 
+	AND CATEGORY = #{category}
+</select>
+
+
+
+ <update id="likeArticle">
+  UPDATE ARTICLE 
+	SET LIKEIT=LIKEIT+1 
+ WHERE SEQ= #{seq} 
+
+  </update>
+
+</mapper>

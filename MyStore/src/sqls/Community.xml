@@ -133,6 +133,7 @@
 	 		AND C_TYPE LIKE '%'||#{s_keyword}||'%'
 	 	</if>		 
 	 </if>
+	 AND CATEGORY = #{category}
 </select>
 
 

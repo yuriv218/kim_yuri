@@ -31,10 +31,11 @@
 	int totalPageCount = totalRecordCount / recordCountPerPage;
 	//		1 		   =			12	  /	10
 	//      		
-	
+	// 총 게시글이 24개면 2개의 페이지와 4개의 게시글이 남기때문에 페이지가 1개 더 필요!
 	if((totalRecordCount % recordCountPerPage) != 0){
 		totalPageCount++;
 	}
+	
 	
 	//						  1       2    	  3		 4	
 	// 0 1 2 ~ 9			1 ~ 10 11 ~ 20 21 ~ 30   31 ~ 40

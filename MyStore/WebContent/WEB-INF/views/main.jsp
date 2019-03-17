@@ -341,14 +341,24 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
             
          
       <!--------------- 여기까지 모든 페이지가 겹치는 부분 ------------------------>
-         
-            
-     
-        <!--------------- 내용 시작 ------------------------>  
-   		 <div class="content">
+        
+          <!--------------- 내용 시작 ------------------------>  
+             <div class="sufee-alert alert with-close alert-info alert-dismissible fade show" style="height: 40px">
+          	   <div style="float: left; font-size: 12px">
+          	    나의 정보를 추가로 입력해 주세요!&nbsp;&nbsp;&nbsp;보다 원활한 이용이 가능합니다!</div>
+               <div class="progress mb-2" style="width: 300px;float: right;">
+              	 <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="infoBar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">50%</div>
+       		  </div>
+       		  
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+
+   		 <div class="content" > 
          <!-- Animated -->
          <div class="animated fadeIn">
-         
+        
          <!--------------- 배너 ------------------------>  
           <div class="row">
                     <div class="col-lg-3 col-md-6">
@@ -946,25 +956,24 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
         
                <!-- /#add-category -->
                	
-            </div>
+            
             <!-- .animated -->
         
         <!-- /.content -->
+		       <div class="clearfix"></div>
 		          	
         
-        <footer class="site-footer">
-            <div class="footer-inner" style="bg-color:#F1F2F7;">
-                <div class="row">
-                    <div class="col-6">
-                        Copyright &copy; 2018 Ela Admin
-                    </div>
-                    <div class="col-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-  
+       <footer class="site-footer bg-white">
+			<div class="footer-inner bg-white">
+				<div class="row">
+					<div class="col-sm-6">Copyright &copy; 2018 Ela Admin</div>
+					<div class="col-sm-6 text-right">
+						Designed by <a href="https://colorlib.com">Colorlib</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+  </div>
   
         <!-- /.site-footer -->
 
@@ -990,8 +999,28 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 							
 								  $(document).ready(function () {
 				                        chat();
+				                        info();
 				                     });
-								
+								  
+								  $(function info() {
+									
+							     	$.ajax({
+							            type: "get",
+							            url : "info.do",
+							            data:"id="+"${login.id}", 
+							            success: function(data) {							            	
+							            	$("#infoBar").html(data+"%");
+							            	$("#infoBar").css("width",data+"%");
+							               },
+							    	 error:function(request,status,error){	
+							    		 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+							    	   } ,
+							            
+							     	});
+								});
+								  
+								  
 									$(function chat() {
 										var poll_interval = 7000;
 										

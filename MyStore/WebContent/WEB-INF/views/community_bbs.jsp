@@ -444,12 +444,9 @@
 												</table>
 
 												<!-- controller로 넘겨주기 위한 값 -->
-												<input type="hidden" name="pageNumber" id="_pageNumber"
-													value="${(empty pageNumber)?0:pageNumber }"> <input
-													type="hidden" name="recordCountPerPage"
-													id="_recordCountPerPage"
-													value="${(empty recordCountPerPage)?10:recordCountPerPage }">
-											<input type="hidden" name="category" value="${category }"> 
+												<input type="hidden" name="pageNumber" id="_pageNumber" value="${(empty pageNumber)?0:pageNumber }"> 
+												<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage }">
+												<input type="hidden" name="category" value="${category }"> 
 											</form>
 										</div>
 
@@ -547,7 +544,7 @@
 													name="recordCountPerPage" />
 												<jsp:param value="${totalRecordCount }"
 													name="totalRecordCount" />
-											</jsp:include>
+											</jsp:include> 
 										</div>
 
 										<div id="buttons_wrap" align="right">
@@ -561,30 +558,12 @@
 										</div>
 
 										<script>
-											$(document)
-													.ready(
-															function() {
-																$("._hover_tr")
-																		.mouseover(
-																				function() {
-																					$(
-																							this)
-																							.children()
-																							.css(
-																									"background-color",
-																									"#F0F5FF");
-																				})
-																		.mouseout(
-																				function() {
-																					$(
-																							this)
-																							.children()
-																							.css(
-																									"background-color",
-																									"#FFFFFF");
-																				});
-															});
-
+										$(document).ready(function() {
+											$("._hover_tr").mouseover(function() {
+												$(this).children().css("background-color","#F0F5FF");}).mouseout(function() {
+													$(this).children().css("background-color","#FFFFFF");
+													});
+												});
 											$("#_btnAdd")
 													.click(
 															function() {
@@ -603,8 +582,7 @@
 
 											/* 페이지번호를 클릭했을때 */
 											function goPage(pageNumber) {
-												$("#_pageNumber").val(
-														pageNumber);
+												$("#_pageNumber").val(pageNumber);
 												$("#_frmFormSearch").attr({
 													"target" : "_self",
 													"action" : "datatable.do"
