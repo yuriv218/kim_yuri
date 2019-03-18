@@ -320,7 +320,6 @@ public class MemberController {
 		mem.setId(d.getId());
 		mem.setPwd(d.getPwd());
 		mem.setName(d.getName());
-		mem.setStore(d.getStore());
 		mem.setAuth(d.getAuth());
 	
 		req.getSession().setAttribute("login", mem);
