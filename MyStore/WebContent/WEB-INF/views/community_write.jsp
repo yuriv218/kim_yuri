@@ -443,7 +443,10 @@
 
 														<option value="글" selected="selected">글</option>
 														<option value="블랙리스트">블랙리스트</option>
-														<option value="홍보">홍보</option>
+														<option value="항의합니다">항의합니다</option>
+														<option value="칭찬합니다">칭찬합니다</option>
+														<option value="개업했어요">개업했어요</option>
+														<option value="질문합니다">질문합니다</option>
 													</select>
 												</div>
 											</td>
