@@ -82,10 +82,10 @@ public class MemberController {
 	//	logger.info("MemberController loginAf 1 " + login.toString());
 				
 		if(login != null && !login.getId().equals("")) {	
-			if(login.getAuth() == 3) {
-			req.getSession().setAttribute("login", login);
-			
-			// 베스트 글 
+			if(login.getAuth() == 3 || login.getAuth() == 1 ) {
+			req.getSession().setAttribute("login", login); 
+ 
+			// 베스트 글  
 			
 			List<CommunityDto> list = CommunityService.getBestList("자유게시판");
 			List<CommunityDto> list2 = CommunityService.getBestList("홍보");
@@ -103,7 +103,6 @@ public class MemberController {
 				if(list2 != null) {
 					for (int i = 0; i < list2.size(); i++) {
 						IdImg2.add(MemberService.serchImg(list2.get(i).getId()));	
-						logger.info("꺄릉"+MemberService.serchImg(list2.get(i).getId()));
 						
 					}
 				}

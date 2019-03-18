@@ -442,9 +442,11 @@
 				 		<button type="button" class="btn btn-success btn-sm" id="_btnSearch">검색</button>
 				 		<button type="button" class="btn btn-secondary btn-sm" id="_saveSearch">조건 저장 후 검색</button>
 				        </div> 
+				        <c:if test="${login.auth eq 1}">
 				        <div align="right">
 				        <button type="button" class="btn btn-secondary btn-sm" id="Write">기사쓰기</button>
-				        </div>       
+				        </div>  
+				        </c:if>     
 					</div>
 				</div>
 			</div>

@@ -436,13 +436,13 @@
         <!--------------- 내용 시작 ------------------------>  
         <!-- /#header -->
 
-		<div class="breadcrumbs">
+		 <div class="breadcrumbs">
 			<div class="breadcrumbs-inner">
 				<div class="row m-0">
 					<div class="col-sm-4">
 						<div class="page-header float-left">
 							<div class="page-title">
-								<h1>Dashboard</h1>
+								<h1>Store Friend</h1>
 							</div>
 						</div>
 					</div>
@@ -450,9 +450,9 @@
 						<div class="page-header float-right">
 							<div class="page-title">
 								<ol class="breadcrumb text-right">
-									<li><a href="#">Dashboard</a></li>
-									<li><a href="#">Table</a></li>
-									<li class="active">Data table</li>
+									<li><a href="#">Store Friend</a></li>
+									<li><a href="#">마이페이지 </a></li>
+									<li class="active">회원 관리</li>
 								</ol>
 							</div>
 						</div>
@@ -474,16 +474,12 @@
 
 								<table id="bootstrap-data-table" class="table table-bordered"> 
 					 			<colgroup>
-
-								<col style="width:1%;">
-								<col style="width:5%;">
-								<col style="width:5%;">
-								<col style="width:5%;">
-								<col style="width:40%;">
-								<col style="width:5%;">
-								<col style="width:5%;">
-								<col style="width:5%;">
-								
+						        <col width="10px">
+						        <col width="10px">
+						        <col width="10px">
+						        <col width="10px">
+						        <col width="10px">
+						        <col width="30px">
 								</colgroup> 
 									<thead>
 									
@@ -491,57 +487,50 @@
 
 										     <th>ID</th>
                                              <th>NAME</th>
-                                             <th>STORE</th>
                                              <th>EMAIL</th>
                                              <th>ADDRESS</th>
                                              <th>PHONE</th>
-                                             <th>DETAIL</th>
                                              <th>DELETE</th>
                                               
-
 										</tr>
 									</thead>
 							 
-									<!-- 여기서부터 몸통시작!!! -->
 									<tbody>
 										 
-
 									<c:forEach items="${memberlist }" var="qqq" varStatus="vs">
+									
+									<tr>
+									
+									<td style="text-align: center;">${qqq.id }</td>
+									<td style="text-align: center;">${qqq.name }</td>
 								
-												<!-- 답변대기중인 게시글만 보여준다  -->
-												 
-													<tr>
-													 	<c:if test="${qqq.auth eq 2 }">
-									 <td colspan="8" style="text-align: center;">삭제된 회원</td>
- 									 </c:if> 
- 									 <c:if test="${qqq.auth eq 3 }">
-													<td style="text-align: center;">${qqq.id }</td>
-		<td style="text-align: center;">${qqq.name }</td>
-		<td style="text-align: center;">${qqq.store}</td>
-		<td style="text-align: center;">${qqq.email }</td>
-		<td style="text-align: center;">${qqq.address }</td>
-		<td style="text-align: center;">${qqq.phone }</td>
-		<td style="text-align: center;">${qqq.detail } </td>
-		<td style="text-align: center;"><a href="deleteMember.do?id=${qqq.id}">회원삭제</a></td>
-		 </c:if>
-
-													</tr>
+									<td style="text-align: center;">${qqq.email }</td>
+									<td style="text-align: center;">${qqq.address }</td>
+									<td style="text-align: center;">${qqq.phone }</td>
+									
+									<td style="text-align: center;">
+									
+									<c:if test="${qqq.auth eq 3}">
+									<a href="deleteMember.do?id=${qqq.id}" style="color: red;">회원삭제</a>
+		                            </c:if> 
+		                            
+		                            <c:if test="${qqq.auth eq 4}">
+									<a href="deleteMember.do?id=${qqq.id}" style="color: red;">인증하지 않은 회원삭제</a>
+		                            </c:if>  
+		                             
+		                            <c:if test="${qqq.auth eq 2}">
+									삭제된 회원
+		                            </c:if>
+		                            
+		                            </td>
+									</tr>
 											 
-											</c:forEach>
-									 
- 
+									</c:forEach>
+
 									</tbody>
 								</table>
 
 
-
-
-
-
-
-
-
- 
 							</div>
 
 						</div>

@@ -443,30 +443,30 @@
         <!--------------- 내용 시작 ------------------------>  
         <!-- /#header -->
 
-      <div class="breadcrumbs">
-         <div class="breadcrumbs-inner">
-            <div class="row m-0">
-               <div class="col-sm-4">
-                  <div class="page-header float-left">
-                     <div class="page-title">
-                        <h1>마이페이지</h1>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-sm-8">
-                  <div class="page-header float-right">
-                     <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                           <li><a href="#">마이페이지</a></li>
-                           <li><a href="#">문의하기</a></li>
-                           
-                        </ol>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
+       <div class="breadcrumbs">
+			<div class="breadcrumbs-inner">
+				<div class="row m-0">
+					<div class="col-sm-4">
+						<div class="page-header float-left">
+							<div class="page-title">
+								<h1>Store Friend</h1>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="page-header float-right">
+							<div class="page-title">
+								<ol class="breadcrumb text-right">
+									<li><a href="#">Store Friend</a></li>
+									<li><a href="#">마이페이지</a></li>
+									<li class="active">문의하기</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
       <div class="content">
          <div class="animated fadeIn">
@@ -501,16 +501,8 @@
 
                               </tr>
                            </thead>
-                           <!-- 
-                                                <th data-field="state" data-checkbox="true"></th>
-                                                <th data-field="seq">번호</th>
-                                                <th data-field="id">ID</th>
-                                                <th data-field="title" data-editable="false">문의내용</th>
-                                                <th data-field="wdate" data-editable="false">작성일</th>
-                                                <th data-field="price" data-editable="false">처리상태</th>
-                                           </tr> -->
+                        
 
-                           <!-- 여기서부터 몸통시작!!! -->
                            <tbody>
                               <c:if test="${empty qnalist }">
                                  <tr>
@@ -518,23 +510,23 @@
                                  </tr>
                               </c:if>
 
-                              <!-- 관리자일 경우  result==0 답변 안된 게시글만 보여준다 -->
+								<!-- 관리자일 경우 -->
                               <c:if test="${login.auth eq 1 }">
                         
                                  <c:forEach items="${qnalist }" var="qna" varStatus="vs">
-                                    <!-- 답변대기중인 게시글만 보여준다  -->
-                                    <c:if test="${qna.result eq 0 }">
+                        
                                        <tr>
                                           <td style="text-align: center;">${vs.index+1 }</td>
                                           <td style="text-align: center;">${qna.id }</td>
-                                          <td style="text-align: center;"><a
-                                             href="qnadetail.do?seq=${qna.seq }"> ${qna.title }</a></td>
+                                          <td style="text-align: center;">
+                                          <a href="qnadetail.do?seq=${qna.seq }"> ${qna.title }</a></td>
                                           <td>${fn:substring((qna.wdate),0,10) }</td>
-                                       
-                                          <td><c:if test="${qna.result eq 0 }">답변대기</c:if> <c:if
-                                                test="${qna.result eq 1 }">답변완료</c:if></td>
+                                          <td>
+										  <c:if test="${qna.result eq 0 }"><span style="color: red;">답변대기</span></c:if> 
+                                          <c:if test="${qna.result eq 1 }">답변완료</c:if>
+                                          </td>
                                        </tr>
-                                    </c:if>
+                                   
                                  </c:forEach>
                               </c:if>
 
@@ -543,8 +535,6 @@
 
                                  <c:forEach items="${qnalist }" var="qna" varStatus="vs">
                                     <c:if test="${qna.id eq login.id or qna.par_id eq login.id}">
-                                       <%-- <c:if test="${qna.par_id eq login.id }"> --%>
-
 
                                        <tr>
                                           <td style="text-align: center;">${vs.index+1 }</td>
@@ -555,11 +545,15 @@
                                           <img src="images/communityImg/right-drawn-arrow.png" width="20px" height="20px">${qna.title }</i></a>
                                           </c:if>
                                           <c:if test="${qna.id ne '관리자' }">                                          
-                                          <a href="qnadetail.do?seq=${qna.seq }"> ${qna.title }</a></c:if>
+                                          <a href="qnadetail.do?seq=${qna.seq }"> ${qna.title }</a>
+                                          </c:if>
                                           </td>
+                                          
                                           <td>${fn:substring((qna.wdate),0,10) }</td>
-                                          <td><c:if test="${qna.result eq 1 }">답변완료</c:if> <c:if
-                                                test="${qna.result eq 0 }">답변대기</c:if></td>
+                                          <td>
+                                          <c:if test="${qna.result eq 1 }">답변완료</c:if> 
+                                          <c:if test="${qna.result eq 0 }"><span style="color: red;">답변대기</span></c:if>
+                                          </td>
 
                                        </tr>
                                     </c:if>
@@ -568,25 +562,14 @@
                            </tbody>
                         </table>
 
-
-
-
-
-
-
-
-
-
-                        <!-- 여기서부터 몸통끝!!! -->
-
-
-                        <a href="qnawrite.do" class="btn btn-success">글쓰기</a>
+							<div style="float: right;">
+	                        <a href="qnawrite.do" class="btn btn-success">글쓰기</a>
+	                        </div>
                      </div>
 
                   </div>
 
                </div>
-
 
             </div>
          </div>
