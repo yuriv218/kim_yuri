@@ -96,7 +96,7 @@
 
 <body>
      <!-- Left Panel -->
-       <aside id="left-panel" class="left-panel">
+      <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -132,10 +132,7 @@
                         <a href="article.do" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
                       </li>
-                     <li class="menu-item-has-children dropdown">
-                        <a href="question.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-tasks"></i>설문조사</a>
-                      </li>
+                    
 
                   <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -417,6 +414,145 @@
 
 	
 	</script>
+	
+	
+	<!-- 쪽지 함수들! -->
+							<script type="text/javascript">
+							$(document).ready(function () {
+								chat();
+							});
+									$(function chat() {
+										var poll_interval = 7000;
+
+							     	$.ajax({
+							            type: "get",
+							            url : "chat.do",
+							            data:"id="+"${login.id}", 
+							            success: function(data) {							            	
+							            	var parsed = JSON.parse(data);
+											var result = parsed.result;
+											$("#here").empty();
+											for(var i = 0; i< result.length; i++){											
+												addList(result[i][0].value, result[i][1].value, result[i][2].value,
+														result[i][3].value, result[i][4].value, result[i][5].value
+													);												
+											}							            	
+							               },
+							    	 error:function(req,sts,err){							    		  
+							    	   } ,
+							             complete: function(){
+							            setTimeout(chat, poll_interval);
+							            }  
+
+							     	});
+								});
+							   
+									// 파싱한 json 뿌림
+									function addList(seq,FromID,ToID,ChatTitle,ChatContent,ChatTime) {
+									var m = "받은 메세지";
+									var i = "";
+										if(FromID == "${login.id}"){
+											m="보낸 메세지";
+											
+											$.ajax({
+										    	   url:"getimage.do",
+										    	   type:"get",
+										    	   data:"id="+ToID,
+										    	   success:function(data){									    	 
+													$("#here").append(
+															'<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
+															'<span class="photo media-left">'+
+																'<img alt="avatar" src="./upload/'+data+'">'+
+															'</span>'+
+																'<div class="message media-body">'+
+																		'<span class="name float-left">'+ToID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
+																		'<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
+																		'<p>'+ChatTitle+'</p>'+
+																'</div>'+ 
+															'</a>'
+													);
+										    	   },
+										    	   error:function(req,sts,err){			    		  
+										    	   }									    	   
+										       });		
+										
+										}else{
+											$.ajax({
+										    	   url:"getimage.do",
+										    	   type:"get",
+										    	   data:"id="+FromID,
+										    	   success:function(data){									    	 
+													$("#here").append(
+															'<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
+															'<span class="photo media-left">'+
+																'<img alt="avatar" src="./upload/'+data+'">'+
+															'</span>'+
+																'<div class="message media-body">'+
+																		'<span class="name float-left">'+FromID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
+																		'<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
+																		'<p>'+ChatTitle+'</p>'+
+																'</div>'+ 
+															'</a>'
+													);
+										    	   },
+										    	   error:function(req,sts,err){			    		  
+										    	   }									    	   
+										       });		
+										} 										
+										 							
+										};	
+	
+								function detail(seq) {
+								 $.ajax({
+							    	   url:"Mdetail.do",
+							    	   type:"get",
+							    	   data:"seq="+seq,
+							    	   success:function(data){							    		
+							    	 	$("#mediumModalLabel").html(data.ChatTitle);
+							    	 	$("#_id").html(data.FromID);
+							    		$("#hiddenId").val(data.FromID);
+							    	 	$("#_content").html(data.ChatContent);
+							    	 	$("#_date").html(data.ChatTime.substring(0,16));
+										$("#_img").attr("src","upload/"+data.img);
+							    	   },
+							    	   error:function(request,status,error){
+							    		   alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);						
+							    	   }							    	   
+							       });						     
+							}
+														
+							function answer() {					
+							$("#answerId").html(document.getElementById('hiddenId').value);								
+							};
+														
+							$(document).on("click","#answer2",function(){ 
+								if($("#content2").val() == ""){
+									alert("내용을 입력해 주십시오");
+								}else if($("#title2").val() == ""){
+									alert("제목을 입력해 주십시오");
+								}else{
+							 	 $.ajax({
+							    	   url:"send.do",
+							    	   type:"get",
+							    	   contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+							    	   data: {
+											"fromID" : "${login.id}",
+											"toID" : $("#answerId").html(),
+											"chatTitle" : $("#title2").val(),
+											"chatContent" : $("#content2").val()											
+										},											    		   
+							    	   success:function(data){
+							    	   alert(data);							    			
+							    	   },
+							    	   error:function(req,sts,err){
+										alert("실패");
+							    	   }							    	   
+							       }); 								
+								}
+								$("#content2").val("");
+								$("#title2").val("");
+							});
+								</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>

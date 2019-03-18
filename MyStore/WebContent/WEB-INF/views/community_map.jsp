@@ -121,113 +121,69 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 
    <!-- Left Panel -->
    <aside id="left-panel" class="left-panel">
-      <nav class="navbar navbar-expand-sm navbar-default">
-         <div id="main-menu" class="main-menu collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-
-               <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"> <i
-                     class="menu-icon fa fa-bars"></i>매출관리
-               </a>
-                  <ul class="sub-menu children dropdown-menu">
-
-                     <!-- 새끼메뉴 -->
-
-                     <li><i class="fa fa-puzzle-piece"></i><a href="account.do">매출/매입</a></li>
-                     <li><i class="menu-icon fa fa-bar-chart"></i><a
-                        href="chart.do">상품별 차트</a></li>
-                     <li><i class="menu-icon fa fa-bar-chart"></i><a
-                        href="montlychart.do">년도별 차트</a></li>
-
-                  </ul></li>
-
-               <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"> <i
-                     class="menu-icon fa fa-table"></i>매장관리
-               </a>
-                  <ul class="sub-menu children dropdown-menu">
-                     <li><i class="fas fa-stroopwafel"></i><a href="goodslist.do">상품관리</a></li>
-                     <li><i class="fa fa-calendar-o"></i><a href="booklist.do">예약관리</a></li>
-                     <li><i class="fa fa-id-card-o"></i><a href="emplist.do">직원관리</a></li>
-                  </ul></li>
-
-               <li class="menu-item-has-children dropdown"><a href="stock.do"
-                  aria-haspopup="true" aria-expanded="false"> <i
-                     class="menu-icon fa fa-tasks"></i>재고관리
-               </a>
-               <li class="menu-item-has-children dropdown"><a
-                  href="customer.do" aria-haspopup="true" aria-expanded="false">
-                     <i class="menu-icon fa fa-th"></i>거래처관리
-               </a></li>
-
-
-               <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"> <i
-                     class="menu-icon fa fa-users"></i>커뮤니티
-               </a>
-
-                  <ul class="sub-menu children dropdown-menu">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                  
+                      <li class="menu-item-has-children dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                      <i class="menu-icon fa fa-users"></i>커뮤니티</a>
+                  
+                     <ul class="sub-menu children dropdown-menu">
                      <li><i class="menu-icon fa fa-sign-in"></i><a
                         href="datatable.do?category=자유게시판">자유게시판</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=음식업">음식업</a></li>
+                        href="datatable.do?category=홍보">홍보</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=서비스업">서비스업</a></li>
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=제조업">제조업</a></li>
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=도소매업">도소매업</a></li>
+                        href="datatable.do?category=QnA">Q&A</a></li>
+                     
                   </ul></li>
-
-               <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"><i
-                     class="menu-icon fa fa-map-o"></i>지도</a>
+                    
+                      <li class="menu-item-has-children dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="menu-icon fa fa-map-o"></i>지도</a>
                   <ul class="sub-menu children dropdown-menu">
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="formsbasic.do">내주변 가게보기</a></li>
-                  </ul></li>
+                     <li><i class="menu-icon fa fa-sign-in"></i>
+                     <a href="formsbasic.do">내주변 가게보기</a></li>
+                  </ul>
+               </li>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="calculator.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-usd"></i>혜택 계산기</a>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="article.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
+                      </li>
+                    
 
-
-               <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"> <i
-                     class="menu-icon fa fa-id-card-o"></i>마이페이지
-               </a>
-                  <ul class="sub-menu children dropdown-menu">
-                     <li><i class="menu-icon fa fa-user"></i><a href="mypage.do">내정보</a></li>
-
-                     <li><i class="menu-icon fa fa-paper-plane"></i><a
-                        href="qnalist.do">문의하기</a></li>
-
-                  </ul></li>
-               <c:if test="${login.auth eq 1 }">
-                  <li class="menu-item-has-children dropdown"><a href="#"
-                     class="dropdown-toggle" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false"> <i
-                        class="menu-icon fa fa-id-card-o"></i>관리자
-                  </a>
-                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-user"></i><a
-                           href="getMemberlist.do">회원정보</a></li>
-                        <li><i class="menu-icon fa fa-sign-in"></i><a
-                           href="qnalist.do">문의</a></li>
-
-
-                     </ul></li>
-
-               </c:if>
-
-
-
-            </ul>
-         </div>
-         <!-- /.navbar-collapse -->
-      </nav>
-   </aside>
+                  <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-id-card-o"></i>마이페이지</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-user"></i><a href="mypage.do">내정보</a></li>
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
+                        </ul>
+                    </li>
+                    
+                    <c:if test="${login.auth eq 1 }">
+                     <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-id-card-o"></i>관리자</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-user"></i><a href="getMemberlist.do">회원정보</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a href="qnalist.do">문의</a></li>
+                           
+                           
+                        </ul>
+                    </li>
+                    
+                    </c:if>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
      <!-- /#left-panel -->
     <!-- Right Panel -->
       <!-- Right Panel -->
@@ -427,6 +383,14 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                               <div id="map"
                                  style="width: 600px; height: 350px; float: left;"></div>
 
+								<div style="padding-top: 370px">
+		                       	 <form action="formsbasic.do" id="frm" >
+		                        	<div class="input-group">
+		                          	 <input type="text" id="word" name="word" style="height: 35px;width: 100px;margin-right: 10px" class="form-control">
+		                             <div class="input-group-btn"><button class="btn btn-outline-success btn-block" onclick="search()" >지역 검색하기</button></div>
+                                    </div>    			
+		                         </form>
+		                   	 	</div>
 
                               <script type="text/javascript"
                                  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=916ea874e228791dbf525372ff0244e5&libraries=services"></script>
@@ -601,10 +565,11 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     $("#tEmail").val(email);
                                     $("#tDetail").val(detail);
                                     $("#tAddress").val(address);
-                                    $("#tImage").css(
-                                          "background-image",
-                                          "url('upload/" + image
-                                                + "')");
+                                    $("#tImage").attr(
+                                            "src",
+                                            "upload/" + image);
+                                    $("#tImage").attr("onclick","window.open(this.src)");
+                                    
                                  }
                               
                                  function message() {
@@ -685,41 +650,36 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 
                <!-- 여기까지 지도 -->
 
-               <div class="col-md-4">
+                <div class="col-md-4">
                   <section class="card">
-
-
-                     <div id="tImage" class="twt-feed" 
-                        style=" background-image: URL(upload/${login.image}); background-repeat: no-repeat; background-position: 50% 50%;" >
-  
-                        <div class="media">
-                           <div class="media-body" style="text-align: center;">
-                        
-                              <h4 class="text-white display-6" id="tStore">${login.store }</h4>
-                              <p class="text-light" id="tId">${login.id }</p> 
-                           
-                           </div>
-                        </div>
-                     </div>
-
-
-
+		
+								<div class="card-header user-header alt" style="background-color: #87CEEB">
+                                    <div class="media">
+                                        
+                                        <img class="align-self-center rounded-circle mr-3" id="tImage" style="cursor:pointer;width:85px; height:85px;" alt="" src="upload/${login.image}" onclick="window.open(this.src);">
+                                        
+                                        <div class="media-body">
+                                            <h2 class="text-light display-6" id="tId">${login.id }</h2>
+                                            <p id="tStore"> ${login.store }</p>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                      <ul class="list-group list-group-flush">
 
 
-                        <li class="list-group-item"><div class="input-group">
-                              <div class="input-group-addon" style="background-color: #FFA500;">
+                        <li class="list-group-item"><div class="input-group" style="padding: 5px">
+                              <div class="input-group-addon" style="background-color: #ADD8E6;">
                                  <i class="fa fa-envelope-o fa-fw"></i>
                               </div> 
                               <input type="text" id="tEmail" name="username"
                                  value="${login.email }" class="form-control"
-                                 readonly="readonly" style="background-color: white; font-size: 11px"">
+                                 readonly="readonly" style="background-color: white; font-size: 11px;">
                            </div></li>
                            
-                        <li class="list-group-item"><div class="input-group">
-                              <div class="input-group-addon"  style="background-color: #FFA500;">
+                        <li class="list-group-item"><div class="input-group" style="padding: 5px">
+                              <div class="input-group-addon"  style="background-color: #ADD8E6;">
                                  <i class="fa fa-map-marker fa-fw"></i>
                               </div>
                               
@@ -728,37 +688,22 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                  readonly="readonly" style="background-color: white; font-size: 11px">
                            </div></li>   
 
-                     <li class="list-group-item"><div class="input-group">
-                              <div class="input-group-addon"  style="background-color: #FFA500;">
+                     <li class="list-group-item"><div class="input-group" style="padding: 5px">
+                              <div class="input-group-addon"  style="background-color: #ADD8E6;">
                                  <i class="fa fa-info fa-fw"></i>
                               </div>
                               
                               <input type="text" id="tDetail" name="username"
                                  value="${login.detail }" class="form-control"
-                                 readonly="readonly" style="background-color: white;font-size: 11px"" >
+                                 readonly="readonly" style="background-color: white;font-size: 11px" >
                            </div></li>   
                   
-                  
-                  
-      
 
-                     
                         <li class="list-group-item"><button onclick="message()" id="btn" class="btn btn-outline-success btn-block">쪽지 보내기</button> <span id="here"></span></li>
                      
                      </ul>
 
-
-
-                     <div align="center"
-                        style="padding-right: 10px; padding-top: 13px">
-                        <form action="formsbasic.do" id="frm">
-                           <input type="text" id="word" name="word" style="height: 25px">
-
-                           <!-- <input type="submit" value="검색"> -->
-                           <i class="fa fa-search" onclick="search()"
-                              style="cursor: pointer;"></i>
-                        </form>
-                     </div>
+                   
 
                      <script type="text/javascript">
                         function search() {

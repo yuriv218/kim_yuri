@@ -49,13 +49,6 @@ public class MemberController {
 		
 		return "login";
 	}
-	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
-	public String main2(Model model) {
-		logger.info("MemberController main " + new Date());
-		
-		
-		return "main";
-	}
 	
 	@RequestMapping(value="main2.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String main(Model model) {
@@ -71,6 +64,70 @@ public class MemberController {
 		return "address";
 	}
 	
+	@RequestMapping(value="main.do", method={RequestMethod.GET, RequestMethod.POST})
+	public String main2(HttpServletRequest req,Model model,String word) {
+		logger.info("MemberController main " + new Date());
+		
+		MemberDto login = null;
+		
+		if(req.getSession().getAttribute("login") != null) {
+			login = (MemberDto)req.getSession().getAttribute("login");
+		
+			List<CommunityDto> list = CommunityService.getBestList("자유게시판");
+			List<CommunityDto> list2 = CommunityService.getBestList("홍보");
+			List<CommunityDto> list3 = CommunityService.getBestList("QnA");
+			
+			ArrayList<String> IdImg = new ArrayList<>();
+			ArrayList<String> IdImg2 = new ArrayList<>();
+			ArrayList<String> IdImg3 = new ArrayList<>();
+			
+				if(list != null) {
+					for (int i = 0; i < list.size(); i++) {
+						IdImg.add(MemberService.serchImg(list.get(i).getId()));	
+					}
+				} 
+				if(list2 != null) {
+					for (int i = 0; i < list2.size(); i++) {
+						IdImg2.add(MemberService.serchImg(list2.get(i).getId()));	
+						
+					}
+				}
+				if(list3 != null) {
+					for (int i = 0; i < list3.size(); i++) {
+						IdImg3.add(MemberService.serchImg(list3.get(i).getId()));	
+					}
+				}
+				 List<MemberDto> address =  MemberService.getAddress();
+					
+				    
+					String myaddress = login.getAddress();
+					
+						if(word==null) {
+							word= "없음";
+						}
+					
+					model.addAttribute("word", word);
+					model.addAttribute("address", address);
+					model.addAttribute("myaddress", myaddress);
+					model.addAttribute("list", list);
+					model.addAttribute("list2", list2);
+					model.addAttribute("list3", list3);
+					model.addAttribute("IdImg", IdImg);
+					model.addAttribute("IdImg2", IdImg2);
+					model.addAttribute("IdImg3", IdImg3);
+					
+					return "main";
+					
+		}else {
+			model.addAttribute("message","로그인 시간이 지났습니다.");
+			model.addAttribute("url","login.do");
+			
+			return "redirect";	
+			 
+		}
+				
+	   
+	}
 	
 /*Auth =  1 관리자 2삭제 3 일반회원 4 인증되지않은 회원 */
 	
@@ -206,9 +263,8 @@ public class MemberController {
 			HttpServletRequest req, String image,
 			@RequestParam(value="upload", required=false)
 			MultipartFile fileload) throws Exception{
-		logger.info("MemberController mypageUpdateAf " + new Date());
 		
-		logger.info("MemberController mypageUpdateAf " + mem.toString());
+		logger.info("MemberController mypageUpdateAf " + new Date());
 		
 		// filename 취득
 		mem.setImage(fileload.getOriginalFilename());
@@ -227,9 +283,7 @@ public class MemberController {
 		
 		if(mem.getImage() !=null && !mem.getImage().equals(""))
 		{
-		
-		
-		
+			
 		String f = mem.getImage();
 		
 		// 파일명 현재 날짜+시간으로 변경 
@@ -400,9 +454,9 @@ public class MemberController {
 		
 		MemberDto mem = MemberService.getMember(id);
 		
-		if(mem.getStore().equals("이름없음"))c++;
+		if(mem.getStore().equals("이름 없음"))c++;
 
-		if(mem.getDetail() == null)c++;
+		if(mem.getDetail().equals("설명 없음"))c++;
 
 		if(mem.getImage().equals("noimage.png"))c++;
 		

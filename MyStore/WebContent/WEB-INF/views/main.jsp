@@ -165,10 +165,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                         <a href="article.do" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
                       </li>
-                     <li class="menu-item-has-children dropdown">
-                        <a href="question.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-tasks"></i>설문조사</a>
-                      </li>
+                    
 
                   <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -229,7 +226,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                      </button>
                      <div class="dropdown-menu" aria-labelledby="message" style="overflow:scroll;width:400px; height:450px;">
                         <p class="red">쪽지함</p>
-                     <span id ="here"></span>
+                     <span id ="Mhere"></span>
                      </div>
                   </div>
                   
@@ -343,18 +340,19 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
       <!--------------- 여기까지 모든 페이지가 겹치는 부분 ------------------------>
         
           <!--------------- 내용 시작 ------------------------>  
+          <div id="bar">
              <div class="sufee-alert alert with-close alert-info alert-dismissible fade show" style="height: 40px">
-          	   <div style="float: left; font-size: 12px">
+          	   <div style="float: left; font-size: 12px" id="_i">
           	    나의 정보를 추가로 입력해 주세요!&nbsp;&nbsp;&nbsp;보다 원활한 이용이 가능합니다!</div>
                <div class="progress mb-2" style="width: 300px;float: right;">
-              	 <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="infoBar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">50%</div>
+              	 <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" id="infoBar" role="progressbar"  aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
        		  </div>
        		  
                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
                </button>
             </div>
-
+		</div>
    		 <div class="content" > 
          <!-- Animated -->
          <div class="animated fadeIn">
@@ -370,7 +368,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="account.do"><font size="3">커뮤니티</a></font></div>
+                                            <div class="stat-text"><a href="datatable.do?category=자유게시판"><font size="4">커뮤니티</a></font></div>
                                             
                                         </div>
                                     </div>
@@ -388,7 +386,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="stock.do"><font size="3">지도보기</font></a></div>
+                                            <div class="stat-text"><a href="formsbasic.do"><font size="4">지도보기</font></a></div>
                                              
                                         </div>
                                     </div>
@@ -406,7 +404,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="booklist.do"><font size="3">혜택 계산기</font></a></div>
+                                            <div class="stat-text"><a href="calculator.do"><font size="4">혜택 계산기</font></a></div>
                                              
                                         </div>
                                     </div>
@@ -424,7 +422,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><a href="datatable.do?category=자유게시판"><font size="3">관련 기사</font></a></div>
+                                            <div class="stat-text"><a href="article.do"><font size="4">관련 기사</font></a></div>
                                             
                                         </div>
                                     </div>
@@ -449,25 +447,22 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
        <ol class="carousel-indicators">
 	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
 	    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-	    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 	  </ol>
   
 	  <div class="carousel-inner">
+	   
 	    <div class="carousel-item active">
 	    <a href="account.do">
 	      <img class="d-block w-100" src="images/sl.jpg" alt="첫번째 슬라이드">
 	    </a>
 	    </div>
-	    <div class="carousel-item">
-	     <a href="article.do">
-	      <img class="d-block w-100" src="images/s2.jpg" alt="두번째 슬라이드">
-	 	</a>
-	    </div>
+	    
 	    <div class="carousel-item">
 	     <a href="question.do">
-	      <img class="d-block w-100" src="images/s3.jpg" alt="세번째 슬라이드">
+	      <img class="d-block w-100" src="images/s3.jpg" alt="두번째 슬라이드">
 	    </a>
 	    </div>
+	 
 	  </div>
 		
 		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -603,16 +598,25 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                
         <!---------------- 지도  ----------------->  
          
-               <div class="col-md-8">
-				<div class="card">
-					<div class="card-header">
-						<strong class="card-title">내 주변 가게 보기</strong>
-					</div>
-					<div class="card-body">
-               
-                              <div id="map"
-                                 style="width: 580px; height: 350px; float: left;"></div>
+           
+               <div class="col-lg-8">
+                  <div class="card">
 
+                     <div class="row">
+                        <div class="col-xl-8">
+                           <div class="card-body">
+
+                              <div id="map"
+                                 style="width: 600px; height: 350px; float: left;"></div>
+		  						
+		  						<div style="padding-top: 370px">
+		                       	 <form action="formsbasic.do" id="frm" >
+		                        	<div class="input-group">
+		                          	 <input type="text" id="word" name="word" style="height: 35px;width: 100px;margin-right: 10px" class="form-control">
+		                             <div class="input-group-btn"><button class="btn btn-outline-success btn-block" onclick="search()" >지역 검색하기</button></div>
+                                    </div>    			
+		                         </form>
+		                   	 	</div>
 
                               <script type="text/javascript"
                                  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=916ea874e228791dbf525372ff0244e5&libraries=services"></script>
@@ -787,16 +791,15 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     $("#tEmail").val(email);
                                     $("#tDetail").val(detail);
                                     $("#tAddress").val(address);
-                                    $("#tImage").css(
-                                          "background-image",
-                                          "url('upload/" + image
-                                                + "')");
+                                    $("#tImage").attr(
+                                          "src",
+                                          "upload/" + image);
                                  }
                               
                                  function message() {
                                     
-                                    $("#_here").empty();
-                                    $("#_here")
+                                    $("#here").empty();
+                                    $("#here")
                                           .append(
                                                 '<br>'
                                                       + '<br>'
@@ -828,8 +831,8 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                     }, 400);
                                     $("#tDetail").css("top", st + 20);         
                                  
-                 				 }
-                	                 
+                  }
+                                 
                                  
                                  
                                  $(document).on("click","#btnSend0",function(){ 
@@ -866,34 +869,32 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                            </div>
                         </div>
                      </div>
-               
-             
+                  </div>
+               </div>
 
-               <!---------- 여기까지 지도 ------------>
-               
-               <!---------- 내정보 ------------------>
+               <!-- 여기까지 지도 -->
+
                <div class="col-md-4">
                   <section class="card">
-
-
-                     <div id="tImage" class="twt-feed" 
-                        style=" background-image: URL(upload/${login.image}); background-repeat: no-repeat; background-position: 50% 50%;" >
-  
-                        <div class="media">
-                           <div class="media-body" style="text-align: center;">
-                        
-                              <h4 class="text-white display-6" id="tStore">${login.store }</h4>
-                              <p class="text-light" id="tId">${login.id }</p> 
-                           
-                           </div>
-                        </div>
-                     </div>
+		
+								<div class="card-header user-header alt" style="background-color: #87CEEB">
+                                    <div class="media">
+                                        <a href="#">
+                                            <img class="align-self-center rounded-circle mr-3" id="tImage" style="cursor:pointer;width:85px; height:85px;" alt="" src="upload/${login.image}"onclick="window.open(this.src);">
+                                        </a>
+                                        <div class="media-body">
+                                            <h2 class="text-light display-6" id="tId">${login.id }</h2>
+                                            <p id="tStore"> ${login.store }</p>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                      <ul class="list-group list-group-flush">
 
-                     <li class="list-group-item"><div class="input-group">
-                              <div class="input-group-addon" style="background-color: #FFA500;">
+
+                        <li class="list-group-item"><div class="input-group" style="padding: 5px">
+                              <div class="input-group-addon" style="background-color: #ADD8E6;">
                                  <i class="fa fa-envelope-o fa-fw"></i>
                               </div> 
                               <input type="text" id="tEmail" name="username"
@@ -901,8 +902,8 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                  readonly="readonly" style="background-color: white; font-size: 11px"">
                            </div></li>
                            
-                        <li class="list-group-item"><div class="input-group">
-                              <div class="input-group-addon"  style="background-color: #FFA500;">
+                        <li class="list-group-item"><div class="input-group" style="padding: 5px">
+                              <div class="input-group-addon"  style="background-color: #ADD8E6;">
                                  <i class="fa fa-map-marker fa-fw"></i>
                               </div>
                               
@@ -911,8 +912,8 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                  readonly="readonly" style="background-color: white; font-size: 11px">
                            </div></li>   
 
-                     <li class="list-group-item"><div class="input-group">
-                              <div class="input-group-addon"  style="background-color: #FFA500;">
+                     <li class="list-group-item"><div class="input-group" style="padding: 5px">
+                              <div class="input-group-addon"  style="background-color: #ADD8E6;">
                                  <i class="fa fa-info fa-fw"></i>
                               </div>
                               
@@ -920,20 +921,13 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                                  value="${login.detail }" class="form-control"
                                  readonly="readonly" style="background-color: white;font-size: 11px"" >
                            </div></li>   
+                  
 
-                        <li class="list-group-item"><button onclick="message()" id="btn" class="btn btn-outline-success btn-block">쪽지 보내기</button> <span id="_here"></span></li>               
+                        <li class="list-group-item"><button onclick="message()" id="btn" class="btn btn-outline-success btn-block">쪽지 보내기</button> <span id="here"></span></li>
+                     
                      </ul>
 
-                     <div align="center"
-                        style="padding-right: 10px; padding-top: 13px">
-                        <form action="formsbasic.do" id="frm">
-                           <input type="text" id="word" name="word" style="height: 25px">
-
-                           <!-- <input type="submit" value="검색"> -->
-                           <i class="fa fa-search" onclick="search()"
-                              style="cursor: pointer;"></i>
-                        </form>
-                     </div>
+                   
 
                      <script type="text/javascript">
                         function search() {
@@ -948,11 +942,13 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
                   </section>
                </div>
                
-               </div>
-           
-               <!----------------/내정보 -------------->
-               </div>
-               </div>
+               
+            </div>
+            
+         </div>
+         
+      </div>
+
         
                <!-- /#add-category -->
                	
@@ -996,166 +992,165 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- 쪽지 함수들! -->
 							<script type="text/javascript">
-							
-								  $(document).ready(function () {
-				                        chat();
-				                        info();
-				                     });
-								  
-								  $(function info() {
-									
-							     	$.ajax({
-							            type: "get",
-							            url : "info.do",
-							            data:"id="+"${login.id}", 
-							            success: function(data) {							            	
-							            	$("#infoBar").html(data+"%");
-							            	$("#infoBar").css("width",data+"%");
-							               },
-							    	 error:function(request,status,error){	
-							    		 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-
-							    	   } ,
-							            
-							     	});
-								});
-								  
-								  
-									$(function chat() {
-										var poll_interval = 7000;
-										
-							     	$.ajax({
-							            type: "get",
-							            url : "chat.do",
-							            data:"id="+"${login.id}", 
-							            success: function(data) {							            	
-							            	var parsed = JSON.parse(data);
-											var result = parsed.result;
-											$("#here").empty();
-											for(var i = 0; i< result.length; i++){											
-												addList(result[i][0].value, result[i][1].value, result[i][2].value,
-														result[i][3].value, result[i][4].value, result[i][5].value
-													);												
-											}							            	
-							               },
-							    	 error:function(req,sts,err){							    		  
-							    	   } ,
-							             complete: function(){
-							            setTimeout(chat, poll_interval);
-							            }  
-
-							     	});
-								});
-							   
-									// 파싱한 json 뿌림
-									function addList(seq,FromID,ToID,ChatTitle,ChatContent,ChatTime) {
-									var m = "받은 메세지";
-									var i = "";
-										if(FromID == "${login.id}"){
-											m="보낸 메세지";
-											
-											$.ajax({
-										    	   url:"getimage.do",
-										    	   type:"get",
-										    	   data:"id="+ToID,
-										    	   success:function(data){									    	 
-													$("#here").append(
-															'<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
-															'<span class="photo media-left">'+
-																'<img alt="avatar" src="./upload/'+data+'">'+
-															'</span>'+
-																'<div class="message media-body">'+
-																		'<span class="name float-left">'+ToID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
-																		'<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
-																		'<p>'+ChatTitle+'</p>'+
-																'</div>'+ 
-															'</a>'
-													);
-										    	   },
-										    	   error:function(req,sts,err){			    		  
-										    	   }									    	   
-										       });		
-										
-										}else{
-											$.ajax({
-										    	   url:"getimage.do",
-										    	   type:"get",
-										    	   data:"id="+FromID,
-										    	   success:function(data){									    	 
-													$("#here").append(
-															'<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
-															'<span class="photo media-left">'+
-																'<img alt="avatar" src="./upload/'+data+'">'+
-															'</span>'+
-																'<div class="message media-body">'+
-																		'<span class="name float-left">'+FromID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
-																		'<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
-																		'<p>'+ChatTitle+'</p>'+
-																'</div>'+ 
-															'</a>'
-													);
-										    	   },
-										    	   error:function(req,sts,err){			    		  
-										    	   }									    	   
-										       });		
-										} 										
-										 							
-										};	
-	
-								function detail(seq) {
-								 $.ajax({
-							    	   url:"Mdetail.do",
-							    	   type:"get",
-							    	   data:"seq="+seq,
-							    	   success:function(data){							    		
-							    	 	$("#mediumModalLabel").html(data.ChatTitle);
-							    	 	$("#_id").html(data.FromID);
-							    		$("#hiddenId").val(data.FromID);
-							    	 	$("#_content").html(data.ChatContent);
-							    	 	$("#_date").html(data.ChatTime.substring(0,16));
-										$("#_img").attr("src","upload/"+data.img);
-							    	   },
-							    	   error:function(request,status,error){
-							    		   alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);						
-							    	   }							    	   
-							       });						     
-							}
-														
-							function answer() {					
-							$("#answerId").html(document.getElementById('hiddenId').value);								
-							};
-														
-							$(document).on("click","#answer2",function(){ 
-								if($("#content2").val() == ""){
-									alert("내용을 입력해 주십시오");
-								}else if($("#title2").val() == ""){
-									alert("제목을 입력해 주십시오");
-								}else{
-							 	 $.ajax({
-							    	   url:"send.do",
-							    	   type:"get",
-							    	   contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-							    	   data: {
-											"fromID" : "${login.id}",
-											"toID" : $("#answerId").html(),
-											"chatTitle" : $("#title2").val(),
-											"chatContent" : $("#content2").val()											
-										},											    		   
-							    	   success:function(data){
-							    	   alert(data);							    			
-							    	   },
-							    	   error:function(req,sts,err){
-										alert("실패");
-							    	   }							    	   
-							       }); 								
-								}
-								$("#content2").val("");
-								$("#title2").val("");
-							});
+                     $(document).ready(function () {
+                        chat();
+                        info();
+                     });
+	                     $(function info() {
 								
-							
-							
-								</script>
+						     	$.ajax({
+						            type: "get",
+						            url : "info.do",
+						            data:"id="+"${login.id}", 
+						            success: function(data) {							            	
+						            	$("#infoBar").html(data+"%");
+						            	$("#infoBar").css("width",data+"%");
+						            	if(data == 100){ 
+						            		$("#bar").remove();
+						            		
+						            	}
+						               },
+						    	 error:function(request,status,error){	
+						    		 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	
+						    	   } ,
+						            
+						     	});
+							});
+                           $(function chat() {
+                              var poll_interval = 7000;
+                              
+                             $.ajax({
+                                 type: "get",
+                                 url : "chat.do",
+                                 data:"id="+"${login.id}", 
+                                 success: function(data) {                                    
+                                    var parsed = JSON.parse(data);
+                                 var result = parsed.result;
+                                  $("#Mhere").empty();
+                                 for(var i = 0; i< result.length; i++){                                 
+                                    _addList(result[i][0].value, result[i][1].value, result[i][2].value,
+                                          result[i][3].value, result[i][4].value, result[i][5].value
+                                       );   
+                                    
+                                 }                                    
+                                    },
+                             error:function(req,sts,err){                                 
+                               } ,
+                                  complete: function(){
+                                 setTimeout(chat, poll_interval);
+                                 }  
+
+                             });
+                        });
+                        
+                           // 파싱한 json 뿌림
+                           function _addList(seq,FromID,ToID,ChatTitle,ChatContent,ChatTime) {
+                           
+                           var m = "받은 메세지";
+                           var i = "";
+                           if(FromID == "${login.id}"){
+                              m="보낸 메세지";
+                              
+                              $.ajax({
+                                     url:"getimage.do",
+                                     type:"get",
+                                     data:"id="+ToID,
+                                     success:function(data){   
+                                       
+                                    $("#Mhere").append(
+                                          '<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
+                                          '<span class="photo media-left">'+
+                                             '<img alt="avatar" src="./upload/'+data+'">'+
+                                          '</span>'+
+                                             '<div class="message media-body">'+
+                                                   '<span class="name float-left">'+ToID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
+                                                   '<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
+                                                   '<p>'+ChatTitle+'</p>'+
+                                             '</div>'+ 
+                                          '</a>'
+                                    );
+                                     },
+                                     error:function(req,sts,err){                     
+                                     }                                     
+                                  });      
+                           
+                           }else{
+                              $.ajax({
+                                     url:"getimage.do",
+                                     type:"get",
+                                     data:"id="+FromID,
+                                     success:function(data){                                   
+                                    $("#Mhere").append(
+                                          '<a class="dropdown-item media mb-1" data-toggle="modal" data-target="#mediumModal" onclick="detail('+seq+')">'+
+                                          '<span class="photo media-left">'+
+                                             '<img alt="avatar" src="./upload/'+data+'">'+
+                                          '</span>'+
+                                             '<div class="message media-body">'+
+                                                   '<span class="name float-left">'+FromID+'</span>'+ '<span class="badge badge-success">'+m+'</span>'+
+                                                   '<span class="time float-right">'+ChatTime.substring(0,16)+'</span>'+
+                                                   '<p>'+ChatTitle+'</p>'+
+                                             '</div>'+ 
+                                          '</a>'
+                                    );
+                                     },
+                                     error:function(req,sts,err){                     
+                                     }                                     
+                                  });      
+                           }                               
+                                                 
+                           };   
+                        function detail(seq) {
+                         $.ajax({
+                               url:"Mdetail.do",
+                               type:"get",
+                               data:"seq="+seq,
+                               success:function(data){                               
+                                $("#mediumModalLabel").html(data.ChatTitle);
+                                $("#_id").html(data.FromID);
+                               $("#hiddenId").val(data.FromID);
+                                $("#_content").html(data.ChatContent);
+                                $("#_date").html(data.ChatTime.substring(0,16));
+                              $("#_img").attr("src","upload/"+data.img);
+                               },
+                               error:function(request,status,error){
+                                  alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);                  
+                               }                               
+                            });                       
+                     }
+                                          
+                     function answer() {               
+                     $("#answerId").html(document.getElementById('hiddenId').value);                        
+                     };
+                                          
+                     $(document).on("click","#answer2",function(){ 
+                        if($("#content2").val() == ""){
+                           alert("내용을 입력해 주십시오");
+                        }else if($("#title2").val() == ""){
+                           alert("제목을 입력해 주십시오");
+                        }else{
+                          $.ajax({
+                               url:"send.do",
+                               type:"get",
+                               contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                               data: {
+                                 "fromID" : "${login.id}",
+                                 "toID" : $("#answerId").html(),
+                                 "chatTitle" : $("#title2").val(),
+                                 "chatContent" : $("#content2").val()                                 
+                              },                                              
+                               success:function(data){
+                               alert(data);                                  
+                               },
+                               error:function(req,sts,err){
+                              alert("실패");
+                               }                               
+                            });                         
+                        }
+                        $("#content2").val("");
+                        $("#title2").val("");
+                     });
+                        </script>
     
  
 

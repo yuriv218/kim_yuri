@@ -89,79 +89,48 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                   
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-bars"></i>매출관리</a>
-                        <ul class="sub-menu children dropdown-menu">
-                        
-                        <!-- 새끼메뉴 -->
-                        
-                        	<li><i class="fa fa-puzzle-piece"></i><a href="account.do">매출/매입</a></li>
-                            <li><i class="menu-icon fa fa-bar-chart"></i><a href="chart.do">상품별 차트</a></li>
-                            <li><i class="menu-icon fa fa-bar-chart"></i><a href="montlychart.do">연도별 차트</a></li>
-                      
-                        </ul>
-                    </li>
+                      <li class="menu-item-has-children dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                      <i class="menu-icon fa fa-users"></i>커뮤니티</a>
+                  
+                     <ul class="sub-menu children dropdown-menu">
+                     <li><i class="menu-icon fa fa-sign-in"></i><a
+                        href="datatable.do?category=자유게시판">자유게시판</a></li>
+                     <li><i class="menu-icon fa fa-sign-in"></i><a
+                        href="datatable.do?category=홍보">홍보</a></li>
+                     <li><i class="menu-icon fa fa-sign-in"></i><a
+                        href="datatable.do?category=QnA">Q&A</a></li>
+                     
+                  </ul></li>
                     
-                   <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-table"></i>매장관리</a>
-                        <ul class="sub-menu children dropdown-menu">
-                              <li><i class="fa fa-gift"></i><a href="goodslist.do">상품관리</a></li>
-                            <li><i class="fa fa-calendar-o"></i><a href="booklist.do">예약관리</a></li>
-                            <li><i class="fa fa-id-card-o"></i><a href="emplist.do">직원관리</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="stock.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-tasks"></i>재고관리</a>
+                      <li class="menu-item-has-children dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="menu-icon fa fa-map-o"></i>지도</a>
+                  <ul class="sub-menu children dropdown-menu">
+                     <li><i class="menu-icon fa fa-sign-in"></i>
+                     <a href="formsbasic.do">내주변 가게보기</a></li>
+                  </ul>
+               </li>
                     
                     <li class="menu-item-has-children dropdown">
-                        <a href="customer.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-th"></i>거래처관리</a>
+                        <a href="calculator.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-usd"></i>혜택 계산기</a>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="article.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
                       </li>
-                                
                     
-             <li class="menu-item-has-children dropdown"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> <i
-							class="menu-icon fa fa-users"></i>커뮤니티
-					</a>
 
-					<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-sign-in"></i><a
-								href="datatable.do?category=자유게시판">자유게시판</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i><a
-								href="datatable.do?category=음식업">음식업</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i><a
-								href="datatable.do?category=서비스업">서비스업</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i><a
-								href="datatable.do?category=제조업">제조업</a></li>
-							<li><i class="menu-icon fa fa-sign-in"></i><a
-								href="datatable.do?category=도소매업">도소매업</a></li>
-						</ul></li>
-
-					<li class="menu-item-has-children dropdown"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"><i
-							class="menu-icon fa fa-map-o"></i>지도</a>
-						<ul class="sub-menu children dropdown-menu">
-							<li><i class="menu-icon fa fa-sign-in"></i><a
-								href="formsbasic.do">내주변 가게보기</a></li>
-						</ul></li>
-
-                    
                   <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-id-card-o"></i>마이페이지</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-user"></i><a href="mypage.do">내정보</a></li>
-                            
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
-                           
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
                         </ul>
                     </li>
+                    
                     <c:if test="${login.auth eq 1 }">
                      <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -175,9 +144,6 @@
                     </li>
                     
                     </c:if>
-                    
-                    
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -511,6 +477,16 @@
 	<!-- Right Panel -->
 
 	<!-- Scripts -->
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#bootstrap-data-table-export').DataTable();
+		});
+	</script>
+
+
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
 	<script
@@ -521,90 +497,9 @@
 		src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 	<script src="assets/js/main.js"></script>
 
-
-	<script src="assets/js/lib/data-table/datatables.min.js"></script>
-	<script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script src="assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script src="assets/js/lib/data-table/jszip.min.js"></script>
-	<script src="assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script src="assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script src="assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
-	<script src="assets/js/init/datatables-init.js"></script>
-
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#bootstrap-data-table-export').DataTable();
-		});
-	</script>
-
-	<!-- bootstrap JS
-		============================================ -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- wow JS
-		============================================ -->
-	<script src="js/wow.min.js"></script>
-	<!-- price-slider JS
-		============================================ -->
-	<script src="js/jquery-price-slider.js"></script>
-	<!-- meanmenu JS
-		============================================ -->
-	<script src="js/jquery.meanmenu.js"></script>
-	<!-- owl.carousel JS
-		============================================ -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- sticky JS
-		============================================ -->
-	<script src="js/jquery.sticky.js"></script>
-	<!-- scrollUp JS
-		============================================ -->
-	<script src="js/jquery.scrollUp.min.js"></script>
-	<!-- mCustomScrollbar JS
-		============================================ -->
-	<script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-	<!-- metisMenu JS
-		============================================ -->
-	<script src="js/metisMenu/metisMenu.min.js"></script>
-	<script src="js/metisMenu/metisMenu-active.js"></script>
-	<!-- data table JS
-		============================================ -->
-	<script src="js/data-table/bootstrap-table.js"></script>
-	<script src="js/data-table/tableExport.js"></script>
-	<script src="js/data-table/data-table-active.js"></script>
-	<script src="js/data-table/bootstrap-table-editable.js"></script>
-	<script src="js/data-table/bootstrap-editable.js"></script>
-	<script src="js/data-table/bootstrap-table-resizable.js"></script>
-	<script src="js/data-table/colResizable-1.5.source.js"></script>
-	<script src="js/data-table/bootstrap-table-export.js"></script>
-	<!--  editable JS
-		============================================ -->
-	<script src="js/editable/jquery.mockjax.js"></script>
-	<script src="js/editable/mock-active.js"></script>
-	<script src="js/editable/select2.js"></script>
-	<script src="js/editable/moment.min.js"></script>
-	<script src="js/editable/bootstrap-datetimepicker.js"></script>
-	<script src="js/editable/bootstrap-editable.js"></script>
-	<script src="js/editable/xediable-active.js"></script>
-	<!-- Chart JS
-		============================================ -->
-	<script src="js/chart/jquery.peity.min.js"></script>
-	<script src="js/peity/peity-active.js"></script>
-	<!-- tab JS
-		============================================ -->
-	<script src="js/tab.js"></script>
-	<!-- plugins JS
-		============================================ -->
-	<script src="js/plugins.js"></script>
-	<!-- main JS
-		============================================ -->
-	<script src="js/main.js"></script>
-
-
-
-<script type="text/javascript">
+	
+<!-- 쪽지 함수들! -->
+							<script type="text/javascript">
 							$(document).ready(function () {
 								chat();
 							});
@@ -740,10 +635,6 @@
 								$("#title2").val("");
 							});
 								</script>
-
-
-
-
 
 
 

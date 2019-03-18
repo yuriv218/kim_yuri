@@ -87,10 +87,6 @@
                         <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
                       </li>
                                 
-                     <li class="menu-item-has-children dropdown">
-                        <a href="login.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-tasks"></i>설문조사</a>
-                      </li>
 
                   <li class="menu-item-has-children dropdown">
                         <a href="login.do">
@@ -162,20 +158,32 @@
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
+      
+        
         <div class="carousel-inner" role="listbox">
-          <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('images/mainImg1.jpg');height: 700px">
+       
           
-          </div>
-          <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('images/mainImg2.jpg');height: 700px">
+          <div class="carousel-item active">
+		    <a href="login.do">
+		      <img class="d-block w-100" src="images/mainImg1.jpg" alt="첫번째 슬라이드">
+		    </a>
+	     </div>
+      
+     	  <div class="carousel-item">
+		    <a href="login.do">
+		      <img class="d-block w-100" src="images/mainImg2.jpg" alt="두번째 슬라이드">
+		    </a>
+	     </div>
+	     
+           <div class="carousel-item">
+		    <a href="login.do">
+		      <img class="d-block w-100" src="images/mainImg3.jpg" alt="세번째 슬라이드">
+		    </a>
+	     </div>
          
-          </div>
-          <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('images/mainImg3.jpg');height: 700px">
-           
-          </div>
         </div>
+     
+        
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>

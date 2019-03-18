@@ -45,84 +45,53 @@
 <body>
    
    <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
+   <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                   
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-bars"></i>매출관리</a>
-                        <ul class="sub-menu children dropdown-menu">
-                        
-                        <!-- 새끼메뉴 -->
-                        
-                           <li><i class="fa fa-puzzle-piece"></i><a href="account.do">매출/매입</a></li>
-                            <li><i class="menu-icon fa fa-bar-chart"></i><a href="chart.do">상품별 차트</a></li>
-                            <li><i class="menu-icon fa fa-bar-chart"></i><a href="montlychart.do">연도별 차트</a></li>
-                      
-                        </ul>
-                    </li>
-                    
-                   <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-table"></i>매장관리</a>
-                        <ul class="sub-menu children dropdown-menu">
-                              <li><i class="fa fa-gift"></i><a href="goodslist.do">상품관리</a></li>
-                            <li><i class="fa fa-calendar-o"></i><a href="booklist.do">예약관리</a></li>
-                            <li><i class="fa fa-id-card-o"></i><a href="emplist.do">직원관리</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="stock.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-tasks"></i>재고관리</a>
-                    
-                    <li class="menu-item-has-children dropdown">
-                        <a href="customer.do" aria-haspopup="true" aria-expanded="false">
-                        <i class="menu-icon fa fa-th"></i>거래처관리</a>
-                      </li>
-                                
-                    
-             <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"> <i
-                     class="menu-icon fa fa-users"></i>커뮤니티
-               </a>
-
-               <ul class="sub-menu children dropdown-menu">
+                      <li class="menu-item-has-children dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                      <i class="menu-icon fa fa-users"></i>커뮤니티</a>
+                  
+                     <ul class="sub-menu children dropdown-menu">
                      <li><i class="menu-icon fa fa-sign-in"></i><a
                         href="datatable.do?category=자유게시판">자유게시판</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=음식업">음식업</a></li>
+                        href="datatable.do?category=홍보">홍보</a></li>
                      <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=서비스업">서비스업</a></li>
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=제조업">제조업</a></li>
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="datatable.do?category=도소매업">도소매업</a></li>
+                        href="datatable.do?category=QnA">Q&A</a></li>
+                     
                   </ul></li>
-
-               <li class="menu-item-has-children dropdown"><a href="#"
-                  class="dropdown-toggle" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false"><i
-                     class="menu-icon fa fa-map-o"></i>지도</a>
-                  <ul class="sub-menu children dropdown-menu">
-                     <li><i class="menu-icon fa fa-sign-in"></i><a
-                        href="formsbasic.do">내주변 가게보기</a></li>
-                  </ul></li>
-
                     
+                      <li class="menu-item-has-children dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="menu-icon fa fa-map-o"></i>지도</a>
+                  <ul class="sub-menu children dropdown-menu">
+                     <li><i class="menu-icon fa fa-sign-in"></i>
+                     <a href="formsbasic.do">내주변 가게보기</a></li>
+                  </ul>
+               </li>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="calculator.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-usd"></i>혜택 계산기</a>
+                    
+                    <li class="menu-item-has-children dropdown">
+                        <a href="article.do" aria-haspopup="true" aria-expanded="false">
+                        <i class="menu-icon fa fa-bookmark"></i>관련 기사</a>
+                      </li>
+                    
+
                   <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="menu-icon fa fa-id-card-o"></i>마이페이지</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-user"></i><a href="mypage.do">내정보</a></li>
-                            
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
-                           
+                        <li><i class="menu-icon fa fa-paper-plane"></i><a href="qnalist.do">문의하기</a></li>
                         </ul>
                     </li>
+                    
                     <c:if test="${login.auth eq 1 }">
                      <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -136,9 +105,6 @@
                     </li>
                     
                     </c:if>
-                    
-                    
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -438,7 +404,7 @@
                <div class="col-sm-4">
                   <div class="page-header float-left">
                      <div class="page-title">
-                        <h1>마이페이지</h1>
+						<h1>Store Friend</h1>
                      </div>
                   </div>
                </div>
@@ -446,9 +412,9 @@
                   <div class="page-header float-right">
                      <div class="page-title">
                         <ol class="breadcrumb text-right">
-                           <li><a href="#">마이페이지</a></li>
-                  
-                           <li class="active">내 정보 수정</li>
+                           <li><a href="#">Store Friend</a></li>
+							<li><a href="#">마이페이지 </a></li>
+							<li class="active">내 정보 수정</li>
                         </ol>
                      </div>
                   </div>
@@ -469,39 +435,51 @@
                      <!-- Credit Card -->
                      <div id="cardinfo">
                         <div class="card-body">
-                                           <form name="frmForm" id="_frmForm" method="post" action="mypageUpdateAf.do" enctype="multipart/form-data">
+                            <form name="frmForm" id="_frmForm" method="post" action="mypageUpdateAf.do" enctype="multipart/form-data">
                                     
-                                        
-                                        <input type="file" name="upload" id="upload" onchange="fileCheck(this)"
-                               accept="image/gif, image/jpeg, image/png" value="${mem.image }">
-                               
                                        <input type="hidden" name="image" value="${mem.image }">
-                                             <img id="blah" src="./upload/${mem.image }" style="width: 700; height: 250;" alt="이미지 준비중"/>
+                                           <img id="blah" src="./upload/${mem.image }" style="width: 700; height: 250;" alt="이미지 준비중"/>
                                        
-                                       <div class="row form-group">
-                                       <div class="col-6"><br><br><label for="id" class=" form-control-label">아이디</label>
-                                        <input type="text" name="id"id="_userid" class="form-control" readonly="readonly" value="${mem.id }"><br>
-                                       <label for="id" class=" form-control-label">이름</label>
-                                       <input type="text" name="name"id="_name" class="form-control" readonly="readonly" value="${mem.name }"><br>
-                                       <label for="phone" class=" form-control-label">휴대전화</label>
-                                       <input type="text" name="phone" id="_phone" class="form-control" value="${mem.phone }"><br>
-                                       <label for="email" class=" form-control-label">이메일</label>
-                                       <input type="text" name="email" id="_email" class="form-control" value="${mem.email }"><br>
+                                       <div align="right">
+                                        <input type="file" name="upload" id="upload" onchange="fileCheck(this)"
+                              				 accept="image/gif, image/jpeg, image/png" value="${mem.image }">
                                        </div>
                                        
-                                       <div class="col-6"><br><br><label for="store" class=" form-control-label">매장이름</label>
-                                       <input type="text" name="store"id="_stroe" class="form-control" readonly="readonly" value="${mem.store }"><br>
-                                      <div class="row form-group">
-                                       <div class="col-3"><label for="address" class=" form-control-label">주소</label></div>
-                                       <div class="col-5"></div>
-                                       </div>
-                                       <textarea rows="3" name="address" id="_address" class="form-control" readonly="readonly"> ${mem.address }</textarea><br>
-                                       <label for="detail" class=" form-control-label">매장소개</label>
-                                       <textarea rows="3" name="detail" id="_detail" class="form-control">${mem.detail }</textarea>
-                                          </div>
+                                       
+                                       
+                                        <div class="row form-group">
+                                     
+	                                       <div class="col-6">
+		                                       <br><br>
+		                                      
+		                                       <label for="id" class=" form-control-label">아이디</label>
+		                                       <input type="text" name="id"id="_userid" class="form-control" readonly="readonly" value="${mem.id }"><br>
+		                                     
+		                                       <label for="id" class=" form-control-label">이름</label>
+		                                       <input type="text" name="name"id="_name" class="form-control" readonly="readonly" value="${mem.name }"><br>
+		                                      
+		                                       <label for="phone" class=" form-control-label">휴대전화</label>
+		                                       <input type="text" name="phone" id="_phone" class="form-control" value="${mem.phone }"><br>
+		                                      
+		                                       <label for="email" class=" form-control-label">이메일</label>
+		                                       <input type="text" name="email" id="_email" class="form-control" readonly="readonly" value="${mem.email }"><br>
+		                                      
+	                                       </div>
+                                       
+	                                       <div class="col-6">
+		                                       <br><br>
+		                                       
+		                                       <label for="store" class=" form-control-label">매장이름</label>
+		                                       <input type="text" name="store"id="_store" class="form-control" value="${mem.store }"><br>
+		                                      
+		                                       <label for="address" class=" form-control-label">주소</label>
+		                                       <textarea rows="3" name="address" id="_address" class="form-control" readonly="readonly"> ${mem.address }</textarea><br>
+		                                       
+		                                       <label for="detail" class=" form-control-label">매장소개</label>
+		                                       <textarea rows="3" name="detail" id="_detail" class="form-control">${mem.detail }</textarea>
+		                                      
+	                                       </div>
                             
-                                 
-                                       
                                     </div>
                  
                                 
