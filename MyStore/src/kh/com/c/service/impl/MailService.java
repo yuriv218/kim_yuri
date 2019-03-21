@@ -33,8 +33,7 @@ public class MailService {
 			messageHelper.setSubject(subject);
 			messageHelper.setTo(to);
 			messageHelper.setText(body,true);
-			FileSystemResource file = new FileSystemResource(new File("c:\\emailImage.jpg")); 
-			messageHelper.addInline("DUKE.gif", file);
+			
 	
 			mailSender.send(message);
 		} catch (Exception e) {

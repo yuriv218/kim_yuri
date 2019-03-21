@@ -44,7 +44,7 @@ public class MailController {
 		sb.append("<html><body>");
 		sb.append("<meta http-equiv='Content-Type' content='text/html;  charset=euc-kr'>");
 		sb.append("<a href='http://localhost:8090/MyStore/checkMail.do?id="+id+"'>");
-		sb.append("<img src=\"cid:DUKE.gif\">");
+		sb.append("<img src=\"https://user-images.githubusercontent.com/42064351/54694177-26707980-4b6b-11e9-857c-d7aa618e45d8.jpg\">");
 		sb.append("</a>");
 		sb.append("</body></html>");
 		

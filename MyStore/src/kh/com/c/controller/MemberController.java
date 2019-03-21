@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.cj.fabric.xmlrpc.base.Array;
+
 
 import kh.com.c.dao.MemberDao;
 import kh.com.c.model.CommunityDto;
