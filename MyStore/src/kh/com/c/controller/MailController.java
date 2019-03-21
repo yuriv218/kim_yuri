@@ -56,7 +56,7 @@ public class MailController {
 	}
 	
 	
-	
+	//권한 수정
 	@RequestMapping(value="checkMail.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String checkMail(String id)throws Exception {
 		logger.info("MailController checkMail " + new Date());
