@@ -11,8 +11,10 @@
 
 ## Store friend
 > **소상공인**들을 위한 웹 사이트로 다양한 커뮤니티 서비스와 지원 정책에 대한 정보들을 제공합니다.
-* url : <https://blog.naver.com/yuriv>
+* 시연영상 : <https://youtu.be/CplIR8_kjkM>
 * ppt : <https://blog.naver.com/yuriv>
+* url : 준비중
+
 <img width="900" alt="img1" src="https://user-images.githubusercontent.com/42064351/54587154-92b38600-4a62-11e9-90ac-752f309f5d59.PNG">
 
 <img width="900" alt="img2" src="https://user-images.githubusercontent.com/42064351/54589056-f2f8f680-4a67-11e9-9cc2-4ff31512c50c.PNG">
@@ -64,8 +66,4 @@
 
 <hr/>
 
-저의 다른 프로젝트가 궁금하다면?
 
-에어비앤비 예약 사이트 : <https://blog.naver.com/yuriv>
-
-매출 관리 사이트 : <https://blog.naver.com/yuriv>
