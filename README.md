@@ -12,7 +12,7 @@
 ## Store friend
 > **소상공인**들을 위한 웹 사이트로 다양한 커뮤니티 서비스와 지원 정책에 대한 정보들을 제공합니다.
 * 시연영상 : <https://youtu.be/CplIR8_kjkM>
-* ppt : <https://blog.naver.com/yuriv>
+* 기술서pdf : <https://drive.google.com/file/d/1UemwGWUwXt7vMBXTJ-UKDcVc9fujmCzb/view>
 * url : 준비중
 
 <img width="900" alt="img1" src="https://user-images.githubusercontent.com/42064351/54587154-92b38600-4a62-11e9-90ac-752f309f5d59.PNG">
@@ -22,10 +22,10 @@
 
 ### 개발 언어
 
-- spring mvc2 구조 기반
-- java jsp jquery ajax html javaScript Servlet 
+- spring mvc2 구조 
+- java jsp jquery ajax json html javaScript Servlet 
 - html css bootStrap
-- oracle
+- oracle mybatis
 
 ### DB
 
