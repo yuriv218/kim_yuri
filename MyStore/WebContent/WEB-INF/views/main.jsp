@@ -452,13 +452,13 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 	  <div class="carousel-inner">
 	   
 	    <div class="carousel-item active">
-	    <a href="account.do">
+	    <a href="calculator.do">
 	      <img class="d-block w-100" src="images/sl.jpg" alt="첫번째 슬라이드">
 	    </a>
 	    </div>
 	    
 	    <div class="carousel-item">
-	     <a href="question.do">
+	     <a href="article.do">
 	      <img class="d-block w-100" src="images/s3.jpg" alt="두번째 슬라이드">
 	    </a>
 	    </div>
