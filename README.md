@@ -13,7 +13,7 @@
 > **소상공인**들을 위한 웹 사이트로 다양한 커뮤니티 서비스와 지원 정책에 대한 정보들을 제공합니다.
 * 시연영상 : <https://youtu.be/CplIR8_kjkM>
 * 기술서pdf : <https://drive.google.com/file/d/1UemwGWUwXt7vMBXTJ-UKDcVc9fujmCzb/view>
-* url : 준비중
+* url : http://yuriv218.cafe24.com/main2.do   (크롬을 적극 권장합니다.) 
 
 <img width="900" alt="img1" src="https://user-images.githubusercontent.com/42064351/54587154-92b38600-4a62-11e9-90ac-752f309f5d59.PNG">
 
