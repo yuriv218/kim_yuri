@@ -58,6 +58,9 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
     <meta name="description" content="StoreFriend - 소상공인을 위한 장부 관리 사이트">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+	 <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     
@@ -85,6 +88,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=916ea874e228791dbf525372ff0244e5&libraries=services"></script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
     
     
    <style>

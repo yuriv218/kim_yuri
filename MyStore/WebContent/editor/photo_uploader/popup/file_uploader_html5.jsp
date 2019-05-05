@@ -33,7 +33,7 @@ if(cnt == 0) {
 //파일 기본경로
 String dftFilePath = request.getServletContext().getRealPath("/");
 //파일 기본경로 _ 상세경로
-String filePath = dftFilePath + "editor" + File.separator +"multiupload" + File.separator;
+String filePath = request.getServletContext().getRealPath("upload");
 File file = new File(filePath);
 if(!file.exists()) {
 	file.mkdirs();
@@ -64,9 +64,8 @@ sFileInfo += "&bNewLine=true";
 //img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 sFileInfo += "&sFileName="+ filename;
 // sFileInfo += "&sFileURL="+"http://localhost:8090/SmartEditorTest/editor/multiupload/"+realFileNm;
-sFileInfo += "&sFileURL="+"http://localhost:8090/" + request.getContextPath() + "/editor/multiupload/"+realFileNm;
-
-out.println(sFileInfo);
+sFileInfo += "&sFileURL="+request.getServletContext().getRealPath("upload")+realFileNm;
+out.println(sFileInfo); 
 System.out.println("file_uploader_html5 여기까지 왔니?----------------");
 System.out.println("filePath = " + filePath);
 System.out.println("sFileInfo = " + sFileInfo);

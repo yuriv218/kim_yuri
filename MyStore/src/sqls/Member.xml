@@ -130,3 +130,141 @@ WHERE ID=#{id}
 	WHERE ID=#{id}
 </update>
 </mapper>  
+
+
+
+
+
+<!--  hosting 
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Member">
+  
+<insert id="addmember" parameterType="kh.com.c.model.MemberDto">
+	INSERT INTO member(ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE,DETAIL, IMAGE, AUTH)
+	VALUES(#{id}, #{pwd}, #{name}, '이름 없음', #{email}, #{address}, #{phone},  '설명 없음', 'noimage.png', 4)
+</insert>
+
+<select id="getMemberList" resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, DETAIL, IMAGE, AUTH 
+				FROM member
+				ORDER BY NAME DESC 
+</select>
+
+<select id="login" parameterType="kh.com.c.model.MemberDto"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, DETAIL, IMAGE, AUTH
+	FROM member
+	WHERE ID=#{id} AND PWD=#{pwd}
+</select>
+
+<select id="serchImg"
+	parameterType="java.lang.String"
+	resultType="java.lang.String">
+SELECT IMAGE
+FROM member
+WHERE ID=#{id}	
+</select>
+
+<select id="getID" 
+	parameterType="kh.com.c.model.MemberDto"
+	resultType="java.lang.Integer">
+	SELECT IFNULL(COUNT(*), 0)
+	FROM member
+	WHERE ID=#{id}
+</select>
+
+<select id="mypageUpdate" parameterType="kh.com.c.model.MemberDto">
+	UPDATE member SET
+    EMAIL = #{email},
+	ADDRESS = #{address},
+	STORE = #{store},
+	PHONE = #{phone},
+	DETAIL = #{detail},
+	IMAGE = #{image}
+	WHERE ID =#{id}
+	
+</select>
+
+<update id="updatePassword">
+	UPDATE member SET
+	PWD=#{pwd}
+	WHERE ID=#{id}
+</update>
+
+ 
+
+<select id="getMypageList" resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE, DETAIL, IMAGE, AUTH
+	FROM member
+	
+</select>
+
+<select id="getMember" resultType="kh.com.c.model.MemberDto">
+	SELECT ID, PWD, NAME, STORE, EMAIL, ADDRESS, PHONE,  DETAIL, IMAGE, AUTH
+	FROM member
+	WHERE ID=#{id}
+</select>
+
+ 
+
+ 
+<update id="updateMember">
+UPDATE member SET
+EMAIL =#{email},
+ADDRESS =#{address},
+STORE = #{store},
+PHONE =#{phone},
+DETAIL =#{detail},
+IMAGE =#{image}
+WHERE ID=#{id}
+
+</update>
+
+<update id="deleteMember">
+	UPDATE member
+	SET AUTH=2
+	WHERE ID=#{id}
+</update>
+
+
+<select id="getAddress" parameterType="kh.com.c.model.MemberDto"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT address
+	FROM member
+</select>
+
+<select id="getMapInfor" parameterType="kh.com.c.model.MemberDto"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT *
+	FROM member
+	WHERE ADDRESS = #{address}
+</select>
+
+
+<select id="IDgetMember" 
+	parameterType="java.lang.String"
+	resultType="kh.com.c.model.MemberDto">
+	SELECT *
+	FROM member
+	WHERE ID=#{id}
+</select>
+
+<select id="idCheck" 
+   parameterType="java.lang.String"
+   resultType="java.lang.Integer">
+   SELECT IFNULL(COUNT(*), 0)
+   FROM member
+   WHERE ID=#{id}
+</select>
+
+<update id="checkMail">
+	UPDATE member
+	SET AUTH=3
+	WHERE ID=#{id}
+</update>
+</mapper>  -->

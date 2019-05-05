@@ -477,10 +477,15 @@
                               </c:if>
 
 								<!-- 관리자일 경우 -->
-                              <c:if test="${login.auth eq 1 }">
+                              <c:if test="${login.auth eq 1 and !empty qnalist}">
                         
                                  <c:forEach items="${qnalist }" var="qna" varStatus="vs">
-                        
+                        			<c:if test="${qna.id eq 'yuriv218'}">
+                        				<tr>
+                        					<td colspan="3"> 문의글을 입력해 주세요
+                        					</td>
+                        				</tr>
+                        			</c:if>	
                                        <tr>
                                           <td style="text-align: center;">${vs.index+1 }</td>
                                           <td style="text-align: center;">${qna.id }</td>
@@ -497,11 +502,17 @@
                               </c:if>
 
                               <!-- 일반회원일 경우 -->
-                              <c:if test="${login.auth eq 3 }">
+                              <c:if test="${login.auth eq 3 and !empty qnalist}">
 
                                  <c:forEach items="${qnalist }" var="qna" varStatus="vs">
+                        			<c:if test="${qna.id eq 'yuriv218'}">
+                        				<tr>
+                        					<td colspan="3"> 문의글을 입력해 주세요
+                        					</td>
+                        				</tr>
+                        			</c:if>	
+                        			
                                     <c:if test="${qna.id eq login.id or qna.par_id eq login.id}">
-
                                        <tr>
                                           <td style="text-align: center;">${vs.index+1 }</td>
                                           <td style="text-align: center;">${qna.id }</td>

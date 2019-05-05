@@ -68,7 +68,7 @@
 
   </update>
   
-<!-- 답글 -->
+
 <update id="replyCommunityUpdate"
 	parameterType="kh.com.c.model.CommunityDto">
 	UPDATE COMMUNITY 
@@ -156,4 +156,169 @@
    SELECT * FROM CHAT
 				 WHERE SEQ= #{seq}
   </select>
-</mapper>
+</mapper> 
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Community">
+
+<select id="getCommunityList" resultType="kh.com.c.model.CommunityDto">
+	SELECT *
+				FROM community
+				WHERE CATEGORY = #{category}
+				ORDER BY REF DESC, STEP ASC
+</select> 
+
+<select id="getBestList" resultType="kh.com.c.model.CommunityDto">
+	SELECT *
+				FROM community
+				 WHERE CATEGORY = #{category}
+				ORDER BY DOWNCOUNT DESC
+</select>
+
+
+
+
+  
+  <select id="getCommunity" resultType="kh.com.c.model.CommunityDto">
+   SELECT * FROM community
+				 WHERE SEQ= #{seq}
+  </select>
+  
+  <update id="Communitydelete" parameterType="java.lang.Integer">
+  	UPDATE community
+	SET DEL=1
+	WHERE SEQ=#{seq}
+  </update>
+  
+  
+  <insert id="uploadCommunity" parameterType="kh.com.c.model.CommunityDto">
+  INSERT INTO community (ID,STORE,TITLE,CONTENT,CATEGORY,C_TYPE,REF,STEP,DEPTH,
+  READCOUNT,DOWNCOUNT,FILENAME,WDATE,DEL)
+  VALUES(#{id},#{store},#{title},#{content},#{category},#{c_type},(SELECT IFNULL(MAX(REF),0)+1 FROM community ALIAS_FOR_SUBQUERY ),0,0,0,0,#{filename},now(),0)
+  
+  </insert>
+  
+  
+  <update id="updateCommunity" parameterType="kh.com.c.model.CommunityDto">
+  UPDATE community
+  SET TITLE = #{title}, CONTENT=#{content}, C_TYPE = #{c_type},
+  	WDATE=now()
+  	WHERE SEQ=#{seq}
+  
+  </update>
+  
+    
+ 
+  <update id="readcountCommunity">
+  UPDATE community 
+	SET READCOUNT=READCOUNT+1 
+ WHERE SEQ= #{seq} 
+
+  </update>
+  
+  
+     <update id="downcountCommunity">
+  UPDATE community 
+	SET DOWNCOUNT=DOWNCOUNT+1 
+ WHERE SEQ= #{seq} 
+
+  </update>
+  
+
+<update id="replyCommunityUpdate"
+	parameterType="kh.com.c.model.CommunityDto">
+	UPDATE community 
+	SET STEP=STEP+1
+	WHERE REF=(SELECT * FROM(SELECT REF FROM community ALIAS_FOR_SUBQUERY2 WHERE SEQ=#{seq}) AS T)
+		AND STEP>(SELECT * FROM(SELECT STEP FROM community ALIAS_FOR_SUBQUERY WHERE SEQ=#{seq}) AS T)		
+</update>
+
+<insert id="replyCommunityInsert"
+	parameterType="kh.com.c.model.CommunityDto">
+	INSERT INTO community(ID,STORE,TITLE,CONTENT,CATEGORY,C_TYPE,REF,STEP,DEPTH,
+  READCOUNT,DOWNCOUNT,FILENAME,WDATE,DEL)
+	VALUES(#{id}, #{store},#{title},#{content},#{category},#{c_type},
+		(SELECT REF FROM community ALIAS_FOR_SUBQUERY1 WHERE SEQ=#{seq}),
+		(SELECT STEP FROM community ALIAS_FOR_SUBQUERY2 WHERE SEQ=#{seq})+1,
+		(SELECT DEPTH FROM community ALIAS_FOR_SUBQUERY3 WHERE SEQ=#{seq})+1,
+		 0, 0,#{filename},now(),0)	
+		
+</insert>
+  
+  
+  
+  
+  
+<select id="getBbsPagingList"
+	parameterType="kh.com.c.model.BbsParam"
+	resultType="kh.com.c.model.CommunityDto">
+	
+	SELECT *
+	FROM 
+		(SELECT @rownum := @rownum + 1 AS RNUM,
+				SEQ,ID,STORE,TITLE,CONTENT,CATEGORY,C_TYPE,REF,STEP,DEPTH,
+  READCOUNT,DOWNCOUNT,FILENAME,WDATE,DEL
+		 FROM (SELECT * FROM community WHERE CATEGORY = #{category} ORDER BY REF DESC, STEP ASC  LIMIT 18446744073709551615) c ,(select @rownum :=0) r	
+		 WHERE 1=1
+		 <if test='s_category != "" and s_category != null
+		 	and s_keyword != "" and s_keyword != null'>
+		 	
+		 	<if test='s_category.equals("title")'>
+		 		AND TITLE LIKE CONCAT('%',#{s_keyword},'%')
+		 	</if>		 	
+		 	<if test='s_category.equals("c_type")'>
+		 		AND C_TYPE LIKE CONCAT('%',#{s_keyword},'%')
+		 	</if>		 
+		 </if>
+		 ) A
+	GROUP BY seq
+	HAVING A.RNUM BETWEEN ${start} AND ${end}
+	ORDER BY A.RNUM ASC
+	
+</select>
+
+<select id="getBbsSearch"
+	parameterType="kh.com.c.model.BbsParam"
+	resultType="java.lang.Integer">
+
+	SELECT IFNULL(COUNT(*), 0) AS CNT
+	FROM community
+	WHERE 1=1
+	 <if test='s_category != "" and s_category != null
+	 	and s_keyword != "" and s_keyword != null'>	 	
+	 	<if test='s_category.equals("title")'>
+	 		AND TITLE LIKE CONCAT('%',#{s_keyword},'%')
+	 	</if>		 	
+	 	<if test='s_category.equals("c_type")'>
+	 		AND C_TYPE LIKE CONCAT('%',#{s_keyword},'%')
+	 	</if>		 
+	 </if>
+	 AND CATEGORY = #{category}
+</select>
+
+
+  <insert id="sendM" parameterType="kh.com.c.model.ChatDto">
+  INSERT INTO chat(FROMID,TOID,CHATTITLE,CHATCONTENT,CHATTIME)
+  VALUES(#{fromID},#{toID},#{chatTitle},#{chatContent},now())
+  
+  </insert>
+  
+  
+  <select id="receiveM" resultType="kh.com.c.model.ChatDto">
+	SELECT *
+				FROM chat
+				WHERE FROMID = #{id} or TOID = #{id}
+				ORDER BY SEQ DESC
+</select>
+  
+  
+    <select id="Mdetail" resultType="kh.com.c.model.ChatDto">
+   SELECT * FROM chat
+				 WHERE SEQ= #{seq}
+  </select>
+</mapper> 
+ -->
+

@@ -97,7 +97,7 @@
                  
                    <div class="form-group">
                      <label>번호</label> <input type="text" name="phone" id="_phone"
-                        class="form-control" placeholder="번호를">
+                        class="form-control" placeholder="번호">
                   </div>
 
                   <div class="form-group">

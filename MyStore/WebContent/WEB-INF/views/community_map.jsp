@@ -393,7 +393,7 @@ List<MemberDto> address = (List<MemberDto>)request.getAttribute("address");
 		                   	 	</div>
 
                               <script type="text/javascript"
-                                 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=916ea874e228791dbf525372ff0244e5&libraries=services"></script>
+                                 src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2704d60e7c0c42ee2b9d90c60c1b165&libraries=services"></script>
                               <script>
                               
    // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다

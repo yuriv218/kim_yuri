@@ -538,7 +538,7 @@
 
 											/* 검색을 했을 때 */
 											$("#_btnSearch").click(function() {
-												alert("_btnSearch");
+												
 												$("#_pageNumber").val(0);
 												$("#_frmFormSearch").attr({
 													"target" : "_self",
