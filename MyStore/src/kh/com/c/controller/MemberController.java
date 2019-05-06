@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,6 +135,12 @@ public class MemberController {
 	@RequestMapping(value="loginAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(HttpServletRequest req, MemberDto mem,Model model,String word)throws Exception {
 		logger.info("MemberController loginAf " + new Date());
+		// base64
+		byte[] _pwd = Base64.encodeBase64(mem.getPwd().getBytes());
+		
+		String pwd = new String(_pwd);
+		
+		mem.setPwd(pwd);
 		
 		MemberDto login = MemberService.login(mem);
 	//	logger.info("MemberController loginAf 1 " + login.toString());
@@ -236,10 +243,16 @@ public class MemberController {
 	@RequestMapping(value="regiAf.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem,Model model) throws Exception {
 		logger.info("MemberController regiAf " + new Date());
-		
 		logger.info(mem.toString());
-				
+		//base 64
+		byte[] _pwd = Base64.encodeBase64(mem.getPwd().getBytes());
+		
+		String pwd = new String(_pwd);
+		
+		mem.setPwd(pwd);
+		
 		boolean b = MemberService.addmember(mem);
+		
 		if(b) {
 			model.addAttribute("mail", mem.getEmail());
 			model.addAttribute("id", mem.getId());
